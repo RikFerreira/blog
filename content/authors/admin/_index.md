@@ -39,7 +39,7 @@ superuser: true
 title: Rik Ferreira Alves
 ---
 
-My name is Rik Ferreira Alves and I'm undergraduate in Geography at Universidade Estadual de Montes Claros (UNIMONTES). I'm a researcher at Regional and Rural Research Center (NEPRA) contributing to the development of the Basic Santitation Atlas of Minas Gerais.
+My name is Rik Ferreira Alves and I'm undergraduate in Geography at Universidade Estadual de Montes Claros (UNIMONTES). I'm a researcher at Regional and Rural Research Center (NEPRA) contributing to the development of the Basic Sanitation Atlas of Minas Gerais.
 
 My works are related to digital representation of geographical phenomena, using FOSS geotechnologies and statistics in order to solve problems in Urban Geography, Economic Geography and Demography.
 

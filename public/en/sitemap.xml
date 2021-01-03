@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/en/courses/example/example1/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/courses/example/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/courses/example/example2/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/talk/example-talk/</loc>
+    <lastmod>2030-06-01T13:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/event/</loc>
+    <lastmod>2030-06-01T13:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/</loc>
+    <lastmod>2030-06-01T13:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/"
+                />
+  </url>
+  
+  <url>
+    <loc></loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/authors/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href=""
+                />
+  </url>
+  
+  <url>
+    <loc>/en/publication-type/2/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/categories/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/tag/education/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/category/education/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/tag/gis/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/category/gis/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc></loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc></loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc></loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/publication_types/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/publication_types/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/publication_types/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/publication/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/tag/r/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/category/r/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc></loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/publication/spatial-analysis-of-the-public-primary-and-secondary-education-access-in-montes-claros-mg/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/tags/</loc>
+    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/courses/</loc>
+    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/slides/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/slides/example/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/tag/deep-learning/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/tag/demo/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/project/example/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/project/external-project/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/project/internal-project/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/project/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/en/post/</loc>
+  </url>
+  
+  <url>
+    <loc></loc>
+  </url>
+  
+</urlset>
