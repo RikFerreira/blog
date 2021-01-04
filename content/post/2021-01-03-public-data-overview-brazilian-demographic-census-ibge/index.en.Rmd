@@ -21,7 +21,7 @@ image:
   preview_only: no
 projects: []
 bibliography: bibliography.bib
-csl: modern-language-association.csl
+csl: associacao-brasileira-de-normas-tecnicas.csl
 ---
 
 ```{css, echo=FALSE}
@@ -136,7 +136,7 @@ library(survey)
 library(readxl)
 ```
 
-We will use the data from Rio de Janeiro (RJ). It can be downloaded [here](http://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_Gerais_da_Amostra/Microdados/), among other states and the documentation zipfile (Documentacao.zip`). The function `read_microdata` is designed for opening any of the four microdata files of the census.
+We will use the data from Rio de Janeiro (RJ). It can be downloaded [here](http://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_Gerais_da_Amostra/Microdados/), among other states and the documentation zipfile (`Documentacao.zip`). The function `read_microdata` is designed for opening any of the four microdata files of the census.
 
 ```{r message=FALSE}
 read_microdata <- function(microdata, topic = c("domicilios", "pessoas", "emigracao", "mortalidade")) {

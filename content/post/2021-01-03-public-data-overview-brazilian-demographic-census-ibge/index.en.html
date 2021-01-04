@@ -21,7 +21,7 @@ image:
   preview_only: no
 projects: []
 bibliography: bibliography.bib
-csl: modern-language-association.csl
+csl: associacao-brasileira-de-normas-tecnicas.csl
 ---
 
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
@@ -42,7 +42,7 @@ pre[class] {
 <p>The purpose of this article is to present the brazilian demographic census to people interested in learning how to use its data to produce <em>ad hoc</em> analysis beyond the tools and reports published by the IBGE. A workflow is proposed jointly with some basic concepts about the survey. Although a basic understanding of R code and <code>tidyverse</code> is needed to follow the tutorial, undergraduate students in any field, journalists and people interested in demographic data independent of the programming background may benefit of this guide.</p>
 <div id="brief-history" class="section level2">
 <h2>Brief history</h2>
-<p>The first census done in Brazil was conducted in 1872 by the General Directory of Statistics (DGE), a precursor of the IBGE, under the administration of the emperor Pedro II. Since the IBGE was created under the administration of the president Getúlio Vargas, the census has been conducted every ten years, in round dates (1940, 1950, …, 2010), except in year 1991 under Fernando Collor, when financial issues delayed the survey, resumed in 2000. The next census after 2010, planned to be done in 2020, was also delayed to 2021 due to the coronavirus pandemic <span class="citation">IBGE (<em>IBGE | Censo 2010 | Materiais | Guia Do Censo | Apresentação</em>)</span>.</p>
+<p>The first census done in Brazil was conducted in 1872 by the General Directory of Statistics (DGE), a precursor of the IBGE, under the administration of the emperor Pedro II. Since the IBGE was created under the administration of the president Getúlio Vargas, the census has been conducted every ten years, in round dates (1940, 1950, …, 2010), except in year 1991 under Fernando Collor, when financial issues delayed the survey, resumed in 2000. The next census after 2010, planned to be done in 2020, was also delayed to 2021 due to the coronavirus pandemic <span class="citation">IBGE ([s.d.])</span>.</p>
 </div>
 <div id="granularity-time-and-territory" class="section level2">
 <h2>Granularity: time and territory</h2>
@@ -175,7 +175,7 @@ Census tract
 </tr>
 </tbody>
 </table>
-<p>Other boundaries and regionalization from the IBGE may have different structures than this and can be found in <span class="citation">IBGE (<em>Quadro Geográfico de Referência Para Produção, Análise E Disseminação de Estatísticas</em>)</span>. However, the data is stored and can be retrieved accordingly to the structure presented in table <a href="#tab:codification">2</a>.</p>
+<p>Other boundaries and regionalization from the IBGE may have different structures than this and can be found in <span class="citation">IBGE (2019)</span>. However, the data is stored and can be retrieved accordingly to the structure presented in table <a href="#tab:codification">2</a>.</p>
 </div>
 </div>
 <div id="universe-and-sample" class="section level2">
@@ -191,18 +191,18 @@ Census tract
 <div id="a-peek-on-the-census-survey-design" class="section level2">
 <h2>A peek on the Census survey design</h2>
 <p>The brazilian demographic census is a stratified sample, which means that all the national territory was divided by census tracts and all of them were used, but, inside the census tract, a simple random sample was drawn from the universe of households inside it.</p>
-<p>This method is preferred over the simple random sampling method because it guarantees not only that everyone has the same chance to be in the sample, but also that no census tract will be under or over represented in the sample. The main disadvantage of this method is the higher cost in comparison with the simple random sampling <span class="citation">Lumley (<em>Complex Surveys</em>)</span>.</p>
+<p>This method is preferred over the simple random sampling method because it guarantees not only that everyone has the same chance to be in the sample, but also that no census tract will be under or over represented in the sample. The main disadvantage of this method is the higher cost in comparison with the simple random sampling <span class="citation">LUMLEY (2010)</span>.</p>
 </div>
 <div id="where-and-how-to-access-the-data" class="section level2">
 <h2>Where and how to access the data</h2>
 <p>In this section a workflow to analyze this data is suggested using an example. The analysis is: which are the top 1 origin countries in each weighting area in the city of Rio de Janeiro? To accomplish it, we will tidy the data using the <code>tidyverse</code> metapackage, generate our analysis with the <code>survey</code> package and build a map using the <code>tmap</code> package.</p>
 <p>The sample microdata and the aggregated data by census tracts are available in the public <a href="ftp://ftp.ibge.gov.br/Censos/">FTP server</a> of the IBGE. The universe data is fairly easy to open in R and some cleaning may be necessary. However, the sample microdata for the year of 2010 can be a little tricky to analyze, therefore, it will be used in this article.</p>
 <p>The sample microdata is available as a fixed width text file. In this case we have two options: manually specify the names and widths directly in the script; parse the excel spreadsheet to retrieve the widths and the names. The second option is preferred for reproducibility.</p>
-<p>The <code>survey</code> package will be used for reconstruct the survey design <span class="citation">Lumley (<em>Survey</em>)</span> and the <code>readxl</code> package for opening the layout file in <code>*.xls</code> format.</p>
+<p>The <code>survey</code> package will be used for reconstruct the survey design <span class="citation">LUMLEY (2020)</span> and the <code>readxl</code> package for opening the layout file in <code>*.xls</code> format.</p>
 <pre class="r"><code>library(tidyverse)
 library(survey)
 library(readxl)</code></pre>
-<p>We will use the data from Rio de Janeiro (RJ). It can be downloaded <a href="http://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_Gerais_da_Amostra/Microdados/">here</a>, among other states and the documentation zipfile (Documentacao.zip<code>). The function</code>read_microdata` is designed for opening any of the four microdata files of the census.</p>
+<p>We will use the data from Rio de Janeiro (RJ). It can be downloaded <a href="http://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_Gerais_da_Amostra/Microdados/">here</a>, among other states and the documentation zipfile (<code>Documentacao.zip</code>). The function <code>read_microdata</code> is designed for opening any of the four microdata files of the census.</p>
 <pre class="r"><code>read_microdata &lt;- function(microdata, topic = c(&quot;domicilios&quot;, &quot;pessoas&quot;, &quot;emigracao&quot;, &quot;mortalidade&quot;)) {
   match.arg(topic)
   
@@ -593,17 +593,17 @@ rio_map &lt;- rio_final %&gt;%
 <div id="references" class="section level2 unnumbered">
 <h2>References</h2>
 <div id="refs" class="references">
-<div id="ref-ibge2010">
-<p>IBGE. <em>IBGE | Censo 2010 | Materiais | Guia Do Censo | Apresentação</em>. <a href="https://censo2010.ibge.gov.br/materiais/guia-do-censo/apresentacao.html">https://censo2010.ibge.gov.br/materiais/guia-do-censo/apresentacao.html</a>. Accessed 3 Jan. 2021.</p>
-</div>
 <div id="ref-ibge2019">
-<p>---. <em>Quadro Geográfico de Referência Para Produção, Análise E Disseminação de Estatísticas</em>. IBGE, 2019.</p>
+<p>IBGE. <strong>Quadro geográfico de referência para produção, análise e disseminação de estatísticas</strong>. Rio de Janeiro: IBGE, 2019. </p>
+</div>
+<div id="ref-ibge2010">
+<p>IBGE. <strong>IBGE | censo 2010 | materiais | guia do Censo | apresentação</strong>. Disponível em: &lt;<a href="https://censo2010.ibge.gov.br/materiais/guia-do-censo/apresentacao.html">https://censo2010.ibge.gov.br/materiais/guia-do-censo/apresentacao.html</a>&gt;. Acesso em: 3 jan. 2021. </p>
 </div>
 <div id="ref-thomaslumley2010">
-<p>Lumley, Thomas. <em>Complex Surveys: A Guide to Analysis Using R</em>. 1st ed., John Wiley; Sons, 2010.</p>
+<p>LUMLEY, T. <strong>Complex surveys: a guide to analysis using R</strong>. 1. ed. Hoboken: John Wiley; Sons, 2010. </p>
 </div>
 <div id="ref-thomaslumley2020">
-<p>---. <em>Survey: Analysis of Complex Survey Samples</em>. 2020.</p>
+<p>LUMLEY, T. <strong>survey: analysis of complex survey samples</strong>, 2020. </p>
 </div>
 </div>
 </div>
