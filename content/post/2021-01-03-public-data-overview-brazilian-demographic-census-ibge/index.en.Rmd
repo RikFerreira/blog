@@ -1,0 +1,323 @@
+---
+title: 'Public data overview: Brazilian demographic census (IBGE)'
+author: admin
+date: '2021-01-03'
+slug: public-data-overview-brazilian-demographic-census-ibge
+categories:
+  - Public Data Overview
+tags:
+  - R
+  - GIS
+  - Open Data
+subtitle: ''
+summary: ''
+authors: [admin]
+lastmod: '2021-01-03T22:53:07-03:00'
+featured: yes
+image:
+  placement: 3
+  caption: '[1996 census: population count in Cuiabá/MT](https://biblioteca.ibge.gov.br/index.php/biblioteca-catalogo?view=detalhes&id=435298)'
+  focal_point: ''
+  preview_only: no
+projects: []
+bibliography: bibliography.bib
+csl: modern-language-association.csl
+---
+
+```{css, echo=FALSE}
+pre {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 400px;
+}
+```
+
+The brazilian demographic census (Censo Demográfico) is a survey conducted by the Brazilian National Institute of Geography and Statistics (IBGE) every ten years, ideally, just like in the US. This survey is the main source of municipal demographic data in Brazil and covers a fairly wide topics like habitation, education, labor force and migration, to name a few.
+
+The purpose of this article is to present the brazilian demographic census to people interested in learning how to use its data to produce _ad hoc_ analysis beyond the tools and reports published by the IBGE. A workflow is proposed jointly with some basic concepts about the survey. Although a basic understanding of R code and `tidyverse` is needed to follow the tutorial, undergraduate students in any field, journalists and people interested in demographic data independent of the programming background may benefit of this guide.
+
+## Brief history
+
+The first census done in Brazil was conducted in 1872 by the General Directory of Statistics (DGE), a precursor of the IBGE, under the administration of the emperor Pedro II. Since the IBGE was created under the administration of the president Getúlio Vargas, the census has been conducted every ten years, in round dates (1940, 1950, ..., 2010), except in year 1991 under Fernando Collor, when financial issues delayed the survey, resumed in 2000. The next census after 2010, planned to be done in 2020, was also delayed to 2021 due to the coronavirus pandemic @ibge2010.
+
+## Granularity: time and territory
+
+Although census data is supposed to be free and open, not every edition is available on the official website of the IBGE. Currently, just 2000 and 2010 microdata are officially available.
+
+In Brazil, the smallest federative unit is the municipality, so the census data are available for every aggregation from them. However, the census data are collected (and published) watching the census tracts. These are arbitrarily delimited by the IBGE and respects only physical and administrative boundaries. The table \@ref(tab:territory) shows an overview of the hierarchy of the territories^[In this article, hierarchy refers to which boundary contains which, e.g., the states contains the municipalities that contains the census tracts.] from which the data are available.
+
+```{r territory, echo = FALSE, message = FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+
+tibble(
+  Territory = c(
+    "Union", "States", "Municipalities", "Census tracts"
+  ),
+  Description = c(
+    "All the national territory. The sovereignty from which all the other administrative boundaries are delimitated.",
+    "The second federative entity in the hierarchy. Correspondent to the states of US.",
+    "These are the smallest political-administrative territory with representation of Brazil. Somewhat equivalent to the counties of US.",
+    "Unlike the others, the census tracts are arbitrarily delimited by the IBGE, and only serve the purpose of guiding the data collection."
+  )
+) %>%
+  kable(caption = "Territorial hierarchy from IBGE.") %>%
+  kable_styling("responsive")
+```
+
+### Codification
+
+To identify the territories, the IBGE uses a codification system which preserves this territorial hierarchy. To exemplify, here is the code of the census tract that contains the Christ the Redeemer statue in Rio de Janeiro (RJ): 330455705280091.
+
+```{r codification, echo = FALSE, message = FALSE}
+tibble(
+  Code = c(
+    "33",
+    "04557",
+    "05",
+    "28",
+    "0091"
+  ),
+  Territory = c(
+    "State",
+    "Municipality",
+    "District",
+    "Subdistrict",
+    "Census tract"
+  ),
+  Description = c(
+    "Rio de Janeiro (State)",
+    "Rio de Janeiro (Municipality)",
+    "Main district",
+    "Santa Teresa",
+    "Census tract"
+  )
+) %>%
+  kable(caption = "Territorial codes from IBGE.") %>%
+  kable_styling("responsive")
+```
+
+Other boundaries and regionalization from the IBGE may have different structures than this and can be found in @ibge2019. However, the data is stored and can be retrieved accordingly to the structure presented in table \@ref(tab:codification).
+
+## Universe and sample
+
+The brazilian demographic census is a survey with two questionnaires: the one from the universe is applied to every person in Brazil and the other from the sample is applied to specific people sampled through a stratified sampling method. The sample questionnaire contains all the subjects of the basic one and expands most of it.
+
+- [Basic questionnaire](https://biblioteca.ibge.gov.br/index.php/biblioteca-catalogo?view=detalhes&id=53128)
+- [Sample questionnaire](https://biblioteca.ibge.gov.br/index.php/biblioteca-catalogo?view=detalhes&id=52584)
+
+Aiming to preserve the identity of the informants, some strategies are adopted at the moment of publishing the results. While the data from the universe is aggregated by census tracts, in the sample data the identification of the census tracts are replaced with the identification of the so called _weighting areas_.
+
+Weighting areas are a group of contiguous census tracts arbitrarily chosen by the IBGE. They are big enough to difficult the identification of the informants but they lack the specificity of the universe data aggregated by census tracts. Other drawback of the weighting areas is that they may challenge some intra-municipal regionalization. On the other hand, this data may be the only available for intra-municipal level that include all the national territory and allow comparison between neighborhoods of different cities.
+
+## A peek on the Census survey design
+
+The brazilian demographic census is a stratified sample, which means that all the national territory was divided by census tracts and all of them were used, but, inside the census tract, a simple random sample was drawn from the universe of households inside it.
+
+This method is preferred over the simple random sampling method because it guarantees not only that everyone has the same chance to be in the sample, but also that no census tract will be under or over represented in the sample. The main disadvantage of this method is the higher cost in comparison with the simple random sampling @thomaslumley2010.
+
+## Where and how to access the data
+
+In this section a workflow to analyze this data is suggested using an example. The analysis is: which are the top 1 origin countries in each weighting area in the city of Rio de Janeiro? To accomplish it, we will tidy the data using the `tidyverse` metapackage, generate our analysis with the `survey` package and build a map using the `tmap` package.
+
+The sample microdata and the aggregated data by census tracts are available in the public [FTP server](ftp://ftp.ibge.gov.br/Censos/) of the IBGE. The universe data is fairly easy to open in R and some cleaning may be necessary. However, the sample microdata for the year of 2010 can be a little tricky to analyze, therefore, it will be used in this article.
+
+The sample microdata is available as a fixed width text file. In this case we have two options: manually specify the names and widths directly in the script; parse the excel spreadsheet to retrieve the widths and the names. The second option is preferred for reproducibility.
+
+The `survey` package will be used for reconstruct the survey design @thomaslumley2020 and the `readxl` package for opening the layout file in `*.xls` format.
+
+```{r message=FALSE}
+library(tidyverse)
+library(survey)
+library(readxl)
+```
+
+We will use the data from Rio de Janeiro (RJ). It can be downloaded [here](http://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_Gerais_da_Amostra/Microdados/), among other states and the documentation zipfile (Documentacao.zip`). The function `read_microdata` is designed for opening any of the four microdata files of the census.
+
+```{r message=FALSE}
+read_microdata <- function(microdata, topic = c("domicilios", "pessoas", "emigracao", "mortalidade")) {
+  match.arg(topic)
+  
+  topic_sheet <- case_when(
+    topic == "domicilios" ~ 1,
+    topic == "pessoas" ~ 2,
+    topic == "emigracao" ~ 3,
+    topic == "mortalidade" ~ 4,
+  )
+  
+  raw <- read_xls("~/Layout_microdados_Amostra.xls", sheet = topic_sheet)
+  
+  layout <- raw %>%
+    select(
+      VAR = 1,
+      START = `...8`,
+      END = `...9`,
+      INT = `...10`,
+      DEC = `...11`,
+      TYPE = `...12`
+    ) %>%
+    slice(-1) %>%
+    mutate(
+      START = as.integer(START),
+      END = as.integer(END),
+      INT = as.integer(INT),
+      DEC = replace_na(DEC, 0) %>% as.integer(),
+      TYPE = str_replace_all(TYPE, "\n", "") %>%
+        str_replace("A|C", "c") %>%
+        str_replace("N", "d")
+    )
+  
+  microdata <- read_fwf(
+    file = microdata,
+    col_positions = fwf_positions(layout$START, layout$END, layout$VAR),
+    col_types = paste0(rep("c", nrow(layout)), collapse = "")
+  )
+  
+  for(i in seq_along(microdata)) {
+    if(layout[which(layout$VAR == names(microdata[,i])),]$DEC > 0) {
+      int <- layout[i, ]$INT
+      dec <- layout[i, ]$DEC
+      
+      integer_part <- str_sub(pull(microdata, i), 1, int)
+      decimal_part <- str_sub(pull(microdata, i), int+1, int+dec)
+      
+      float_number <- paste0(integer_part, ".", decimal_part) %>%
+        as_tibble() %>%
+        type_convert(col_types = "d")
+      
+      microdata[, i] <- float_number
+    }
+  }
+  
+  microdata <- type_convert(
+    microdata,
+    col_types = paste0(layout$TYPE, collapse = "")
+  )
+  
+  return(microdata)
+}
+```
+
+**Mind the file size!** You may not be able to directly open this file in your memory. The computer used to run this code has 16 gigabytes of RAM. Consider using SQL databases if you have trouble^[Also consider to remake the function `read_microdata`. It isn't the most efficient code in the universe.].
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+rio <- read_csv("~/rio.csv")
+```
+
+```{r eval=FALSE}
+rio <- read_microdata("~/RJ/Amostra_Pessoas_33.txt", "pessoas")
+```
+
+The RJ people microdata has 2.1 Gb after loaded.
+
+```{r}
+print(object.size(rio), units = "auto")
+```
+
+```{r}
+glimpse(rio)
+```
+
+The variable V0001 refers to the state, V0002 refers to the municipality, V0011 refers to the weighting area, V0300 refers to the household and V0010 is the weight of the observation. Let's filter only the Rio de Janeiro municipality^[Other variables should be considered in your filter, e.g. the V1006 (Household situation) which characterizes the household as urban or rural.].
+
+```{r}
+rio_mun <- rio %>%
+  filter(
+    V0001 == "33", # This comparison isn't necessary here, unless you have opened two or more files and binded them
+    V0002 == "04557"
+  )
+```
+
+To reconstruct the sample design, the `svydesign` function of the `survey` package is needed. It expects the clusters identification, strata identification, the _finite population correction_ (FPC), the data frame (tibble in this case) and the weights of the observations. The FPC is fairly easy to calculate, and we can pass `~ 1` to the `ids` argument because the sample doesn't have any clusters:
+
+```{r}
+rio_mun <- rio_mun %>%
+  group_by(V0011) %>%
+  mutate(FPC = n())
+
+rio_design <- svydesign(
+  ids = ~ 1,
+  strata = ~ V0011,
+  fpc = ~ FPC,
+  data = rio_mun,
+  weights = ~ V0010
+)
+```
+
+The variable V0619 assumes the value 3 to those who weren't born in the state, the variable V0622 assumes the value 2 to those who were born out of Brazil and the variable V6224 specifies the country of origin.
+
+```{r}
+rio_top_immigrants <- svytable(~ V0011 + V6224, subset(rio_design, V0619 == 3 & V0622 == 2)) %>%
+  as_tibble() %>%
+  mutate(n = round(n)) %>%
+  group_by(V0011) %>%
+  arrange(-n) %>%
+  slice(1)
+```
+
+Now the `geobr` package will be used to download the vectors of the weighting areas of Rio de Janeiro. The next step is to join with our treated dataset and finally plot the map with the `tmap` package.
+
+```{r message=FALSE, results=FALSE, warning=FALSE}
+library(geobr)
+library(tmap)
+rio_weighting <- read_weighting_area(3304557)
+
+rio_final <- rio_weighting %>%
+  left_join(
+    rio_top_immigrants,
+    by = c("code_weighting" = "V0011")
+  ) %>%
+  rename(origin_country = V6224)
+```
+
+Here is the map. Note the predominancy of the weighting areas where country 8000620 is the main origin country.
+
+```{r}
+rio_final %>%
+  tm_shape() +
+  tm_polygons(col = "origin_country")
+```
+
+Although this codification is easy to manipulate, it is difficult to read. Luckily, there is a spreadsheet in the `Documentacao.zip` file that helps the translation of these codes. Perhaps it is possible to parse it with the `readxl` package.
+
+```{r message=FALSE, results=FALSE}
+country_code <- read_xls("~/Documentacao/Documentaç╞o/Anexos Auxiliares/Migraç╞o e Deslocamento_Paises estrangeiros.xls") %>%
+  select(
+    country = 2,
+    code = 3
+  ) %>%
+  slice(-3) %>%
+  drop_na()
+
+rio_map <- rio_final %>%
+  left_join(
+    country_code,
+    by = c("origin_country" = "code")
+  ) %>%
+  mutate(
+    country = as_factor(country) %>% fct_lump(5) # This is important to reduce the amount of classes
+  )
+```
+
+Now, here is the map:
+
+```{r}
+rio_map %>%
+  tm_shape() +
+  tm_polygons(
+    col = "country",
+    legend.is.portrait = FALSE,
+    title = "Country"
+  ) +
+  tm_layout(
+    legend.outside = TRUE,
+    legend.outside.position = "top",
+    legend.outside.size = .2
+  )
+```
+
+## References
