@@ -264,7 +264,7 @@ library(readxl)</code></pre>
   
   return(microdata)
 }</code></pre>
-<p><strong>Mind the file size!</strong> You may not be able to directly open this file in your memory. The computer used to run this code has 16 gigabytes of RAM. Consider using SQL databases if you have trouble<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
+<p><strong>Mind the file size!</strong> The computer used to run this code has 16 gigabytes of RAM, but you may not be able to directly open this file in your memory. Consider using SQL databases if you have trouble<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
 <pre class="r"><code>rio &lt;- read_microdata(&quot;~/RJ/Amostra_Pessoas_33.txt&quot;, &quot;pessoas&quot;)</code></pre>
 <p>The RJ people microdata has 2.1 Gb after loaded.</p>
 <pre class="r"><code>print(object.size(rio), units = &quot;auto&quot;)</code></pre>
@@ -545,6 +545,7 @@ rio_design &lt;- svydesign(
 <pre class="r"><code>library(geobr)
 library(tmap)
 rio_weighting &lt;- read_weighting_area(3304557)
+rj_mun &lt;- read_municipality(33)
 
 rio_final &lt;- rio_weighting %&gt;%
   left_join(
@@ -559,13 +560,18 @@ rio_final &lt;- rio_weighting %&gt;%
 <pre><code>## Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1</code></pre>
 <p><img src="/post/2021-01-03-public-data-overview-brazilian-demographic-census-ibge/index.en_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Although this codification is easy to manipulate, it is difficult to read. Luckily, there is a spreadsheet in the <code>Documentacao.zip</code> file that helps the translation of these codes. Perhaps it is possible to parse it with the <code>readxl</code> package.</p>
-<pre class="r"><code>country_code &lt;- read_xls(&quot;~/Documentacao/Documentaç╞o/Anexos Auxiliares/Migraç╞o e Deslocamento_Paises estrangeiros.xls&quot;) %&gt;%
+<pre class="r"><code>library(janitor)
+
+country_code &lt;- read_xls(&quot;~/Documentacao/Documentaç╞o/Anexos Auxiliares/Migraç╞o e Deslocamento_Paises estrangeiros.xls&quot;) %&gt;%
   select(
     country = 2,
     code = 3
   ) %&gt;%
   slice(-3) %&gt;%
-  drop_na()
+  drop_na() %&gt;%
+  mutate(
+    country = str_to_title(country)
+  )
 
 rio_map &lt;- rio_final %&gt;%
   left_join(
@@ -576,17 +582,25 @@ rio_map &lt;- rio_final %&gt;%
     country = as_factor(country) %&gt;% fct_lump(5) # This is important to reduce the amount of classes
   )</code></pre>
 <p>Now, here is the map:</p>
-<pre class="r"><code>rio_map %&gt;%
-  tm_shape() +
+<pre class="r"><code>tm_shape(rj_mun, bbox = st_bbox(rio_map)) + tm_polygons(col = &quot;white&quot;) +
+tm_shape(rio_map) +
   tm_polygons(
+    title = &quot;Origin country&quot;,
     col = &quot;country&quot;,
-    legend.is.portrait = FALSE,
-    title = &quot;Country&quot;
+    palette = &quot;Pastel2&quot;
+  ) +
+  tm_scale_bar(
+    position = c(&quot;left&quot;, &quot;bottom&quot;)
+  ) +
+  tm_compass(
+    position = c(&quot;left&quot;, &quot;top&quot;)
   ) +
   tm_layout(
+    bg.color = &quot;lightblue&quot;,
     legend.outside = TRUE,
-    legend.outside.position = &quot;top&quot;,
-    legend.outside.size = .2
+    legend.outside.position = &quot;right&quot;,
+    legend.outside.size = .15,
+    asp = 1.3
   )</code></pre>
 <p><img src="/post/2021-01-03-public-data-overview-brazilian-demographic-census-ibge/index.en_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
@@ -611,7 +625,7 @@ rio_map &lt;- rio_final %&gt;%
 <hr />
 <ol>
 <li id="fn1"><p>In this article, hierarchy refers to which boundary contains which, e.g., the states contains the municipalities that contains the census tracts.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Also consider to remake the function <code>read_microdata</code>. It isn’t the most efficient code in the universe.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>Other variables should be considered in your filter, e.g. the V1006 (Household situation) which characterizes the household as urban or rural.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Also consider to redesign the function <code>read_microdata</code>. It isn’t the most efficient code in the universe. To open this file in R Markdown has taken so much time that the file was preprocessed outside the document and imported with a simple <code>readr::read_csv</code> call. The function works really well, but isn’t that optimized and the R Markdown stresses it.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Other variables should be considered in your filter, e.g. the <code>V1006</code> (Household situation) which characterizes the household as urban or rural.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>

@@ -202,7 +202,7 @@ read_microdata <- function(microdata, topic = c("domicilios", "pessoas", "emigra
 }
 ```
 
-**Mind the file size!** You may not be able to directly open this file in your memory. The computer used to run this code has 16 gigabytes of RAM. Consider using SQL databases if you have trouble^[Also consider to remake the function `read_microdata`. It isn't the most efficient code in the universe.].
+**Mind the file size!** The computer used to run this code has 16 gigabytes of RAM, but you may not be able to directly open this file in your memory. Consider using SQL databases if you have trouble^[Also consider to redesign the function `read_microdata`. It isn't the most efficient code in the universe. To open this file in R Markdown has taken so much time that the file was preprocessed outside the document and imported with a simple `readr::read_csv` call. The function works really well, but isn't that optimized and the R Markdown stresses it.].
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 rio <- read_csv("~/rio.csv")
@@ -222,7 +222,7 @@ print(object.size(rio), units = "auto")
 glimpse(rio)
 ```
 
-The variable V0001 refers to the state, V0002 refers to the municipality, V0011 refers to the weighting area, V0300 refers to the household and V0010 is the weight of the observation. Let's filter only the Rio de Janeiro municipality^[Other variables should be considered in your filter, e.g. the V1006 (Household situation) which characterizes the household as urban or rural.].
+The variable V0001 refers to the state, V0002 refers to the municipality, V0011 refers to the weighting area, V0300 refers to the household and V0010 is the weight of the observation. Let's filter only the Rio de Janeiro municipality^[Other variables should be considered in your filter, e.g. the `V1006` (Household situation) which characterizes the household as urban or rural.].
 
 ```{r}
 rio_mun <- rio %>%
@@ -265,6 +265,7 @@ Now the `geobr` package will be used to download the vectors of the weighting ar
 library(geobr)
 library(tmap)
 rio_weighting <- read_weighting_area(3304557)
+rj_mun <- read_municipality(33)
 
 rio_final <- rio_weighting %>%
   left_join(
@@ -285,13 +286,18 @@ rio_final %>%
 Although this codification is easy to manipulate, it is difficult to read. Luckily, there is a spreadsheet in the `Documentacao.zip` file that helps the translation of these codes. Perhaps it is possible to parse it with the `readxl` package.
 
 ```{r message=FALSE, results=FALSE}
+library(janitor)
+
 country_code <- read_xls("~/Documentacao/Documentaç╞o/Anexos Auxiliares/Migraç╞o e Deslocamento_Paises estrangeiros.xls") %>%
   select(
     country = 2,
     code = 3
   ) %>%
   slice(-3) %>%
-  drop_na()
+  drop_na() %>%
+  mutate(
+    country = str_to_title(country)
+  )
 
 rio_map <- rio_final %>%
   left_join(
@@ -305,18 +311,26 @@ rio_map <- rio_final %>%
 
 Now, here is the map:
 
-```{r}
-rio_map %>%
-  tm_shape() +
+```{r message=FALSE}
+tm_shape(rj_mun, bbox = st_bbox(rio_map)) + tm_polygons(col = "white") +
+tm_shape(rio_map) +
   tm_polygons(
+    title = "Origin country",
     col = "country",
-    legend.is.portrait = FALSE,
-    title = "Country"
+    palette = "Pastel2"
+  ) +
+  tm_scale_bar(
+    position = c("left", "bottom")
+  ) +
+  tm_compass(
+    position = c("left", "top")
   ) +
   tm_layout(
+    bg.color = "lightblue",
     legend.outside = TRUE,
-    legend.outside.position = "top",
-    legend.outside.size = .2
+    legend.outside.position = "right",
+    legend.outside.size = .15,
+    asp = 1.3
   )
 ```
 
