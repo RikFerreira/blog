@@ -24,17 +24,6 @@ bibliography: bibliography.bib
 csl: associacao-brasileira-de-normas-tecnicas.csl
 ---
 
-```{css, echo=FALSE}
-pre {
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-pre[class] {
-  max-height: 400px;
-}
-```
-
 The brazilian demographic census (Censo Demográfico) is a survey conducted by the Brazilian National Institute of Geography and Statistics (IBGE) every ten years, ideally, just like in the US. This survey is the main source of municipal demographic data in Brazil and covers a fairly wide topics like habitation, education, labor force and migration, to name a few.
 
 The purpose of this article is to present the brazilian demographic census to people interested in learning how to use its data to produce _ad hoc_ analysis beyond the tools and reports published by the IBGE. A workflow is proposed jointly with some basic concepts about the survey. Although a basic understanding of R code and `tidyverse` is needed to follow the tutorial, undergraduate students in any field, journalists and people interested in demographic data independent of the programming background may benefit of this guide.
@@ -286,8 +275,6 @@ rio_final %>%
 Although this codification is easy to manipulate, it is difficult to read. Luckily, there is a spreadsheet in the `Documentacao.zip` file that helps the translation of these codes. Perhaps it is possible to parse it with the `readxl` package.
 
 ```{r message=FALSE, results=FALSE}
-library(janitor)
-
 country_code <- read_xls("~/Documentacao/Documentaç╞o/Anexos Auxiliares/Migraç╞o e Deslocamento_Paises estrangeiros.xls") %>%
   select(
     country = 2,

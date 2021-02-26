@@ -3,17 +3,82 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc></loc>
-    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+    <loc>/tag/arch-linux/</loc>
+    <lastmod>2021-02-26T13:55:22-03:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication-type/2/</loc>
-    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
+    <loc>/post/arch-linux-installation/</loc>
+    <lastmod>2021-02-26T13:55:22-03:00</lastmod>
   </url>
   
   <url>
     <loc>/categories/</loc>
+    <lastmod>2021-02-26T13:55:22-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/linux/</loc>
+    <lastmod>2021-02-26T13:55:22-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/linux/</loc>
+    <lastmod>2021-02-26T13:55:22-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2021-02-26T13:55:22-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2021-02-26T13:55:22-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2021-02-26T13:55:22-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc></loc>
+    <lastmod>2021-01-03T22:53:07-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/gis/</loc>
+    <lastmod>2021-01-03T22:53:07-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/open-data/</loc>
+    <lastmod>2021-01-03T22:53:07-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/category/public-data-overview/</loc>
+    <lastmod>2021-01-03T22:53:07-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/public-data-overview-brazilian-demographic-census-ibge/</loc>
+    <lastmod>2021-01-03T22:53:07-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tag/r/</loc>
+    <lastmod>2021-01-03T22:53:07-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc></loc>
+    <lastmod>2021-01-03T22:53:07-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/publication-type/2/</loc>
     <lastmod>2020-12-31T09:54:17-03:00</lastmod>
   </url>
   
@@ -24,11 +89,6 @@
   
   <url>
     <loc>/category/education/</loc>
-    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/gis/</loc>
     <lastmod>2020-12-31T09:54:17-03:00</lastmod>
   </url>
   
@@ -63,22 +123,7 @@
   </url>
   
   <url>
-    <loc>/tag/r/</loc>
-    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/category/r/</loc>
-    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc></loc>
     <lastmod>2020-12-31T09:54:17-03:00</lastmod>
   </url>
   
@@ -88,16 +133,7 @@
   </url>
   
   <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-12-31T09:54:17-03:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/courses/</loc>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
   </url>
   
   <url>

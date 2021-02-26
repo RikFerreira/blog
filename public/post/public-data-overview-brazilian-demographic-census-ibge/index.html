@@ -1,0 +1,1688 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  
+  
+  <meta name="generator" content="Wowchemy 5.0.0-beta.1 for Hugo">
+  
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Rik Ferreira Alves">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="pre { max-height: 300px; overflow-y: auto; } pre[class] { max-height: 400px; }  The brazilian demographic census (Censo Demográfico) is a survey conducted by the Brazilian National Institute of Geography and Statistics (IBGE) every ten years, ideally, just like in the US.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/public-data-overview-brazilian-demographic-census-ibge/">
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" integrity="sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.min.1c278427e3e6277b0235fb2251c375d5.css">
+
+  
+
+
+
+
+  
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/post/public-data-overview-brazilian-demographic-census-ibge/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="Rik Ferreira">
+  <meta property="og:url" content="/post/public-data-overview-brazilian-demographic-census-ibge/">
+  <meta property="og:title" content="Public data overview: Brazilian demographic census (IBGE) | Rik Ferreira">
+  <meta property="og:description" content="pre { max-height: 300px; overflow-y: auto; } pre[class] { max-height: 400px; }  The brazilian demographic census (Censo Demográfico) is a survey conducted by the Brazilian National Institute of Geography and Statistics (IBGE) every ten years, ideally, just like in the US."><meta property="og:image" content="/post/public-data-overview-brazilian-demographic-census-ibge/featured.jpeg">
+  <meta property="twitter:image" content="/post/public-data-overview-brazilian-demographic-census-ibge/featured.jpeg"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-01-03T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2021-01-03T22:53:07-03:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/public-data-overview-brazilian-demographic-census-ibge/"
+  },
+  "headline": "Public data overview: Brazilian demographic census (IBGE)",
+  
+  "image": [
+    "/post/public-data-overview-brazilian-demographic-census-ibge/featured.jpeg"
+  ],
+  
+  "datePublished": "2021-01-03T00:00:00Z",
+  "dateModified": "2021-01-03T22:53:07-03:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Rik Ferreira Alves"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Rik Ferreira",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "pre { max-height: 300px; overflow-y: auto; } pre[class] { max-height: 400px; }  The brazilian demographic census (Censo Demográfico) is a survey conducted by the Brazilian National Institute of Geography and Statistics (IBGE) every ten years, ideally, just like in the US."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Public data overview: Brazilian demographic census (IBGE) | Rik Ferreira</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  ">
+
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.js"></script>
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Rik Ferreira</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Rik Ferreira</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/publication/"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Public data overview: Brazilian demographic census (IBGE)</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  <span >
+      Rik Ferreira Alves</span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    2021-01-03
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    36 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/public-data-overview/">Public Data Overview</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header container-fluid featured-image-wrapper mt-4 mb-4" style="max-width: 1800px; max-height: 1210px;">
+  <div style="position: relative">
+    <img src="/post/public-data-overview-brazilian-demographic-census-ibge/featured.jpeg" alt="" class="featured-image">
+    <span class="article-header-caption"><a href="https://biblioteca.ibge.gov.br/index.php/biblioteca-catalogo?view=detalhes&amp;id=435298">1996 census: population count in Cuiabá/MT</a></span>
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+pre[class] {
+  max-height: 400px;
+}
+</style>
+<p>The brazilian demographic census (Censo Demográfico) is a survey conducted by the Brazilian National Institute of Geography and Statistics (IBGE) every ten years, ideally, just like in the US. This survey is the main source of municipal demographic data in Brazil and covers a fairly wide topics like habitation, education, labor force and migration, to name a few.</p>
+<p>The purpose of this article is to present the brazilian demographic census to people interested in learning how to use its data to produce <em>ad hoc</em> analysis beyond the tools and reports published by the IBGE. A workflow is proposed jointly with some basic concepts about the survey. Although a basic understanding of R code and <code>tidyverse</code> is needed to follow the tutorial, undergraduate students in any field, journalists and people interested in demographic data independent of the programming background may benefit of this guide.</p>
+<div id="brief-history" class="section level2">
+<h2>Brief history</h2>
+<p>The first census done in Brazil was conducted in 1872 by the General Directory of Statistics (DGE), a precursor of the IBGE, under the administration of the emperor Pedro II. Since the IBGE was created under the administration of the president Getúlio Vargas, the census has been conducted every ten years, in round dates (1940, 1950, …, 2010), except in year 1991 under Fernando Collor, when financial issues delayed the survey, resumed in 2000. The next census after 2010, planned to be done in 2020, was also delayed to 2021 due to the coronavirus pandemic <span class="citation">IBGE ([s.d.])</span>.</p>
+</div>
+<div id="granularity-time-and-territory" class="section level2">
+<h2>Granularity: time and territory</h2>
+<p>Although census data is supposed to be free and open, not every edition is available on the official website of the IBGE. Currently, just 2000 and 2010 microdata are officially available.</p>
+<p>In Brazil, the smallest federative unit is the municipality, so the census data are available for every aggregation from them. However, the census data are collected (and published) watching the census tracts. These are arbitrarily delimited by the IBGE and respects only physical and administrative boundaries. The table <a href="#tab:territory">1</a> shows an overview of the hierarchy of the territories<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> from which the data are available.</p>
+<table class="table table-responsive" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:territory">Table 1: </span>Territorial hierarchy from IBGE.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Territory
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Union
+</td>
+<td style="text-align:left;">
+All the national territory. The sovereignty from which all the other administrative boundaries are delimitated.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+States
+</td>
+<td style="text-align:left;">
+The second federative entity in the hierarchy. Correspondent to the states of US.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Municipalities
+</td>
+<td style="text-align:left;">
+These are the smallest political-administrative territory with representation of Brazil. Somewhat equivalent to the counties of US.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Census tracts
+</td>
+<td style="text-align:left;">
+Unlike the others, the census tracts are arbitrarily delimited by the IBGE, and only serve the purpose of guiding the data collection.
+</td>
+</tr>
+</tbody>
+</table>
+<div id="codification" class="section level3">
+<h3>Codification</h3>
+<p>To identify the territories, the IBGE uses a codification system which preserves this territorial hierarchy. To exemplify, here is the code of the census tract that contains the Christ the Redeemer statue in Rio de Janeiro (RJ): 330455705280091.</p>
+<table class="table table-responsive" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:codification">Table 2: </span>Territorial codes from IBGE.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Code
+</th>
+<th style="text-align:left;">
+Territory
+</th>
+<th style="text-align:left;">
+Description
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+33
+</td>
+<td style="text-align:left;">
+State
+</td>
+<td style="text-align:left;">
+Rio de Janeiro (State)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+04557
+</td>
+<td style="text-align:left;">
+Municipality
+</td>
+<td style="text-align:left;">
+Rio de Janeiro (Municipality)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+05
+</td>
+<td style="text-align:left;">
+District
+</td>
+<td style="text-align:left;">
+Main district
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+28
+</td>
+<td style="text-align:left;">
+Subdistrict
+</td>
+<td style="text-align:left;">
+Santa Teresa
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0091
+</td>
+<td style="text-align:left;">
+Census tract
+</td>
+<td style="text-align:left;">
+Census tract
+</td>
+</tr>
+</tbody>
+</table>
+<p>Other boundaries and regionalization from the IBGE may have different structures than this and can be found in <span class="citation">IBGE (2019)</span>. However, the data is stored and can be retrieved accordingly to the structure presented in table <a href="#tab:codification">2</a>.</p>
+</div>
+</div>
+<div id="universe-and-sample" class="section level2">
+<h2>Universe and sample</h2>
+<p>The brazilian demographic census is a survey with two questionnaires: the one from the universe is applied to every person in Brazil and the other from the sample is applied to specific people sampled through a stratified sampling method. The sample questionnaire contains all the subjects of the basic one and expands most of it.</p>
+<ul>
+<li><a href="https://biblioteca.ibge.gov.br/index.php/biblioteca-catalogo?view=detalhes&amp;id=53128">Basic questionnaire</a></li>
+<li><a href="https://biblioteca.ibge.gov.br/index.php/biblioteca-catalogo?view=detalhes&amp;id=52584">Sample questionnaire</a></li>
+</ul>
+<p>Aiming to preserve the identity of the informants, some strategies are adopted at the moment of publishing the results. While the data from the universe is aggregated by census tracts, in the sample data the identification of the census tracts are replaced with the identification of the so called <em>weighting areas</em>.</p>
+<p>Weighting areas are a group of contiguous census tracts arbitrarily chosen by the IBGE. They are big enough to difficult the identification of the informants but they lack the specificity of the universe data aggregated by census tracts. Other drawback of the weighting areas is that they may challenge some intra-municipal regionalization. On the other hand, this data may be the only available for intra-municipal level that include all the national territory and allow comparison between neighborhoods of different cities.</p>
+</div>
+<div id="a-peek-on-the-census-survey-design" class="section level2">
+<h2>A peek on the Census survey design</h2>
+<p>The brazilian demographic census is a stratified sample, which means that all the national territory was divided by census tracts and all of them were used, but, inside the census tract, a simple random sample was drawn from the universe of households inside it.</p>
+<p>This method is preferred over the simple random sampling method because it guarantees not only that everyone has the same chance to be in the sample, but also that no census tract will be under or over represented in the sample. The main disadvantage of this method is the higher cost in comparison with the simple random sampling <span class="citation">LUMLEY (2010)</span>.</p>
+</div>
+<div id="where-and-how-to-access-the-data" class="section level2">
+<h2>Where and how to access the data</h2>
+<p>In this section a workflow to analyze this data is suggested using an example. The analysis is: which are the top 1 origin countries in each weighting area in the city of Rio de Janeiro? To accomplish it, we will tidy the data using the <code>tidyverse</code> metapackage, generate our analysis with the <code>survey</code> package and build a map using the <code>tmap</code> package.</p>
+<p>The sample microdata and the aggregated data by census tracts are available in the public <a href="ftp://ftp.ibge.gov.br/Censos/">FTP server</a> of the IBGE. The universe data is fairly easy to open in R and some cleaning may be necessary. However, the sample microdata for the year of 2010 can be a little tricky to analyze, therefore, it will be used in this article.</p>
+<p>The sample microdata is available as a fixed width text file. In this case we have two options: manually specify the names and widths directly in the script; parse the excel spreadsheet to retrieve the widths and the names. The second option is preferred for reproducibility.</p>
+<p>The <code>survey</code> package will be used for reconstruct the survey design <span class="citation">LUMLEY (2020)</span> and the <code>readxl</code> package for opening the layout file in <code>*.xls</code> format.</p>
+<pre class="r"><code>library(tidyverse)
+library(survey)
+library(readxl)</code></pre>
+<p>We will use the data from Rio de Janeiro (RJ). It can be downloaded <a href="http://ftp.ibge.gov.br/Censos/Censo_Demografico_2010/Resultados_Gerais_da_Amostra/Microdados/">here</a>, among other states and the documentation zipfile (<code>Documentacao.zip</code>). The function <code>read_microdata</code> is designed for opening any of the four microdata files of the census.</p>
+<pre class="r"><code>read_microdata &lt;- function(microdata, topic = c(&quot;domicilios&quot;, &quot;pessoas&quot;, &quot;emigracao&quot;, &quot;mortalidade&quot;)) {
+  match.arg(topic)
+  
+  topic_sheet &lt;- case_when(
+    topic == &quot;domicilios&quot; ~ 1,
+    topic == &quot;pessoas&quot; ~ 2,
+    topic == &quot;emigracao&quot; ~ 3,
+    topic == &quot;mortalidade&quot; ~ 4,
+  )
+  
+  raw &lt;- read_xls(&quot;~/Layout_microdados_Amostra.xls&quot;, sheet = topic_sheet)
+  
+  layout &lt;- raw %&gt;%
+    select(
+      VAR = 1,
+      START = `...8`,
+      END = `...9`,
+      INT = `...10`,
+      DEC = `...11`,
+      TYPE = `...12`
+    ) %&gt;%
+    slice(-1) %&gt;%
+    mutate(
+      START = as.integer(START),
+      END = as.integer(END),
+      INT = as.integer(INT),
+      DEC = replace_na(DEC, 0) %&gt;% as.integer(),
+      TYPE = str_replace_all(TYPE, &quot;\n&quot;, &quot;&quot;) %&gt;%
+        str_replace(&quot;A|C&quot;, &quot;c&quot;) %&gt;%
+        str_replace(&quot;N&quot;, &quot;d&quot;)
+    )
+  
+  microdata &lt;- read_fwf(
+    file = microdata,
+    col_positions = fwf_positions(layout$START, layout$END, layout$VAR),
+    col_types = paste0(rep(&quot;c&quot;, nrow(layout)), collapse = &quot;&quot;)
+  )
+  
+  for(i in seq_along(microdata)) {
+    if(layout[which(layout$VAR == names(microdata[,i])),]$DEC &gt; 0) {
+      int &lt;- layout[i, ]$INT
+      dec &lt;- layout[i, ]$DEC
+      
+      integer_part &lt;- str_sub(pull(microdata, i), 1, int)
+      decimal_part &lt;- str_sub(pull(microdata, i), int+1, int+dec)
+      
+      float_number &lt;- paste0(integer_part, &quot;.&quot;, decimal_part) %&gt;%
+        as_tibble() %&gt;%
+        type_convert(col_types = &quot;d&quot;)
+      
+      microdata[, i] &lt;- float_number
+    }
+  }
+  
+  microdata &lt;- type_convert(
+    microdata,
+    col_types = paste0(layout$TYPE, collapse = &quot;&quot;)
+  )
+  
+  return(microdata)
+}</code></pre>
+<p><strong>Mind the file size!</strong> The computer used to run this code has 16 gigabytes of RAM, but you may not be able to directly open this file in your memory. Consider using SQL databases if you have trouble<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
+<pre class="r"><code>rio &lt;- read_microdata(&quot;~/RJ/Amostra_Pessoas_33.txt&quot;, &quot;pessoas&quot;)</code></pre>
+<p>The RJ people microdata has 2.1 Gb after loaded.</p>
+<pre class="r"><code>print(object.size(rio), units = &quot;auto&quot;)</code></pre>
+<pre><code>## 2.1 Gb</code></pre>
+<pre class="r"><code>glimpse(rio)</code></pre>
+<pre><code>## Observations: 1,143,650
+## Variables: 244
+## $ V0001 &lt;dbl&gt; 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33,…
+## $ V0002 &lt;chr&gt; &quot;00100&quot;, &quot;00100&quot;, &quot;00100&quot;, &quot;00100&quot;, &quot;00100&quot;, &quot;00100&quot;, &quot;00100&quot;, …
+## $ V0011 &lt;dbl&gt; 3.3001e+12, 3.3001e+12, 3.3001e+12, 3.3001e+12, 3.3001e+12, 3.3…
+## $ V0300 &lt;dbl&gt; 12833, 12833, 20358, 20358, 20358, 20358, 20358, 20358, 27895, …
+## $ V0010 &lt;dbl&gt; 10.720090, 10.720090, 19.010606, 19.010606, 19.010606, 19.01060…
+## $ V1001 &lt;dbl&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, …
+## $ V1002 &lt;chr&gt; &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05&quot;, &quot;05…
+## $ V1003 &lt;chr&gt; &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, &quot;013&quot;, …
+## $ V1004 &lt;chr&gt; &quot;00&quot;, &quot;00&quot;, &quot;00&quot;, &quot;00&quot;, &quot;00&quot;, &quot;00&quot;, &quot;00&quot;, &quot;00&quot;, &quot;00&quot;, &quot;00&quot;, &quot;00…
+## $ V1006 &lt;dbl&gt; 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+## $ V0502 &lt;chr&gt; &quot;02&quot;, &quot;01&quot;, &quot;01&quot;, &quot;02&quot;, &quot;04&quot;, &quot;04&quot;, &quot;04&quot;, &quot;04&quot;, &quot;01&quot;, &quot;02&quot;, &quot;05…
+## $ V0504 &lt;chr&gt; &quot;02&quot;, &quot;01&quot;, &quot;01&quot;, &quot;02&quot;, &quot;03&quot;, &quot;04&quot;, &quot;05&quot;, &quot;06&quot;, &quot;01&quot;, &quot;02&quot;, &quot;03…
+## $ V0601 &lt;dbl&gt; 1, 2, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 2, 2, 1, 2, 2, 1, 2, 1, 1, …
+## $ V6033 &lt;dbl&gt; 66, 68, 51, 47, 26, 25, 18, 9, 42, 40, 20, 40, 11, 37, 62, 67, …
+## $ V6036 &lt;dbl&gt; 66, 68, 51, 47, 26, 25, 18, 9, 42, 40, 20, 40, 11, 37, 62, 67, …
+## $ V6037 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6040 &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+## $ V0606 &lt;dbl&gt; 1, 1, 4, 1, 4, 4, 2, 2, 1, 3, 1, 1, 1, 1, 4, 4, 1, 1, 1, 1, 4, …
+## $ V0613 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, 1, NA, NA, NA, NA, NA, NA, NA, NA, …
+## $ V0614 &lt;dbl&gt; 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 3, 4, 4, 3, 4, 4, …
+## $ V0615 &lt;dbl&gt; 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4, 4, 4, 4, 4, …
+## $ V0616 &lt;dbl&gt; 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 4, 4, 4, 4, 4, …
+## $ V0617 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ V0618 &lt;dbl&gt; 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 3, 1, 3, 3, 3, 3, 3, 2, …
+## $ V0619 &lt;dbl&gt; 1, 1, 1, NA, NA, NA, NA, NA, NA, NA, NA, 3, NA, 3, NA, 3, 1, 1,…
+## $ V0620 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, NA, 1, NA, 1, NA…
+## $ V0621 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0622 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, NA, 1, NA, 1, NA…
+## $ V6222 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 3500000, NA, 350000…
+## $ V6224 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0623 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;017&quot;, NA, &quot;017&quot;, N…
+## $ V0624 &lt;chr&gt; &quot;003&quot;, &quot;003&quot;, &quot;030&quot;, NA, NA, NA, NA, NA, NA, NA, NA, &quot;017&quot;, NA,…
+## $ V0625 &lt;dbl&gt; 1, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1…
+## $ V6252 &lt;dbl&gt; 3300000, 3300000, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ V6254 &lt;dbl&gt; 3304805, 3304805, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ V6256 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0626 &lt;dbl&gt; 1, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ V6262 &lt;dbl&gt; 3300000, 3300000, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ V6264 &lt;dbl&gt; 3304805, 3304805, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ V6266 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0627 &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+## $ V0628 &lt;dbl&gt; 3, 3, 3, 3, 3, 3, 3, 1, 3, 3, 1, 3, 1, 3, 3, 3, 1, 1, 3, 3, 3, …
+## $ V0629 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, &quot;05&quot;, NA, NA, &quot;08&quot;, NA, &quot;05&quot;, NA, N…
+## $ V0630 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, &quot;03&quot;, NA, NA, NA, NA, &quot;06&quot;, NA, NA,…
+## $ V0631 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0632 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0633 &lt;chr&gt; &quot;10&quot;, &quot;10&quot;, &quot;03&quot;, &quot;04&quot;, &quot;07&quot;, &quot;07&quot;, &quot;06&quot;, NA, &quot;10&quot;, &quot;07&quot;, NA, &quot;…
+## $ V0634 &lt;dbl&gt; 1, 1, 2, 2, 2, 1, NA, NA, 1, 1, NA, 1, NA, 1, NA, NA, NA, NA, 2…
+## $ V0635 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6400 &lt;dbl&gt; 3, 3, 1, 1, 1, 2, 1, 1, 3, 2, 2, 3, 1, 2, 1, 1, 1, 2, 1, 1, 1, …
+## $ V6352 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6354 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6356 &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0636 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, 1, NA, NA, 1, NA, 1, NA, NA, NA, 2,…
+## $ V6362 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6364 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6366 &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0637 &lt;dbl&gt; 1, 1, 1, 1, 3, 3, 3, NA, 1, 1, 3, 1, 3, 1, 1, 1, 3, 3, 1, 1, 1,…
+## $ V0638 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0639 &lt;dbl&gt; 1, 1, 1, 1, NA, NA, NA, NA, 4, 4, NA, 2, NA, 2, 4, 4, NA, NA, 3…
+## $ V0640 &lt;dbl&gt; 1, 1, 1, 1, 5, 5, 5, NA, 3, 5, 5, 1, 5, 1, 3, 4, 5, 5, 5, 5, 1,…
+## $ V0641 &lt;dbl&gt; 2, 2, 1, 2, 2, 1, 2, NA, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1,…
+## $ V0642 &lt;dbl&gt; 2, 2, NA, 2, 1, NA, 2, NA, NA, NA, 2, NA, 2, 2, NA, 2, 2, NA, N…
+## $ V0643 &lt;dbl&gt; 2, 2, NA, 2, NA, NA, 2, NA, NA, NA, 2, NA, 2, 2, NA, 2, 2, NA, …
+## $ V0644 &lt;dbl&gt; 2, 2, NA, 2, NA, NA, 2, NA, NA, NA, 2, NA, 2, 2, NA, 2, 2, NA, …
+## $ V0645 &lt;dbl&gt; NA, NA, 1, NA, 1, 1, NA, NA, 1, 1, NA, 1, NA, NA, 1, NA, NA, 1,…
+## $ V6461 &lt;chr&gt; NA, NA, &quot;7213&quot;, NA, &quot;7233&quot;, &quot;4120&quot;, NA, NA, &quot;7212&quot;, &quot;5230&quot;, NA,…
+## $ V6471 &lt;chr&gt; NA, NA, &quot;00000&quot;, NA, &quot;45020&quot;, &quot;82001&quot;, NA, NA, &quot;30010&quot;, &quot;48073&quot;…
+## $ V0648 &lt;dbl&gt; NA, NA, 1, NA, 1, 1, NA, NA, 1, 1, NA, 4, NA, NA, 1, NA, NA, 4,…
+## $ V0649 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0650 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, NA, NA, NA, NA, …
+## $ V0651 &lt;dbl&gt; NA, NA, 1, NA, 1, 1, NA, NA, 1, 1, NA, 1, NA, NA, 1, NA, NA, 1,…
+## $ V6511 &lt;dbl&gt; NA, NA, 1000, NA, 800, 600, NA, NA, 1800, 700, NA, 2800, NA, NA…
+## $ V6513 &lt;dbl&gt; NA, NA, 1000, NA, 800, 600, NA, NA, 1800, 700, NA, 2800, NA, NA…
+## $ V6514 &lt;dbl&gt; NA, NA, 1.96, NA, 1.57, 1.18, NA, NA, 3.53, 1.37, NA, 5.49, NA,…
+## $ V0652 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6521 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6524 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6525 &lt;dbl&gt; NA, NA, 1000, NA, 800, 600, NA, NA, 1800, 700, NA, 2800, NA, NA…
+## $ V6526 &lt;dbl&gt; NA, NA, 1.96078, NA, 1.56863, 1.17647, NA, NA, 3.52941, 1.37255…
+## $ V6527 &lt;dbl&gt; 2200, 600, 1000, 0, 800, 600, 0, NA, 1800, 700, 0, 2800, 0, 0, …
+## $ V6528 &lt;dbl&gt; 4.31373, 1.17647, 1.96078, 0.00000, 1.56863, 1.17647, 0.00000, …
+## $ V6529 &lt;dbl&gt; 2800, 2800, 2400, 2400, 2400, 2400, 2400, 2400, 2500, 2500, 250…
+## $ V6530 &lt;dbl&gt; 5.49020, 5.49020, 4.70588, 4.70588, 4.70588, 4.70588, 4.70588, …
+## $ V6531 &lt;dbl&gt; 1400.00, 1400.00, 400.00, 400.00, 400.00, 400.00, 400.00, 400.0…
+## $ V6532 &lt;dbl&gt; 2.74510, 2.74510, 0.78431, 0.78431, 0.78431, 0.78431, 0.78431, …
+## $ V0653 &lt;dbl&gt; NA, NA, 50, NA, 50, 44, NA, NA, 50, 40, NA, 80, NA, NA, 40, NA,…
+## $ V0654 &lt;dbl&gt; 2, 2, NA, 2, NA, NA, 1, NA, NA, NA, 1, NA, 2, 2, NA, 2, 2, NA, …
+## $ V0655 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, 1, NA, NA, NA, 1, NA, NA, NA, NA, NA, N…
+## $ V0656 &lt;dbl&gt; 1, 1, 0, 0, 0, 0, 0, NA, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,…
+## $ V0657 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, NA, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ V0658 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, NA, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ V0659 &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, NA, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ V6591 &lt;dbl&gt; 2200, 600, 0, 0, 0, 0, 0, NA, 0, 0, 0, 0, 0, 0, 0, 510, 0, 0, 0…
+## $ V0660 &lt;dbl&gt; NA, NA, 2, NA, 2, 2, NA, NA, 2, 2, NA, 2, NA, NA, 2, NA, NA, 2,…
+## $ V6602 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6604 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6606 &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0661 &lt;dbl&gt; NA, NA, 1, NA, 1, 1, NA, NA, 1, 1, NA, 1, NA, NA, 1, NA, NA, 1,…
+## $ V0662 &lt;dbl&gt; NA, NA, 2, NA, 2, 3, NA, NA, 3, 3, NA, 2, NA, NA, 2, NA, NA, 2,…
+## $ V0663 &lt;dbl&gt; NA, 1, NA, 1, NA, 2, NA, NA, NA, 2, NA, NA, 2, 1, NA, 1, 2, NA,…
+## $ V6631 &lt;dbl&gt; NA, 0, NA, 3, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, NA, 1, NA,…
+## $ V6632 &lt;dbl&gt; NA, 2, NA, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, NA, 1, NA,…
+## $ V6633 &lt;dbl&gt; NA, 2, NA, 4, NA, 0, NA, NA, NA, 0, NA, NA, 0, 2, NA, 2, 0, NA,…
+## $ V0664 &lt;dbl&gt; NA, 1, NA, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, NA, 1, NA,…
+## $ V6641 &lt;dbl&gt; NA, 0, NA, 3, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, NA, 1, NA,…
+## $ V6642 &lt;dbl&gt; NA, 2, NA, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, NA, 1, NA,…
+## $ V6643 &lt;dbl&gt; NA, 2, NA, 4, NA, NA, NA, NA, NA, NA, NA, NA, NA, 2, NA, 2, NA,…
+## $ V0665 &lt;dbl&gt; NA, 2, NA, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, 2, NA, 2, NA,…
+## $ V6660 &lt;dbl&gt; NA, 35, NA, 9, NA, NA, NA, NA, NA, NA, NA, NA, NA, 11, NA, 47, …
+## $ V6664 &lt;dbl&gt; NA, 0, NA, 0, NA, 0, NA, NA, NA, 0, NA, NA, 0, 0, NA, 0, 0, NA,…
+## $ V0667 &lt;dbl&gt; NA, 1, NA, 1, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1, NA, 1, NA,…
+## $ V0668 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6681 &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6682 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V0669 &lt;dbl&gt; NA, 2, NA, 2, NA, 2, NA, NA, NA, 2, NA, NA, 2, 2, NA, 2, 2, NA,…
+## $ V6691 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6692 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V6693 &lt;dbl&gt; NA, 0, NA, 0, NA, 0, NA, NA, NA, 0, NA, NA, 0, 0, NA, 0, 0, NA,…
+## $ V6800 &lt;dbl&gt; NA, 2, NA, 4, NA, 0, NA, NA, NA, 0, NA, NA, 0, 2, NA, 2, 0, NA,…
+## $ V0670 &lt;dbl&gt; 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 1, 2, 2, …
+## $ V0671 &lt;chr&gt; &quot;01&quot;, NA, &quot;02&quot;, NA, &quot;02&quot;, &quot;02&quot;, &quot;02&quot;, &quot;02&quot;, &quot;03&quot;, &quot;03&quot;, NA, NA,…
+## $ V6900 &lt;dbl&gt; 2, 2, 1, 2, 1, 1, 1, NA, 1, 1, 1, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1,…
+## $ V6910 &lt;dbl&gt; NA, NA, 1, NA, 1, 1, 2, NA, 1, 1, 2, 1, NA, NA, 1, NA, NA, 1, 1…
+## $ V6920 &lt;dbl&gt; 2, 2, 1, 2, 1, 1, 2, NA, 1, 1, 2, 1, 2, 2, 1, 2, 2, 1, 1, 1, 1,…
+## $ V6930 &lt;dbl&gt; NA, NA, 1, NA, 1, 1, NA, NA, 1, 1, NA, 3, NA, NA, 1, NA, NA, 3,…
+## $ V6940 &lt;dbl&gt; NA, NA, 3, NA, 3, 3, NA, NA, 3, 3, NA, 5, NA, NA, 3, NA, NA, 5,…
+## $ V6121 &lt;chr&gt; &quot;120&quot;, &quot;120&quot;, &quot;110&quot;, &quot;350&quot;, &quot;240&quot;, &quot;350&quot;, &quot;350&quot;, &quot;370&quot;, &quot;110&quot;, …
+## $ V0604 &lt;dbl&gt; 3, 3, 3, 3, 1, 1, 1, 1, 2, 2, 2, 3, 1, 3, 2, 3, 1, 1, 2, 2, 2, …
+## $ V0605 &lt;chr&gt; NA, NA, NA, NA, &quot;02&quot;, &quot;02&quot;, &quot;02&quot;, &quot;02&quot;, NA, NA, NA, NA, &quot;02&quot;, N…
+## $ V5020 &lt;chr&gt; &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01&quot;, &quot;01…
+## $ V5060 &lt;dbl&gt; 2, 2, 6, 6, 6, 6, 6, 6, 3, 3, 3, 3, 3, 3, 2, 2, 4, 4, 4, 4, 2, …
+## $ V5070 &lt;dbl&gt; 1400.00, 1400.00, 400.00, 400.00, 400.00, 400.00, 400.00, 400.0…
+## $ V5080 &lt;dbl&gt; 2.74510, 2.74510, 0.78431, 0.78431, 0.78431, 0.78431, 0.78431, …
+## $ V6462 &lt;chr&gt; NA, NA, &quot;7245&quot;, NA, &quot;9113&quot;, &quot;4121&quot;, NA, NA, &quot;7243&quot;, &quot;4211&quot;, NA,…
+## $ V6472 &lt;chr&gt; NA, NA, &quot;00000&quot;, NA, &quot;50020&quot;, &quot;74090&quot;, NA, NA, &quot;35010&quot;, &quot;53061&quot;…
+## $ V5110 &lt;dbl&gt; NA, NA, 1, NA, 1, 1, NA, NA, 1, 1, NA, 1, NA, NA, 1, NA, NA, 2,…
+## $ V5120 &lt;dbl&gt; NA, NA, 1, NA, 1, 1, NA, NA, 1, 1, NA, 1, NA, NA, 1, NA, NA, 2,…
+## $ V5030 &lt;dbl&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, …
+## $ V5040 &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+## $ V5090 &lt;dbl&gt; 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 1, …
+## $ V5100 &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ V5130 &lt;chr&gt; &quot;02&quot;, &quot;01&quot;, &quot;01&quot;, &quot;02&quot;, &quot;03&quot;, &quot;04&quot;, &quot;05&quot;, &quot;06&quot;, &quot;01&quot;, &quot;02&quot;, &quot;03…
+## $ M0502 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0601 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6033 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0606 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0613 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0614 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0615 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0616 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0617 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0618 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0619 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0620 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0621 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0622 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6222 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6224 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0623 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, …
+## $ M0624 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0625 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6252 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6254 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6256 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0626 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6262 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6264 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6266 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0627 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0628 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0629 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0630 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0631 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0632 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0633 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0634 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0635 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6352 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6354 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6356 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0636 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6362 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6364 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6366 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0637 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0638 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0639 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0640 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0641 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0642 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0643 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0644 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0645 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6461 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6471 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, …
+## $ M0648 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0649 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0650 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0651 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6511 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0652 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6521 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0653 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0654 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0655 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0656 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0657 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0658 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0659 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6591 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0660 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6602 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6604 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6606 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0661 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0662 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0663 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6631 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6632 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6633 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0664 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6641 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6642 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6643 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0665 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6660 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0667 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0668 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6681 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6682 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0669 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6691 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6692 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6693 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0670 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0671 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6800 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6121 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0604 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M0605 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6462 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+## $ M6472 &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 1, 2, …
+## $ V1005 &lt;dbl&gt; 1, 1, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</code></pre>
+<p>The variable V0001 refers to the state, V0002 refers to the municipality, V0011 refers to the weighting area, V0300 refers to the household and V0010 is the weight of the observation. Let’s filter only the Rio de Janeiro municipality<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
+<pre class="r"><code>rio_mun &lt;- rio %&gt;%
+  filter(
+    V0001 == &quot;33&quot;, # This comparison isn&#39;t necessary here, unless you have opened two or more files and binded them
+    V0002 == &quot;04557&quot;
+  )</code></pre>
+<p>To reconstruct the sample design, the <code>svydesign</code> function of the <code>survey</code> package is needed. It expects the clusters identification, strata identification, the <em>finite population correction</em> (FPC), the data frame (tibble in this case) and the weights of the observations. The FPC is fairly easy to calculate, and we can pass <code>~ 1</code> to the <code>ids</code> argument because the sample doesn’t have any clusters:</p>
+<pre class="r"><code>rio_mun &lt;- rio_mun %&gt;%
+  group_by(V0011) %&gt;%
+  mutate(FPC = n())
+
+rio_design &lt;- svydesign(
+  ids = ~ 1,
+  strata = ~ V0011,
+  fpc = ~ FPC,
+  data = rio_mun,
+  weights = ~ V0010
+)</code></pre>
+<p>The variable V0619 assumes the value 3 to those who weren’t born in the state, the variable V0622 assumes the value 2 to those who were born out of Brazil and the variable V6224 specifies the country of origin.</p>
+<pre class="r"><code>rio_top_immigrants &lt;- svytable(~ V0011 + V6224, subset(rio_design, V0619 == 3 &amp; V0622 == 2)) %&gt;%
+  as_tibble() %&gt;%
+  mutate(n = round(n)) %&gt;%
+  group_by(V0011) %&gt;%
+  arrange(-n) %&gt;%
+  slice(1)</code></pre>
+<p>Now the <code>geobr</code> package will be used to download the vectors of the weighting areas of Rio de Janeiro. The next step is to join with our treated dataset and finally plot the map with the <code>tmap</code> package.</p>
+<pre class="r"><code>library(geobr)
+library(tmap)
+rio_weighting &lt;- read_weighting_area(3304557)
+rj_mun &lt;- read_municipality(33)
+
+rio_final &lt;- rio_weighting %&gt;%
+  left_join(
+    rio_top_immigrants,
+    by = c(&quot;code_weighting&quot; = &quot;V0011&quot;)
+  ) %&gt;%
+  rename(origin_country = V6224)</code></pre>
+<p>Here is the map. Note the predominancy of the weighting areas where country 8000620 is the main origin country.</p>
+<pre class="r"><code>rio_final %&gt;%
+  tm_shape() +
+  tm_polygons(col = &quot;origin_country&quot;)</code></pre>
+<pre><code>## Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1</code></pre>
+<p><img src="/post/2021-01-03-public-data-overview-brazilian-demographic-census-ibge/index.en_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Although this codification is easy to manipulate, it is difficult to read. Luckily, there is a spreadsheet in the <code>Documentacao.zip</code> file that helps the translation of these codes. Perhaps it is possible to parse it with the <code>readxl</code> package.</p>
+<pre class="r"><code>country_code &lt;- read_xls(&quot;~/Documentacao/Documentaç╞o/Anexos Auxiliares/Migraç╞o e Deslocamento_Paises estrangeiros.xls&quot;) %&gt;%
+  select(
+    country = 2,
+    code = 3
+  ) %&gt;%
+  slice(-3) %&gt;%
+  drop_na() %&gt;%
+  mutate(
+    country = str_to_title(country)
+  )
+
+rio_map &lt;- rio_final %&gt;%
+  left_join(
+    country_code,
+    by = c(&quot;origin_country&quot; = &quot;code&quot;)
+  ) %&gt;%
+  mutate(
+    country = as_factor(country) %&gt;% fct_lump(5) # This is important to reduce the amount of classes
+  )</code></pre>
+<p>Now, here is the map:</p>
+<pre class="r"><code>tm_shape(rj_mun, bbox = st_bbox(rio_map)) + tm_polygons(col = &quot;white&quot;) +
+tm_shape(rio_map) +
+  tm_polygons(
+    title = &quot;Origin country&quot;,
+    col = &quot;country&quot;,
+    palette = &quot;Pastel2&quot;
+  ) +
+  tm_scale_bar(
+    position = c(&quot;left&quot;, &quot;bottom&quot;)
+  ) +
+  tm_compass(
+    position = c(&quot;left&quot;, &quot;top&quot;)
+  ) +
+  tm_layout(
+    bg.color = &quot;lightblue&quot;,
+    legend.outside = TRUE,
+    legend.outside.position = &quot;right&quot;,
+    legend.outside.size = .15,
+    asp = 1.3
+  )</code></pre>
+<p><img src="/post/2021-01-03-public-data-overview-brazilian-demographic-census-ibge/index.en_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-ibge2019">
+<p>IBGE. <strong>Quadro geográfico de referência para produção, análise e disseminação de estatísticas</strong>. Rio de Janeiro: IBGE, 2019. </p>
+</div>
+<div id="ref-ibge2010">
+<p>IBGE. <strong>IBGE | censo 2010 | materiais | guia do Censo | apresentação</strong>. Disponível em: &lt;<a href="https://censo2010.ibge.gov.br/materiais/guia-do-censo/apresentacao.html">https://censo2010.ibge.gov.br/materiais/guia-do-censo/apresentacao.html</a>&gt;. Acesso em: 3 jan. 2021. </p>
+</div>
+<div id="ref-thomaslumley2010">
+<p>LUMLEY, T. <strong>Complex surveys: a guide to analysis using R</strong>. 1. ed. Hoboken: John Wiley; Sons, 2010. </p>
+</div>
+<div id="ref-thomaslumley2020">
+<p>LUMLEY, T. <strong>survey: analysis of complex survey samples</strong>, 2020. </p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>In this article, hierarchy refers to which boundary contains which, e.g., the states contains the municipalities that contains the census tracts.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Also consider to redesign the function <code>read_microdata</code>. It isn’t the most efficient code in the universe. To open this file in R Markdown has taken so much time that the file was preprocessed outside the document and imported with a simple <code>readr::read_csv</code> call. The function works really well, but isn’t that optimized and the R Markdown stresses it.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Other variables should be considered in your filter, e.g. the <code>V1006</code> (Household situation) which characterizes the household as urban or rural.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/r/">R</a>
+  
+  <a class="badge badge-light" href="/tag/gis/">GIS</a>
+  
+  <a class="badge badge-light" href="/tag/open-data/">Open Data</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      <a href="/"><img class="avatar mr-3 avatar-circle" src="https://s.gravatar.com/avatar/5ab32ceb7aa0425465d3acef2b8ad19a?s=200" alt="Rik Ferreira Alves"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Rik Ferreira Alves</a></h5>
+      <h6 class="card-subtitle">Assistant Researcher</h6>
+      <p class="card-text">Undergraduate in Geography at UNIMONTES.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/rikferreira" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="http://lattes.cnpq.br/9527400491453685" target="_blank" rel="noopener">
+        <i class="ai ai-lattes"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://orcid.org/0000-0002-8084-7951" target="_blank" rel="noopener">
+        <i class="ai ai-orcid"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=-DLXCAYAAAAJ&amp;hl=pt-BR" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/rik-ferreira-alves-714a161a3/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/publication/spatial-analysis-of-the-public-primary-and-secondary-education-access-in-montes-claros-mg/">Spatial analysis of the public primary and secondary education access in Montes Claros/MG</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+    Published with
+    <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a>  —
+    the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">
+    open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'event' : "Events",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/wowchemy.min.d0d321ad6c45c08297f04e4ff03367d3.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

@@ -28,10 +28,6 @@ feature:
   icon: globe
   icon_pack: fas
   name: QGIS
-- description:
-  icon: chart-line
-  icon_pack: fas
-  name: Statistics
 
 # Uncomment to use emoji icons.
 #- icon = ":smile:"

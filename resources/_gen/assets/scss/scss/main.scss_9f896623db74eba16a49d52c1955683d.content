@@ -9296,3 +9296,13 @@ div.chart {
  **************************************************/
 html[dir="rtl"] body {
   text-align: right; }
+
+pre {
+  max-height: 300px;
+  overflow-y: auto; }
+
+pre[class] {
+  max-height: 400px; }
+
+tr {
+  color: #777; }

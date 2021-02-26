@@ -1,0 +1,1227 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  
+  
+  <meta name="generator" content="Wowchemy 5.0.0-beta.1 for Hugo">
+  
+
+  
+
+  
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Rik Ferreira Alves">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Installation  Network setup Partitioning the disk Installing the Arch Linux  Changed root  Clock setup Hosts file Locale Change root password Add a user Change sudo permissions Grub installation Download network utilities  References   Installation Network setup ls /home/rik ## Área de Trabalho ## bin ## cd_1960_v1_t9_mg.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/arch-linux-installation/">
+
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" integrity="sha512-1xoFisiGdy9nvho8EgXuXvnpR5GAMSjFwp40gSRE3NwdUdIMIKuPa7bqoUhLD0O/5tPNhteAsE5XyyMi5reQVA==" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.2/lazysizes.min.js" integrity="sha512-TmDwFLhg3UA4ZG0Eb4MIyT1O1Mb+Oww5kFG0uHqXsdbyZz9DcvYQhKpGgNkamAI6h2lGGZq2X8ftOJvF/XjTUg==" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+        
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+    
+      
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+    
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.min.1c278427e3e6277b0235fb2251c375d5.css">
+
+  
+
+
+
+
+  
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/post/arch-linux-installation/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="Rik Ferreira">
+  <meta property="og:url" content="/post/arch-linux-installation/">
+  <meta property="og:title" content="Arch Linux installation | Rik Ferreira">
+  <meta property="og:description" content="Installation  Network setup Partitioning the disk Installing the Arch Linux  Changed root  Clock setup Hosts file Locale Change root password Add a user Change sudo permissions Grub installation Download network utilities  References   Installation Network setup ls /home/rik ## Área de Trabalho ## bin ## cd_1960_v1_t9_mg."><meta property="og:image" content="/post/arch-linux-installation/featured.png">
+  <meta property="twitter:image" content="/post/arch-linux-installation/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2021-02-26T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2021-02-26T13:55:22-03:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/arch-linux-installation/"
+  },
+  "headline": "Arch Linux installation",
+  
+  "image": [
+    "/post/arch-linux-installation/featured.png"
+  ],
+  
+  "datePublished": "2021-02-26T00:00:00Z",
+  "dateModified": "2021-02-26T13:55:22-03:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Rik Ferreira Alves"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Rik Ferreira",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_hua2ec155b4296a9c9791d015323e16eb5_11927_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "Installation  Network setup Partitioning the disk Installing the Arch Linux  Changed root  Clock setup Hosts file Locale Change root password Add a user Change sudo permissions Grub installation Download network utilities  References   Installation Network setup ls /home/rik ## Área de Trabalho ## bin ## cd_1960_v1_t9_mg."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Arch Linux installation | Rik Ferreira</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper  ">
+
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.js"></script>
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Rik Ferreira</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Rik Ferreira</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post/"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/publication/"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Arch Linux installation</h1>
+
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    2021-02-26
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    3 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/linux/">Linux</a></span>
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<div class="article-header container-fluid featured-image-wrapper mt-4 mb-4" style="max-width: 1680px; max-height: 1050px;">
+  <div style="position: relative">
+    <img src="/post/arch-linux-installation/featured.png" alt="" class="featured-image">
+    <span class="article-header-caption">Arch Linux Simply Black wallpaper</span>
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#installation">Installation</a>
+<ul>
+<li><a href="#network-setup">Network setup</a></li>
+<li><a href="#partitioning-the-disk">Partitioning the disk</a></li>
+<li><a href="#installing-the-arch-linux">Installing the Arch Linux</a></li>
+</ul></li>
+<li><a href="#changed-root">Changed root</a>
+<ul>
+<li><a href="#clock-setup">Clock setup</a></li>
+<li><a href="#hosts-file">Hosts file</a></li>
+<li><a href="#locale">Locale</a></li>
+<li><a href="#change-root-password">Change root password</a></li>
+<li><a href="#add-a-user">Add a user</a></li>
+<li><a href="#change-sudo-permissions">Change sudo permissions</a></li>
+<li><a href="#grub-installation">Grub installation</a></li>
+<li><a href="#download-network-utilities">Download network utilities</a></li>
+</ul></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<div id="installation" class="section level1">
+<h1>Installation</h1>
+<div id="network-setup" class="section level2">
+<h2>Network setup</h2>
+<pre class="bash"><code>ls /home/rik</code></pre>
+<pre><code>## Área de Trabalho
+## bin
+## cd_1960_v1_t9_mg.pdf
+## censo-cleaning.bash
+## cep
+## Comprovante de Inscrição | A atuação do Geógrafo nos estudos ambientais.pdf
+## Documentacao
+## Documentacao.zip
+## Documentos
+## doe.csv
+## Downloads
+## dtb.csv
+## geografia-quantitativa
+## google-chrome-stable_current_amd64.deb
+## Imagens
+## imdb
+## jeane
+## Layout_microdados_Amostra.xls
+## metologia.zip
+## Modelos
+## Música
+## pib municipios.R
+## pib-plot.png
+## planilha do nordeste.ods
+## planilha nordeste.ods
+## presentation
+## Público
+## R
+## regioes.csv
+## repos
+## resenha
+## rio.csv
+## RJ
+## RJ.zip
+## rodrigo
+## Rplot02.pdf
+## rstudio-1.4.1103-amd64.deb
+## sarahengler2020.pdf
+## setup.AppImage
+## siconfi_reports.csv
+## snap
+## tayloranderson2020.pdf
+## teste.docx
+## teste.Rmd
+## texmf
+## thomaspiketty2015.pdf
+## VideoDecodeStats
+## Vídeos
+## vignette.png
+## warsaw_setup64.deb
+## watermark.sh</code></pre>
+</div>
+<div id="partitioning-the-disk" class="section level2">
+<h2>Partitioning the disk</h2>
+</div>
+<div id="installing-the-arch-linux" class="section level2">
+<h2>Installing the Arch Linux</h2>
+</div>
+</div>
+<div id="changed-root" class="section level1">
+<h1>Changed root</h1>
+<div id="clock-setup" class="section level2">
+<h2>Clock setup</h2>
+<p>In the <code>/usr/share/zoneinfo</code> directory are the time zones files. With the <code>ls</code> command you can identify your region folder and inside it, your time zone file. The <code>ln</code> command here will create a symbolic link in the <code>/etc/localtime</code> folder.</p>
+<pre class="bash"><code>ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+hwclock --systohc</code></pre>
+</div>
+<div id="hosts-file" class="section level2">
+<h2>Hosts file</h2>
+<p>In the <code>/etc/hostname</code> file we will register our pc name. This is the name which will identify the computer in the network.</p>
+<pre class="bash"><code>echo &quot;pcname&quot; &gt;&gt; /etc/hostname
+vim /etc/hosts</code></pre>
+<p>In the <code>/etc/hosts</code> we will describe our IP addresses with the hostnames:</p>
+<pre><code>127.0.0.1      localhost
+::1            localhost
+127.0.1.1      pcname.localdomain      pcname</code></pre>
+</div>
+<div id="locale" class="section level2">
+<h2>Locale</h2>
+<p>Uncomment your locale in <code>/etc/locale.gen</code> file. To me it’s the <code>pt_BR.UTF-8 UTF-8</code> line. The <code>locale-gen</code> command is used to generate the locale.</p>
+<pre class="bash"><code>vim /etc/locale.gen
+locale-gen</code></pre>
+<p>In <code>/etc/locale.conf</code> we need to set an environment variable with our locale, and in the <code>/etc/vconsole.conf</code> we will set our keyboard layout (to me it is the ABNT 2).</p>
+<pre class="bash"><code>echo &quot;LANG=pt_BR.UTF-8&quot; &gt;&gt; /etc/locale.conf
+echo &quot;KEYMAP=br-abnt2&quot; &gt;&gt; /etc/vconsole.conf</code></pre>
+</div>
+<div id="change-root-password" class="section level2">
+<h2>Change root password</h2>
+<pre class="bash"><code>passwd</code></pre>
+</div>
+<div id="add-a-user" class="section level2">
+<h2>Add a user</h2>
+<p>The <code>useradd</code> command is used to create a user. The <code>-m</code> option is for creating a folder in <code>/home</code> directory and the <code>-g wheel</code> is for adding the user to the wheel group.</p>
+<pre class="bash"><code>useradd -m -g wheel user</code></pre>
+<pre class="bash"><code>passwd user</code></pre>
+</div>
+<div id="change-sudo-permissions" class="section level2">
+<h2>Change sudo permissions</h2>
+<p>To execute commands with super user privileges without going root, we need to install the sudo package. After that, use the <code>visudo</code> command to edit the <code>/etc/sudoers</code> file. You will be able to edit the file directly, but the <code>visudo</code> is the safest way to do that.</p>
+<pre class="bash"><code>pacman -S sudo
+sudo visudo</code></pre>
+<p>You may be able to change permissions in the <code>/etc/sudoers</code> file just by uncomment some of the existing lines. This is part of my file for reference:</p>
+<pre class="bash"><code># User privilege specification
+root    ALL=(ALL:ALL) ALL
+
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) NOPASSWD: ALL</code></pre>
+</div>
+<div id="grub-installation" class="section level2">
+<h2>Grub installation</h2>
+<p>First we need to download the grub with pacman.</p>
+<pre class="bash"><code>pacman -S grub efibootmgr</code></pre>
+<p>After that, for EFI boot, we have to run <code>grub-install</code> with <code>--target</code>, <code>--efi-directory</code> and <code>--bootloader-id</code> options set like that:</p>
+<pre class="bash"><code>grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub</code></pre>
+<p>To generate the GRUB config file:</p>
+<pre class="bash"><code>grub-mkconfig -o /boot/grub/grub.cfg</code></pre>
+</div>
+<div id="download-network-utilities" class="section level2">
+<h2>Download network utilities</h2>
+<p>My router sends a 2472 Hz signal, which isn’t common in the United States, so I have to make my wireless driver recognize my network with the <code>crda</code> utility. <strong>crda</strong> stands for <strong>central regulatory domain agent</strong> and relies on ISO standards to communicate with the kernel <span class="citation">DIE.NET (2021)</span>.</p>
+<p>After that, the <code>networkmanager</code> and <code>iw</code> will be used to configurate the wi-fi network.</p>
+<pre><code>pacman -S iw crda networkmanager</code></pre>
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body" entry-spacing="1">
+<div id="ref-crda" class="csl-entry">
+DIE.NET. <strong>crda(8) - Linux man page</strong><a href="https://linux.die.net/man/8/crda">https://linux.die.net/man/8/crda</a>, 2021.
+</div>
+</div>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/linux/">Linux</a>
+  
+  <a class="badge badge-light" href="/tag/arch-linux/">Arch Linux</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      <a href="/"><img class="avatar mr-3 avatar-circle" src="https://s.gravatar.com/avatar/5ab32ceb7aa0425465d3acef2b8ad19a?s=200" alt="Rik Ferreira Alves"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/">Rik Ferreira Alves</a></h5>
+      <h6 class="card-subtitle">Assistant Researcher</h6>
+      <p class="card-text">Undergraduate in Geography at UNIMONTES.</p>
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/rikferreira" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="http://lattes.cnpq.br/9527400491453685" target="_blank" rel="noopener">
+        <i class="ai ai-lattes"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://orcid.org/0000-0002-8084-7951" target="_blank" rel="noopener">
+        <i class="ai ai-orcid"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=-DLXCAYAAAAJ&amp;hl=pt-BR" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/rik-ferreira-alves-714a161a3/" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="/#contact" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+    Published with
+    <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a>  —
+    the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">
+    open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/r.min.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'event' : "Events",
+        'slides' : "Slides"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/wowchemy.min.d0d321ad6c45c08297f04e4ff03367d3.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>
