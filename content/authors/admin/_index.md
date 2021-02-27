@@ -14,7 +14,7 @@ interests:
 organizations:
 - name: Universidade Estadual de Montes Claros
   url: https://unimontes.br/
-role: Assistant Researcher
+role: Research assistant
 social:
 - icon: github
   icon_pack: fab
