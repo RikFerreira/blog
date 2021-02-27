@@ -106,7 +106,7 @@ After that, we need to mount the partitions:
 ```{bash}
 mount /dev/sda3 /mnt
 swapon /dev/sda2
-mkdir /mnt/boot/efi /mnt/home
+mkdir -p /mnt/boot/efi /mnt/home
 mount /dev/sda1 /mnt/boot/efi
 mount /dev/sda4 /mnt/home
 ```
@@ -118,7 +118,7 @@ This step is important because it will serve as reference to create the `/etc/fs
 Installing the Arch Linux is simple like that:
 
 ```{bash}
-pacstrap /mnt base base-devel linux linux-firmware nvim sudo
+pacstrap /mnt base base-devel linux linux-firmware git vim sudo
 ```
 
 After installed, generate the `/etc/fstab` file with the `genfstab` command. Remember to pass the `-U` option for using the UUID @uuid of the partitions. Don't worry, you still can edit the file later, just be sure that it will be OK before rebooting.
@@ -200,7 +200,7 @@ passwd user
 To execute commands with super user privileges without going root, we need to install the sudo package. After that, use the `visudo` command to edit the `/etc/sudoers` file. You will be able to edit the file directly, but the `visudo` is the safest way to do that.
 
 ```{bash}
-sudo visudo
+sudo EDITOR=vim visudo
 ```
 
 You may be able to change permissions in the `/etc/sudoers` file just by uncomment some of the existing lines. This is part of my file for reference:
@@ -253,7 +253,7 @@ I use [bspwm](https://wiki.archlinux.org/index.php/bspwm). This window manager d
 ## Download the window manager
 
 ```{bash}
-pacman -S xorg bspwm sxhkd polybar
+pacman -S xorg-server xorg-xinit bspwm sxhkd polybar
 ```
 
 # References

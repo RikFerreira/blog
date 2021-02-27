@@ -28,7 +28,7 @@ csl: associacao-brasileira-de-normas-tecnicas.csl
 #     toc: true
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
 
 
 <p>The Arch Linux is a distribution focused on minimalism and efficiency, and follows a “do it yourself” philosophy. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users.</p>
@@ -76,7 +76,7 @@ mkswap /dev/sda2</code></pre>
 <p>After that, we need to mount the partitions:</p>
 <pre class="bash"><code>mount /dev/sda3 /mnt
 swapon /dev/sda2
-mkdir /mnt/boot/efi /mnt/home
+mkdir -p /mnt/boot/efi /mnt/home
 mount /dev/sda1 /mnt/boot/efi
 mount /dev/sda4 /mnt/home</code></pre>
 <p>This step is important because it will serve as reference to create the <code>/etc/fstab</code> file.</p>
@@ -84,8 +84,8 @@ mount /dev/sda4 /mnt/home</code></pre>
 <div id="installing-the-arch-linux" class="section level2">
 <h2>Installing the Arch Linux</h2>
 <p>Installing the Arch Linux is simple like that:</p>
-<pre class="bash"><code>pacstrap /mnt base base-devel linux linux-firmware nvim sudo</code></pre>
-<p>After installed, generate the <code>/etc/fstab</code> file with the <code>genfstab</code> command. Remember to pass the <code>-U</code> option for using the UUID <span class="citation">WIKIPEDIA (2021)</span> of the partitions. Don’t worry, you still can edit the file later, just be sure that it will be OK before rebooting.</p>
+<pre class="bash"><code>pacstrap /mnt base base-devel linux linux-firmware git vim sudo</code></pre>
+<p>After installed, generate the <code>/etc/fstab</code> file with the <code>genfstab</code> command. Remember to pass the <code>-U</code> option for using the UUID <span class="citation"><a href="#ref-uuid" role="doc-biblioref">WIKIPEDIA</a> (<a href="#ref-uuid" role="doc-biblioref">2021</a>)</span> of the partitions. Don’t worry, you still can edit the file later, just be sure that it will be OK before rebooting.</p>
 <pre class="bash"><code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</code></pre>
 <p>Then, let’s change the root to the mounted driver and set up the system.</p>
 <pre class="bash"><code>arch-chroot /mnt</code></pre>
@@ -131,7 +131,7 @@ echo &quot;KEYMAP=br-abnt2&quot; &gt;&gt; /etc/vconsole.conf</code></pre>
 <div id="change-sudo-permissions" class="section level2">
 <h2>Change sudo permissions</h2>
 <p>To execute commands with super user privileges without going root, we need to install the sudo package. After that, use the <code>visudo</code> command to edit the <code>/etc/sudoers</code> file. You will be able to edit the file directly, but the <code>visudo</code> is the safest way to do that.</p>
-<pre class="bash"><code>sudo visudo</code></pre>
+<pre class="bash"><code>sudo EDITOR=vim visudo</code></pre>
 <p>You may be able to change permissions in the <code>/etc/sudoers</code> file just by uncomment some of the existing lines. This is part of my file for reference:</p>
 <pre class="bash"><code># User privilege specification
 root    ALL=(ALL:ALL) ALL
@@ -153,7 +153,7 @@ root    ALL=(ALL:ALL) ALL
 </div>
 <div id="download-network-utilities" class="section level2">
 <h2>Download network utilities</h2>
-<p>My router sends a 2472 Hz signal, which isn’t common in the United States, so I have to make my wireless driver recognize my network with the <code>crda</code> utility. <strong>crda</strong> stands for <strong>central regulatory domain agent</strong> and relies on ISO standards to communicate with the kernel <span class="citation">ARCH LINUX (2021)</span>.</p>
+<p>My router sends a 2472 Hz signal, which isn’t common in the United States, so I have to make my wireless driver recognize my network with the <code>crda</code> utility. <strong>crda</strong> stands for <strong>central regulatory domain agent</strong> and relies on ISO standards to communicate with the kernel <span class="citation"><a href="#ref-crda" role="doc-biblioref">ARCH LINUX</a> (<a href="#ref-crda" role="doc-biblioref">2021</a>)</span>.</p>
 <p>After that, the <code>networkmanager</code> and <code>iw</code> will be used to configurate the wi-fi network.</p>
 <pre class="bash"><code>pacman -S iw crda networkmanager</code></pre>
 <p>After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don’t have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window managers (WM).</p>
@@ -161,7 +161,7 @@ root    ALL=(ALL:ALL) ALL
 </div>
 <div id="download-the-window-manager" class="section level2">
 <h2>Download the window manager</h2>
-<pre class="bash"><code>pacman -S xorg bspwm sxhkd polybar</code></pre>
+<pre class="bash"><code>pacman -S xorg-server xorg-xinit bspwm sxhkd polybar</code></pre>
 </div>
 </div>
 <div id="references" class="section level1 unnumbered">
