@@ -7,7 +7,7 @@
     <description>Posts</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hu854cdbd0b7e9f2b9ba40a8e90c08a253_5094_512x512_fill_lanczos_center_2.png</url>
+      <url>/images/icon_hubf0e90c8aadff2ed7522c08bc3fd0f32_5058_512x512_fill_lanczos_center_2.png</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
@@ -147,11 +147,6 @@ root    ALL=(ALL:ALL) ALL
 &lt;p&gt;After that, the &lt;code&gt;networkmanager&lt;/code&gt; and &lt;code&gt;iw&lt;/code&gt; will be used to configurate the wi-fi network.&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pacman -S iw crda networkmanager&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don’t have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window managers (WM).&lt;/p&gt;
-&lt;p&gt;I use &lt;a href=&#34;https://wiki.archlinux.org/index.php/bspwm&#34;&gt;bspwm&lt;/a&gt;. This window manager doesn’t come with a hotkey daemon or a bar, like &lt;a href=&#34;https://wiki.archlinux.org/index.php/Dwm&#34;&gt;dwm&lt;/a&gt; or &lt;a href=&#34;https://wiki.archlinux.org/index.php/I3&#34;&gt;i3&lt;/a&gt;, so you have to install them. The xorg is the graphic server, and it is required by any other WM or DE.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;download-the-window-manager&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Download the window manager&lt;/h2&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pacman -S xorg-server xorg-xinit bspwm sxhkd polybar&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

@@ -258,8 +258,8 @@
   
 
   <link rel="manifest" href="/index.webmanifest">
-  <link rel="icon" type="image/png" href="/images/icon_hu854cdbd0b7e9f2b9ba40a8e90c08a253_5094_32x32_fill_lanczos_center_2.png">
-  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu854cdbd0b7e9f2b9ba40a8e90c08a253_5094_192x192_fill_lanczos_center_2.png">
+  <link rel="icon" type="image/png" href="/images/icon_hubf0e90c8aadff2ed7522c08bc3fd0f32_5058_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hubf0e90c8aadff2ed7522c08bc3fd0f32_5058_192x192_fill_lanczos_center_2.png">
 
   <link rel="canonical" href="/post/arch-linux-installation/">
 
@@ -329,7 +329,7 @@
     "name": "Rik Ferreira",
     "logo": {
       "@type": "ImageObject",
-      "url": "/images/icon_hu854cdbd0b7e9f2b9ba40a8e90c08a253_5094_192x192_fill_lanczos_center_2.png"
+      "url": "/images/icon_hubf0e90c8aadff2ed7522c08bc3fd0f32_5058_192x192_fill_lanczos_center_2.png"
     }
   },
   "description": "The Arch Linux is a distribution focused on minimalism and efficiency, and follows a “do it yourself” philosophy. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users."
@@ -817,11 +817,6 @@ root    ALL=(ALL:ALL) ALL
 <p>After that, the <code>networkmanager</code> and <code>iw</code> will be used to configurate the wi-fi network.</p>
 <pre class="bash"><code>pacman -S iw crda networkmanager</code></pre>
 <p>After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don’t have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window managers (WM).</p>
-<p>I use <a href="https://wiki.archlinux.org/index.php/bspwm">bspwm</a>. This window manager doesn’t come with a hotkey daemon or a bar, like <a href="https://wiki.archlinux.org/index.php/Dwm">dwm</a> or <a href="https://wiki.archlinux.org/index.php/I3">i3</a>, so you have to install them. The xorg is the graphic server, and it is required by any other WM or DE.</p>
-</div>
-<div id="download-the-window-manager" class="section level2">
-<h2>Download the window manager</h2>
-<pre class="bash"><code>pacman -S xorg-server xorg-xinit bspwm sxhkd polybar</code></pre>
 </div>
 </div>
 
