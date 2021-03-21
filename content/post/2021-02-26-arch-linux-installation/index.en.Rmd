@@ -121,7 +121,7 @@ Installing the Arch Linux is simple like that:
 pacstrap /mnt base base-devel linux linux-firmware git vim sudo
 ```
 
-After installed, generate the `/etc/fstab` file with the `genfstab` command. Remember to pass the `-U` option for using the UUID @uuid of the partitions. Don't worry, you still can edit the file later, just be sure that it will be OK before rebooting.
+After installed, generate the `/etc/fstab` file with the `genfstab` command. Remember to pass the `-U` option for using the [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) of the partitions. Don't worry, you still can edit the file later, just be sure that it will be OK before rebooting.
 
 ```{bash}
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -238,7 +238,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ## Download network utilities
 
-My router sends a 2472 Hz signal, which isn't common in the United States, so I have to make my wireless driver recognize my network with the `crda` utility. __crda__ stands for __central regulatory domain agent__ and relies on ISO standards to communicate with the kernel @crda.
+My router sends a 2472 Hz signal, which isn't common in the United States, so I have to make my wireless driver recognize my network with the [`crda`](https://man.archlinux.org/man/crda.8.en) utility. __crda__ stands for __central regulatory domain agent__ and relies on ISO standards to communicate with the kernel.
 
 After that, the `networkmanager` and `iw` will be used to configurate the wi-fi network.
 
@@ -247,13 +247,3 @@ pacman -S iw crda networkmanager
 ```
 
 After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don't have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window managers (WM).
-
-I use [bspwm](https://wiki.archlinux.org/index.php/bspwm). This window manager doesn't come with a hotkey daemon or a bar, like [dwm](https://wiki.archlinux.org/index.php/Dwm) or [i3](https://wiki.archlinux.org/index.php/I3), so you have to install them. The xorg is the graphic server, and it is required by any other WM or DE.
-
-## Download the window manager
-
-```{bash}
-pacman -S xorg-server xorg-xinit bspwm sxhkd polybar
-```
-
-# References

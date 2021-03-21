@@ -7,7 +7,7 @@
     <description>Posts</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hu28f71a4606c1122e804e5c28d30b8bff_23234_512x512_fill_lanczos_center_2.png</url>
+      <url>/images/icon_hu854cdbd0b7e9f2b9ba40a8e90c08a253_5094_512x512_fill_lanczos_center_2.png</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
@@ -18,7 +18,7 @@
       <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
       <guid>/post/arch-linux-installation/</guid>
       <description>
-&lt;script src=&#34;/rmarkdown-libs/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;/post/arch-linux-installation/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;The Arch Linux is a distribution focused on minimalism and efficiency, and follows a “do it yourself” philosophy. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users.&lt;/p&gt;
@@ -66,7 +66,7 @@ mkswap /dev/sda2&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;After that, we need to mount the partitions:&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;mount /dev/sda3 /mnt
 swapon /dev/sda2
-mkdir /mnt/boot/efi /mnt/home
+mkdir -p /mnt/boot/efi /mnt/home
 mount /dev/sda1 /mnt/boot/efi
 mount /dev/sda4 /mnt/home&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This step is important because it will serve as reference to create the &lt;code&gt;/etc/fstab&lt;/code&gt; file.&lt;/p&gt;
@@ -74,8 +74,8 @@ mount /dev/sda4 /mnt/home&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;installing-the-arch-linux&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Installing the Arch Linux&lt;/h2&gt;
 &lt;p&gt;Installing the Arch Linux is simple like that:&lt;/p&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pacstrap /mnt base base-devel linux linux-firmware nvim sudo&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;After installed, generate the &lt;code&gt;/etc/fstab&lt;/code&gt; file with the &lt;code&gt;genfstab&lt;/code&gt; command. Remember to pass the &lt;code&gt;-U&lt;/code&gt; option for using the UUID &lt;span class=&#34;citation&#34;&gt;WIKIPEDIA (2021)&lt;/span&gt; of the partitions. Don’t worry, you still can edit the file later, just be sure that it will be OK before rebooting.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pacstrap /mnt base base-devel linux linux-firmware git vim sudo&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After installed, generate the &lt;code&gt;/etc/fstab&lt;/code&gt; file with the &lt;code&gt;genfstab&lt;/code&gt; command. Remember to pass the &lt;code&gt;-U&lt;/code&gt; option for using the &lt;a href=&#34;https://en.wikipedia.org/wiki/Universally_unique_identifier&#34;&gt;UUID&lt;/a&gt; of the partitions. Don’t worry, you still can edit the file later, just be sure that it will be OK before rebooting.&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;genfstab -U /mnt &amp;gt;&amp;gt; /mnt/etc/fstab&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Then, let’s change the root to the mounted driver and set up the system.&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;arch-chroot /mnt&lt;/code&gt;&lt;/pre&gt;
@@ -121,7 +121,7 @@ echo &amp;quot;KEYMAP=br-abnt2&amp;quot; &amp;gt;&amp;gt; /etc/vconsole.conf&lt;
 &lt;div id=&#34;change-sudo-permissions&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Change sudo permissions&lt;/h2&gt;
 &lt;p&gt;To execute commands with super user privileges without going root, we need to install the sudo package. After that, use the &lt;code&gt;visudo&lt;/code&gt; command to edit the &lt;code&gt;/etc/sudoers&lt;/code&gt; file. You will be able to edit the file directly, but the &lt;code&gt;visudo&lt;/code&gt; is the safest way to do that.&lt;/p&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;sudo visudo&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;sudo EDITOR=vim visudo&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You may be able to change permissions in the &lt;code&gt;/etc/sudoers&lt;/code&gt; file just by uncomment some of the existing lines. This is part of my file for reference:&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# User privilege specification
 root    ALL=(ALL:ALL) ALL
@@ -143,26 +143,15 @@ root    ALL=(ALL:ALL) ALL
 &lt;/div&gt;
 &lt;div id=&#34;download-network-utilities&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Download network utilities&lt;/h2&gt;
-&lt;p&gt;My router sends a 2472 Hz signal, which isn’t common in the United States, so I have to make my wireless driver recognize my network with the &lt;code&gt;crda&lt;/code&gt; utility. &lt;strong&gt;crda&lt;/strong&gt; stands for &lt;strong&gt;central regulatory domain agent&lt;/strong&gt; and relies on ISO standards to communicate with the kernel &lt;span class=&#34;citation&#34;&gt;ARCH LINUX (2021)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;My router sends a 2472 Hz signal, which isn’t common in the United States, so I have to make my wireless driver recognize my network with the &lt;a href=&#34;https://man.archlinux.org/man/crda.8.en&#34;&gt;&lt;code&gt;crda&lt;/code&gt;&lt;/a&gt; utility. &lt;strong&gt;crda&lt;/strong&gt; stands for &lt;strong&gt;central regulatory domain agent&lt;/strong&gt; and relies on ISO standards to communicate with the kernel.&lt;/p&gt;
 &lt;p&gt;After that, the &lt;code&gt;networkmanager&lt;/code&gt; and &lt;code&gt;iw&lt;/code&gt; will be used to configurate the wi-fi network.&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pacman -S iw crda networkmanager&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don’t have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window managers (WM).&lt;/p&gt;
-&lt;p&gt;I use bspwm. This window manager doesn’t come with a hotkey daemon or a bar, like dwm or i3, so you have to install them. The xorg is the graphic server, and it is required by any other WM or DE.&lt;/p&gt;
+&lt;p&gt;I use &lt;a href=&#34;https://wiki.archlinux.org/index.php/bspwm&#34;&gt;bspwm&lt;/a&gt;. This window manager doesn’t come with a hotkey daemon or a bar, like &lt;a href=&#34;https://wiki.archlinux.org/index.php/Dwm&#34;&gt;dwm&lt;/a&gt; or &lt;a href=&#34;https://wiki.archlinux.org/index.php/I3&#34;&gt;i3&lt;/a&gt;, so you have to install them. The xorg is the graphic server, and it is required by any other WM or DE.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;download-the-window-manager&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Download the window manager&lt;/h2&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pacman -S xorg bspwm sxhkd polybar&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;references&#34; class=&#34;section level1 unnumbered&#34;&gt;
-&lt;h1&gt;References&lt;/h1&gt;
-&lt;div id=&#34;refs&#34; class=&#34;references csl-bib-body&#34; entry-spacing=&#34;1&#34;&gt;
-&lt;div id=&#34;ref-crda&#34; class=&#34;csl-entry&#34;&gt;
-ARCH LINUX. &lt;strong&gt;crda(8) - Arch manual pages&lt;/strong&gt;, 2021. Disponível em: &amp;lt;&lt;a href=&#34;https://man.archlinux.org/man/crda.8.en&#34;&gt;https://man.archlinux.org/man/crda.8.en&lt;/a&gt;&amp;gt;. Acesso em: 26 fev. 2021
-&lt;/div&gt;
-&lt;div id=&#34;ref-uuid&#34; class=&#34;csl-entry&#34;&gt;
-WIKIPEDIA. &lt;strong&gt;Universally unique identifier&lt;/strong&gt;, 2021. Disponível em: &amp;lt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Universally_unique_identifier&#34;&gt;https://en.wikipedia.org/wiki/Universally_unique_identifier&lt;/a&gt;&amp;gt;. Acesso em: 26 fev. 2021
-&lt;/div&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pacman -S xorg-server xorg-xinit bspwm sxhkd polybar&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>

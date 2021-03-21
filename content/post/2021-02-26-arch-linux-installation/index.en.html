@@ -85,7 +85,7 @@ mount /dev/sda4 /mnt/home</code></pre>
 <h2>Installing the Arch Linux</h2>
 <p>Installing the Arch Linux is simple like that:</p>
 <pre class="bash"><code>pacstrap /mnt base base-devel linux linux-firmware git vim sudo</code></pre>
-<p>After installed, generate the <code>/etc/fstab</code> file with the <code>genfstab</code> command. Remember to pass the <code>-U</code> option for using the UUID <span class="citation"><a href="#ref-uuid" role="doc-biblioref">WIKIPEDIA</a> (<a href="#ref-uuid" role="doc-biblioref">2021</a>)</span> of the partitions. Don’t worry, you still can edit the file later, just be sure that it will be OK before rebooting.</p>
+<p>After installed, generate the <code>/etc/fstab</code> file with the <code>genfstab</code> command. Remember to pass the <code>-U</code> option for using the <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a> of the partitions. Don’t worry, you still can edit the file later, just be sure that it will be OK before rebooting.</p>
 <pre class="bash"><code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</code></pre>
 <p>Then, let’s change the root to the mounted driver and set up the system.</p>
 <pre class="bash"><code>arch-chroot /mnt</code></pre>
@@ -153,7 +153,7 @@ root    ALL=(ALL:ALL) ALL
 </div>
 <div id="download-network-utilities" class="section level2">
 <h2>Download network utilities</h2>
-<p>My router sends a 2472 Hz signal, which isn’t common in the United States, so I have to make my wireless driver recognize my network with the <code>crda</code> utility. <strong>crda</strong> stands for <strong>central regulatory domain agent</strong> and relies on ISO standards to communicate with the kernel <span class="citation"><a href="#ref-crda" role="doc-biblioref">ARCH LINUX</a> (<a href="#ref-crda" role="doc-biblioref">2021</a>)</span>.</p>
+<p>My router sends a 2472 Hz signal, which isn’t common in the United States, so I have to make my wireless driver recognize my network with the <a href="https://man.archlinux.org/man/crda.8.en"><code>crda</code></a> utility. <strong>crda</strong> stands for <strong>central regulatory domain agent</strong> and relies on ISO standards to communicate with the kernel.</p>
 <p>After that, the <code>networkmanager</code> and <code>iw</code> will be used to configurate the wi-fi network.</p>
 <pre class="bash"><code>pacman -S iw crda networkmanager</code></pre>
 <p>After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don’t have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window managers (WM).</p>
@@ -162,16 +162,5 @@ root    ALL=(ALL:ALL) ALL
 <div id="download-the-window-manager" class="section level2">
 <h2>Download the window manager</h2>
 <pre class="bash"><code>pacman -S xorg-server xorg-xinit bspwm sxhkd polybar</code></pre>
-</div>
-</div>
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
-<div id="refs" class="references csl-bib-body" entry-spacing="1">
-<div id="ref-crda" class="csl-entry">
-ARCH LINUX. <strong>crda(8) - Arch manual pages</strong>, 2021. Disponível em: &lt;<a href="https://man.archlinux.org/man/crda.8.en">https://man.archlinux.org/man/crda.8.en</a>&gt;. Acesso em: 26 fev. 2021
-</div>
-<div id="ref-uuid" class="csl-entry">
-WIKIPEDIA. <strong>Universally unique identifier</strong>, 2021. Disponível em: &lt;<a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">https://en.wikipedia.org/wiki/Universally_unique_identifier</a>&gt;. Acesso em: 26 fev. 2021
-</div>
 </div>
 </div>
