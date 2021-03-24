@@ -5,12 +5,163 @@
     <link>/post/</link>
       <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 03 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hubf0e90c8aadff2ed7522c08bc3fd0f32_5058_512x512_fill_lanczos_center_2.png</url>
       <title>Posts</title>
       <link>/post/</link>
     </image>
+    
+    <item>
+      <title>Arch Linux installation guide</title>
+      <link>/post/arch-linux-installation/</link>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>/post/arch-linux-installation/</guid>
+      <description>
+&lt;script src=&#34;/post/arch-linux-installation/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;The Arch Linux is a distribution focused on minimalism and efficiency, and follows a the “do it yourself” principle. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users.&lt;/p&gt;
+&lt;p&gt;To overcome the complexity of the installation process, there are many solutions like the &lt;a href=&#34;https://github.com/spookykidmm/zen_installer&#34;&gt;Zen Installer&lt;/a&gt; script or the &lt;a href=&#34;https://arcolinux.com/&#34;&gt;ArcoLinux&lt;/a&gt; and &lt;a href=&#34;https://manjaro.org/&#34;&gt;Manjaro&lt;/a&gt; distributions, but the vanilla installation may be preferrable for its simplicity and flexibility.&lt;/p&gt;
+&lt;p&gt;Being so, I decided to present the steps I usually take in order to install Arch Linux.&lt;/p&gt;
+&lt;p&gt;This post doesn’t intend to be any ultimate installation guide, just a minimal reproducible script that guides my installation process. So I’m assuming that you are aware of the &lt;a href=&#34;https://wiki.archlinux.org/index.php/installation_guide&#34;&gt;official installation guide&lt;/a&gt; (available in portuguese too).&lt;/p&gt;
+&lt;p&gt;There are many good tutorials online complementing the official installation guide and my favorites are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=4PBqpX0_UOc&#34;&gt;Luke Smith tutorial (EN)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=4orYC5ARfn8&amp;amp;&#34;&gt;Diolinux tutorial (PT)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;My main motivation for writing this post is to present some troubles I had and doesn’t were covered in any tutorial available online. Finally, I will present some of the packages I usually install, like my window manager and text editors.&lt;/p&gt;
+&lt;div id=&#34;installation&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Installation&lt;/h1&gt;
+&lt;div id=&#34;initial-setup&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Initial setup&lt;/h2&gt;
+&lt;p&gt;First, we need to set the correct keyboard layout. To me it is the ABNT2.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;loadkeys br-abnt2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The Arch Linux installation relies on internet connection. To connect to a wireless network, we may use the &lt;code&gt;iwctl&lt;/code&gt; command.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;iwctl&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This command will open a prompt where you can interact inside the program. You can list the devices, scan for networks and finally connect to a detected network:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;device list # list the devices
+station wlp3s0 scan # wlp3s0 is my device, detected with the previous command
+station wlp3s0 connect SSID # you will get the SSID of your network with the previous command&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To verify your connection you can ping the Arch Linux site.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;ping archlinux.org&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;partitioning-the-disks&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Partitioning the disks&lt;/h2&gt;
+&lt;p&gt;To partition the disks we will use the &lt;code&gt;fdisk&lt;/code&gt; utility. It has a concise built-in help so I will just describe the concepts behind the process. We just need 2 partitions: one for the EFI &lt;code&gt;/boot/efi&lt;/code&gt; and other for &lt;code&gt;/&lt;/code&gt;, but it is a good practice to use at least 4.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/dev/sda1: 512 MB for EFI system partition&lt;/li&gt;
+&lt;li&gt;/dev/sda2: 4 GB for Linux swap&lt;/li&gt;
+&lt;li&gt;/dev/sda3: 30 GB for /&lt;/li&gt;
+&lt;li&gt;/dev/sda4: rest of the space for /home&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The official guide recommends at least 260 MB for the &lt;code&gt;/mnt/boot/efi&lt;/code&gt; partition, but you may need some space in case of dual-boot.&lt;/p&gt;
+&lt;p&gt;There isn’t any consensus about the size of the swap partition or if a partition is really needed. You may prefer the swap partition over the swap file if you want to share it with other systems and I suggest the square root of the RAM for its size (in my case, square root of 16).&lt;/p&gt;
+&lt;p&gt;The Arch Linux is a really lightweight distro, and 10 GB may be more than enough for most of the users. I suggest 30 GB, but feel free to change its size.&lt;/p&gt;
+&lt;p&gt;After creating the partitions we need to format them:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;mkfs.fat -F32 /dev/sda1
+mkfs.ext4 /dev/sda3
+mkfs.ext4 /dev/sda4
+mkswap /dev/sda2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After that, we need to mount the partitions:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;mount /dev/sda3 /mnt
+swapon /dev/sda2
+mkdir -p /mnt/boot/efi /mnt/home
+mount /dev/sda1 /mnt/boot/efi
+mount /dev/sda4 /mnt/home&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This step is important because it will serve as reference to create the &lt;code&gt;/etc/fstab&lt;/code&gt; file.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;installing-the-arch-linux&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Installing the Arch Linux&lt;/h2&gt;
+&lt;p&gt;Installing the Arch Linux is simple like that:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pacstrap /mnt base base-devel linux linux-firmware git neovim sudo&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After installed, generate the &lt;code&gt;/etc/fstab&lt;/code&gt; file with the &lt;code&gt;genfstab&lt;/code&gt; command. Remember to pass the &lt;code&gt;-U&lt;/code&gt; option to use the &lt;a href=&#34;https://en.wikipedia.org/wiki/Universally_unique_identifier&#34;&gt;UUID&lt;/a&gt; of the partitions. Don’t worry, you still can edit the file later in case you want to auto mount any other drives, just be sure that it will be OK before rebooting.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;genfstab -U /mnt &amp;gt;&amp;gt; /mnt/etc/fstab&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, let’s change the root to the mounted driver and set up the system.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;arch-chroot /mnt&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;changed-root&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Changed root&lt;/h1&gt;
+&lt;div id=&#34;clock-setup&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Clock setup&lt;/h2&gt;
+&lt;p&gt;The time zones files are in the &lt;code&gt;/usr/share/zoneinfo&lt;/code&gt; directory. You can identify your region folder with the &lt;code&gt;ls&lt;/code&gt; command and inside it, your time zone file. The &lt;code&gt;ln&lt;/code&gt; command here will create a symbolic link in the &lt;code&gt;/etc/localtime&lt;/code&gt; folder.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+hwclock --systohc&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;hosts-file&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Hosts file&lt;/h2&gt;
+&lt;p&gt;In the &lt;code&gt;/etc/hostname&lt;/code&gt; file we will register our PC name. This is the name which will identify the computer in the network.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;echo &amp;quot;pcname&amp;quot; &amp;gt;&amp;gt; /etc/hostname
+vim /etc/hosts&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the &lt;code&gt;/etc/hosts&lt;/code&gt; we will describe our IP addresses with the hostnames:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;127.0.0.1      localhost
+::1            localhost
+127.0.1.1      pcname.localdomain      pcname&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;locale&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Locale&lt;/h2&gt;
+&lt;p&gt;Uncomment your locale in &lt;code&gt;/etc/locale.gen&lt;/code&gt; file. To me it’s the &lt;code&gt;pt_BR.UTF-8 UTF-8&lt;/code&gt; line. The &lt;code&gt;locale-gen&lt;/code&gt; command is used to generate the locale.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;vim /etc/locale.gen
+locale-gen&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In &lt;code&gt;/etc/locale.conf&lt;/code&gt; we need to set an environment variable with our locale, and in the &lt;code&gt;/etc/vconsole.conf&lt;/code&gt; we will set our keyboard layout (to me it is the br-abnt2).&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;echo &amp;quot;LANG=pt_BR.UTF-8&amp;quot; &amp;gt;&amp;gt; /etc/locale.conf
+echo &amp;quot;KEYMAP=br-abnt2&amp;quot; &amp;gt;&amp;gt; /etc/vconsole.conf&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;change-root-password&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Change root password&lt;/h2&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;passwd&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;add-a-user&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Add a user&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;useradd&lt;/code&gt; command is used to create a user. The &lt;code&gt;-m&lt;/code&gt; option is for creating a folder in &lt;code&gt;/home&lt;/code&gt; directory and the &lt;code&gt;-g wheel&lt;/code&gt; is for adding the user to the wheel group.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;useradd -m -g wheel user&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;passwd user&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;change-sudo-permissions&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Change sudo permissions&lt;/h2&gt;
+&lt;p&gt;To execute commands with super user privileges without going root, we need to install the sudo package. After that, use the &lt;code&gt;visudo&lt;/code&gt; command to edit the &lt;code&gt;/etc/sudoers&lt;/code&gt; file. You will be able to edit the file directly, but the &lt;code&gt;visudo&lt;/code&gt; is the safest way to do that.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;sudo EDITOR=nvim visudo&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You are able to change permissions in the &lt;code&gt;/etc/sudoers&lt;/code&gt; file just by uncomment some of the existing lines. This is part of my file for reference:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;## User privilege specification
+##
+root ALL=(ALL) ALL
+
+## Uncomment to allow members of group wheel to execute any command
+# %wheel ALL=(ALL) ALL
+
+## Same thing without a password
+%wheel ALL=(ALL) NOPASSWD: ALL
+
+## Uncomment to allow members of group sudo to execute any command
+# %sudo ALL=(ALL) ALL&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this case, I can execute the &lt;code&gt;sudo&lt;/code&gt; command without my root password.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;grub-installation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Grub installation&lt;/h2&gt;
+&lt;p&gt;First we need to download the grub with pacman.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pacman -S grub efibootmgr&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After that, for EFI boot, we have to run &lt;code&gt;grub-install&lt;/code&gt; with &lt;code&gt;--target&lt;/code&gt;, &lt;code&gt;--efi-directory&lt;/code&gt; and &lt;code&gt;--bootloader-id&lt;/code&gt; options set like that:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To generate the GRUB config file:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;grub-mkconfig -o /boot/grub/grub.cfg&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;download-network-utilities&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Download network utilities&lt;/h2&gt;
+&lt;p&gt;My router sends a 2472 Hz signal, which isn’t common in the United States, so I have to make my wireless driver recognize my network with the &lt;a href=&#34;https://man.archlinux.org/man/crda.8.en&#34;&gt;&lt;code&gt;crda&lt;/code&gt;&lt;/a&gt; utility. &lt;strong&gt;crda&lt;/strong&gt; stands for &lt;strong&gt;central regulatory domain agent&lt;/strong&gt; and relies on ISO standards to communicate with the kernel.&lt;/p&gt;
+&lt;p&gt;After that, the &lt;code&gt;networkmanager&lt;/code&gt; and &lt;code&gt;iw&lt;/code&gt; will be used to configurate the wi-fi network.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pacman -S iw crda networkmanager&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;setting-up-the-desktop-environment&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Setting up the desktop environment&lt;/h2&gt;
+&lt;p&gt;After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don’t have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window manager (WM).&lt;/p&gt;
+&lt;p&gt;To use any graphical interface, you need a graphical server like XOrg.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;pacman -S xorg-server xorg-xinit&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After that, you can install the window manager of your preference, or install a fully fledged desktop environment. I use my &lt;a href=&#34;https://github.com/rikferreira/dwm&#34;&gt;personal build of DWM&lt;/a&gt;, but if you have doubt about which one to install, you can read &lt;a href=&#34;https://wiki.archlinux.org/index.php/General_recommendations#Graphical_user_interface&#34;&gt;this section of Arch Wiki&lt;/a&gt;. In the future, I will show all the softwares I use and how to easily setup them.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Public data overview: Brazilian demographic census (IBGE)</title>

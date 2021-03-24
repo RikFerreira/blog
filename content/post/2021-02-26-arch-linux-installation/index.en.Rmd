@@ -254,7 +254,7 @@ pacman -S iw crda networkmanager
 
 ## Setting up the desktop environment
 
-After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don't have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window managers (WM).
+After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don't have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window manager (WM).
 
 To use any graphical interface, you need a graphical server like XOrg.
 

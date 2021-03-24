@@ -34,7 +34,7 @@
   
     
   
-  <meta name="description" content="The Arch Linux is a distribution focused on minimalism and efficiency, and follows a “do it yourself” philosophy. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users.">
+  <meta name="description" content="The Arch Linux is a distribution focused on minimalism and efficiency, and follows a the “do it yourself” principle. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/arch-linux-installation/">
@@ -278,7 +278,7 @@
   <meta property="og:site_name" content="Rik Ferreira">
   <meta property="og:url" content="/post/arch-linux-installation/">
   <meta property="og:title" content="Arch Linux installation guide | Rik Ferreira">
-  <meta property="og:description" content="The Arch Linux is a distribution focused on minimalism and efficiency, and follows a “do it yourself” philosophy. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users."><meta property="og:image" content="/post/arch-linux-installation/featured.png">
+  <meta property="og:description" content="The Arch Linux is a distribution focused on minimalism and efficiency, and follows a the “do it yourself” principle. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users."><meta property="og:image" content="/post/arch-linux-installation/featured.png">
   <meta property="twitter:image" content="/post/arch-linux-installation/featured.png"><meta property="og:locale" content="en-us">
   
     
@@ -332,7 +332,7 @@
       "url": "/images/icon_hubf0e90c8aadff2ed7522c08bc3fd0f32_5058_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "The Arch Linux is a distribution focused on minimalism and efficiency, and follows a “do it yourself” philosophy. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users."
+  "description": "The Arch Linux is a distribution focused on minimalism and efficiency, and follows a the “do it yourself” principle. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users."
 }
 </script>
 
@@ -691,16 +691,16 @@
 <script src="/post/arch-linux-installation/index.en_files/header-attrs/header-attrs.js"></script>
 
 
-<p>The Arch Linux is a distribution focused on minimalism and efficiency, and follows a “do it yourself” philosophy. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users.</p>
-<p>To overcome the complexity of the installation process, there are many solutions like the <a href="https://github.com/spookykidmm/zen_installer">Zen Installer</a> script or the <a href="https://arcolinux.com/">ArcoLinux</a> and <a href="https://manjaro.org/">Manjaro</a> distributions, but I personally prefer the vanilla installation for its simplicity and flexibility.</p>
-<p>To help others in the vanilla installation process, I decided to present the steps I usually take when installing the Arch Linux.</p>
+<p>The Arch Linux is a distribution focused on minimalism and efficiency, and follows a the “do it yourself” principle. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users.</p>
+<p>To overcome the complexity of the installation process, there are many solutions like the <a href="https://github.com/spookykidmm/zen_installer">Zen Installer</a> script or the <a href="https://arcolinux.com/">ArcoLinux</a> and <a href="https://manjaro.org/">Manjaro</a> distributions, but the vanilla installation may be preferrable for its simplicity and flexibility.</p>
+<p>Being so, I decided to present the steps I usually take in order to install Arch Linux.</p>
 <p>This post doesn’t intend to be any ultimate installation guide, just a minimal reproducible script that guides my installation process. So I’m assuming that you are aware of the <a href="https://wiki.archlinux.org/index.php/installation_guide">official installation guide</a> (available in portuguese too).</p>
 <p>There are many good tutorials online complementing the official installation guide and my favorites are:</p>
 <ul>
 <li><a href="https://www.youtube.com/watch?v=4PBqpX0_UOc">Luke Smith tutorial (EN)</a></li>
 <li><a href="https://www.youtube.com/watch?v=4orYC5ARfn8&amp;">Diolinux tutorial (PT)</a></li>
 </ul>
-<p>My main motivation for writing this post is to present some troubles I had and doesn’t were covered in any tutorial I found online. Finally, I will present some of the packages I usually install, like my window manager and text editors.</p>
+<p>My main motivation for writing this post is to present some troubles I had and doesn’t were covered in any tutorial available online. Finally, I will present some of the packages I usually install, like my window manager and text editors.</p>
 <div id="installation" class="section level1">
 <h1>Installation</h1>
 <div id="initial-setup" class="section level2">
@@ -718,14 +718,14 @@ station wlp3s0 connect SSID # you will get the SSID of your network with the pre
 </div>
 <div id="partitioning-the-disks" class="section level2">
 <h2>Partitioning the disks</h2>
-<p>To partition the disks we will use the <code>fdisk</code> utility. It has a concise built-in help so I will just describe the concepts behind disk partitions. We (really) need 2 partitions: one for the EFI <code>/boot</code> and other for <code>/</code>, but it is a good practice to use at least 4.</p>
+<p>To partition the disks we will use the <code>fdisk</code> utility. It has a concise built-in help so I will just describe the concepts behind the process. We just need 2 partitions: one for the EFI <code>/boot/efi</code> and other for <code>/</code>, but it is a good practice to use at least 4.</p>
 <ul>
 <li>/dev/sda1: 512 MB for EFI system partition</li>
 <li>/dev/sda2: 4 GB for Linux swap</li>
 <li>/dev/sda3: 30 GB for /</li>
 <li>/dev/sda4: rest of the space for /home</li>
 </ul>
-<p>The official guide recommends at least 260 MB for the <code>/mnt/boot/efi</code> partition, but you may need some space later, depending on your necessities.</p>
+<p>The official guide recommends at least 260 MB for the <code>/mnt/boot/efi</code> partition, but you may need some space in case of dual-boot.</p>
 <p>There isn’t any consensus about the size of the swap partition or if a partition is really needed. You may prefer the swap partition over the swap file if you want to share it with other systems and I suggest the square root of the RAM for its size (in my case, square root of 16).</p>
 <p>The Arch Linux is a really lightweight distro, and 10 GB may be more than enough for most of the users. I suggest 30 GB, but feel free to change its size.</p>
 <p>After creating the partitions we need to format them:</p>
@@ -744,8 +744,8 @@ mount /dev/sda4 /mnt/home</code></pre>
 <div id="installing-the-arch-linux" class="section level2">
 <h2>Installing the Arch Linux</h2>
 <p>Installing the Arch Linux is simple like that:</p>
-<pre class="bash"><code>pacstrap /mnt base base-devel linux linux-firmware git vim sudo</code></pre>
-<p>After installed, generate the <code>/etc/fstab</code> file with the <code>genfstab</code> command. Remember to pass the <code>-U</code> option for using the <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a> of the partitions. Don’t worry, you still can edit the file later, just be sure that it will be OK before rebooting.</p>
+<pre class="bash"><code>pacstrap /mnt base base-devel linux linux-firmware git neovim sudo</code></pre>
+<p>After installed, generate the <code>/etc/fstab</code> file with the <code>genfstab</code> command. Remember to pass the <code>-U</code> option to use the <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a> of the partitions. Don’t worry, you still can edit the file later in case you want to auto mount any other drives, just be sure that it will be OK before rebooting.</p>
 <pre class="bash"><code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</code></pre>
 <p>Then, let’s change the root to the mounted driver and set up the system.</p>
 <pre class="bash"><code>arch-chroot /mnt</code></pre>
@@ -755,13 +755,13 @@ mount /dev/sda4 /mnt/home</code></pre>
 <h1>Changed root</h1>
 <div id="clock-setup" class="section level2">
 <h2>Clock setup</h2>
-<p>In the <code>/usr/share/zoneinfo</code> directory are the time zones files. With the <code>ls</code> command you can identify your region folder and inside it, your time zone file. The <code>ln</code> command here will create a symbolic link in the <code>/etc/localtime</code> folder.</p>
+<p>The time zones files are in the <code>/usr/share/zoneinfo</code> directory. You can identify your region folder with the <code>ls</code> command and inside it, your time zone file. The <code>ln</code> command here will create a symbolic link in the <code>/etc/localtime</code> folder.</p>
 <pre class="bash"><code>ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 hwclock --systohc</code></pre>
 </div>
 <div id="hosts-file" class="section level2">
 <h2>Hosts file</h2>
-<p>In the <code>/etc/hostname</code> file we will register our pc name. This is the name which will identify the computer in the network.</p>
+<p>In the <code>/etc/hostname</code> file we will register our PC name. This is the name which will identify the computer in the network.</p>
 <pre class="bash"><code>echo &quot;pcname&quot; &gt;&gt; /etc/hostname
 vim /etc/hosts</code></pre>
 <p>In the <code>/etc/hosts</code> we will describe our IP addresses with the hostnames:</p>
@@ -774,7 +774,7 @@ vim /etc/hosts</code></pre>
 <p>Uncomment your locale in <code>/etc/locale.gen</code> file. To me it’s the <code>pt_BR.UTF-8 UTF-8</code> line. The <code>locale-gen</code> command is used to generate the locale.</p>
 <pre class="bash"><code>vim /etc/locale.gen
 locale-gen</code></pre>
-<p>In <code>/etc/locale.conf</code> we need to set an environment variable with our locale, and in the <code>/etc/vconsole.conf</code> we will set our keyboard layout (to me it is the ABNT 2).</p>
+<p>In <code>/etc/locale.conf</code> we need to set an environment variable with our locale, and in the <code>/etc/vconsole.conf</code> we will set our keyboard layout (to me it is the br-abnt2).</p>
 <pre class="bash"><code>echo &quot;LANG=pt_BR.UTF-8&quot; &gt;&gt; /etc/locale.conf
 echo &quot;KEYMAP=br-abnt2&quot; &gt;&gt; /etc/vconsole.conf</code></pre>
 </div>
@@ -791,23 +791,28 @@ echo &quot;KEYMAP=br-abnt2&quot; &gt;&gt; /etc/vconsole.conf</code></pre>
 <div id="change-sudo-permissions" class="section level2">
 <h2>Change sudo permissions</h2>
 <p>To execute commands with super user privileges without going root, we need to install the sudo package. After that, use the <code>visudo</code> command to edit the <code>/etc/sudoers</code> file. You will be able to edit the file directly, but the <code>visudo</code> is the safest way to do that.</p>
-<pre class="bash"><code>sudo EDITOR=vim visudo</code></pre>
-<p>You may be able to change permissions in the <code>/etc/sudoers</code> file just by uncomment some of the existing lines. This is part of my file for reference:</p>
-<pre class="bash"><code># User privilege specification
-root    ALL=(ALL:ALL) ALL
+<pre class="bash"><code>sudo EDITOR=nvim visudo</code></pre>
+<p>You are able to change permissions in the <code>/etc/sudoers</code> file just by uncomment some of the existing lines. This is part of my file for reference:</p>
+<pre class="bash"><code>## User privilege specification
+##
+root ALL=(ALL) ALL
 
-# Members of the admin group may gain root privileges
-%admin ALL=(ALL) ALL
+## Uncomment to allow members of group wheel to execute any command
+# %wheel ALL=(ALL) ALL
 
-# Allow members of group sudo to execute any command
-%sudo   ALL=(ALL:ALL) NOPASSWD: ALL</code></pre>
+## Same thing without a password
+%wheel ALL=(ALL) NOPASSWD: ALL
+
+## Uncomment to allow members of group sudo to execute any command
+# %sudo ALL=(ALL) ALL</code></pre>
+<p>In this case, I can execute the <code>sudo</code> command without my root password.</p>
 </div>
 <div id="grub-installation" class="section level2">
 <h2>Grub installation</h2>
 <p>First we need to download the grub with pacman.</p>
 <pre class="bash"><code>pacman -S grub efibootmgr</code></pre>
 <p>After that, for EFI boot, we have to run <code>grub-install</code> with <code>--target</code>, <code>--efi-directory</code> and <code>--bootloader-id</code> options set like that:</p>
-<pre class="bash"><code>grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub</code></pre>
+<pre class="bash"><code>grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch</code></pre>
 <p>To generate the GRUB config file:</p>
 <pre class="bash"><code>grub-mkconfig -o /boot/grub/grub.cfg</code></pre>
 </div>
@@ -816,7 +821,13 @@ root    ALL=(ALL:ALL) ALL
 <p>My router sends a 2472 Hz signal, which isn’t common in the United States, so I have to make my wireless driver recognize my network with the <a href="https://man.archlinux.org/man/crda.8.en"><code>crda</code></a> utility. <strong>crda</strong> stands for <strong>central regulatory domain agent</strong> and relies on ISO standards to communicate with the kernel.</p>
 <p>After that, the <code>networkmanager</code> and <code>iw</code> will be used to configurate the wi-fi network.</p>
 <pre class="bash"><code>pacman -S iw crda networkmanager</code></pre>
-<p>After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don’t have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window managers (WM).</p>
+</div>
+<div id="setting-up-the-desktop-environment" class="section level2">
+<h2>Setting up the desktop environment</h2>
+<p>After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don’t have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window manager (WM).</p>
+<p>To use any graphical interface, you need a graphical server like XOrg.</p>
+<pre class="bash"><code>pacman -S xorg-server xorg-xinit</code></pre>
+<p>After that, you can install the window manager of your preference, or install a fully fledged desktop environment. I use my <a href="https://github.com/rikferreira/dwm">personal build of DWM</a>, but if you have doubt about which one to install, you can read <a href="https://wiki.archlinux.org/index.php/General_recommendations#Graphical_user_interface">this section of Arch Wiki</a>. In the future, I will show all the softwares I use and how to easily setup them.</p>
 </div>
 </div>
 
