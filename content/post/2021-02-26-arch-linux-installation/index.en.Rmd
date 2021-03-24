@@ -19,7 +19,7 @@ image:
   focal_point: 'center'
   preview_only: no
 projects: []
-editor_options: 
+editor_options:
   chunk_output_type: console
 bibliography: bibliography.bib
 csl: associacao-brasileira-de-normas-tecnicas.csl
@@ -32,11 +32,11 @@ csl: associacao-brasileira-de-normas-tecnicas.csl
 knitr::opts_chunk$set(eval = FALSE, echo = TRUE)
 ```
 
-The Arch Linux is a distribution focused on minimalism and efficiency, and follows a "do it yourself" philosophy. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users.
+The Arch Linux is a distribution focused on minimalism and efficiency, and follows a the "do it yourself" principle. For giving the user the power to build the system in the way he wants, its installation process may not be trivial to most PC users.
 
-To overcome the complexity of the installation process, there are many solutions like the [Zen Installer](https://github.com/spookykidmm/zen_installer) script or the [ArcoLinux](https://arcolinux.com/) and [Manjaro](https://manjaro.org/) distributions, but I personally prefer the vanilla installation for its simplicity and flexibility.
+To overcome the complexity of the installation process, there are many solutions like the [Zen Installer](https://github.com/spookykidmm/zen_installer) script or the [ArcoLinux](https://arcolinux.com/) and [Manjaro](https://manjaro.org/) distributions, but the vanilla installation may be preferrable for its simplicity and flexibility.
 
-To help others in the vanilla installation process, I decided to present the steps I usually take when installing the Arch Linux.
+Being so, I decided to present the steps I usually take in order to install Arch Linux.
 
 This post doesn't intend to be any ultimate installation guide, just a minimal reproducible script that guides my installation process. So I'm assuming that you are aware of the [official installation guide](https://wiki.archlinux.org/index.php/installation_guide) (available in portuguese too).
 
@@ -45,7 +45,7 @@ There are many good tutorials online complementing the official installation gui
 - [Luke Smith tutorial (EN)](https://www.youtube.com/watch?v=4PBqpX0_UOc)
 - [Diolinux tutorial (PT)](https://www.youtube.com/watch?v=4orYC5ARfn8&)
 
-My main motivation for writing this post is to present some troubles I had and doesn't were covered in any tutorial I found online. Finally, I will present some of the packages I usually install, like my window manager and text editors.
+My main motivation for writing this post is to present some troubles I had and doesn't were covered in any tutorial available online. Finally, I will present some of the packages I usually install, like my window manager and text editors.
 
 # Installation
 
@@ -79,14 +79,14 @@ ping archlinux.org
 
 ## Partitioning the disks
 
-To partition the disks we will use the `fdisk` utility. It has a concise built-in help so I will just describe the concepts behind disk partitions. We (really) need 2 partitions: one for the EFI `/boot` and other for `/`, but it is a good practice to use at least 4.
+To partition the disks we will use the `fdisk` utility. It has a concise built-in help so I will just describe the concepts behind the process. We just need 2 partitions: one for the EFI `/boot/efi` and other for `/`, but it is a good practice to use at least 4.
 
 - /dev/sda1: 512 MB for EFI system partition
 - /dev/sda2: 4 GB for Linux swap
 - /dev/sda3: 30 GB for /
 - /dev/sda4: rest of the space for /home
 
-The official guide recommends at least 260 MB for the `/mnt/boot/efi` partition, but you may need some space later, depending on your necessities.
+The official guide recommends at least 260 MB for the `/mnt/boot/efi` partition, but you may need some space in case of dual-boot.
 
 There isn't any consensus about the size of the swap partition or if a partition is really needed. You may prefer the swap partition over the swap file if you want to share it with other systems and I suggest the square root of the RAM for its size (in my case, square root of 16).
 
@@ -118,10 +118,10 @@ This step is important because it will serve as reference to create the `/etc/fs
 Installing the Arch Linux is simple like that:
 
 ```{bash}
-pacstrap /mnt base base-devel linux linux-firmware git vim sudo
+pacstrap /mnt base base-devel linux linux-firmware git neovim sudo
 ```
 
-After installed, generate the `/etc/fstab` file with the `genfstab` command. Remember to pass the `-U` option for using the [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) of the partitions. Don't worry, you still can edit the file later, just be sure that it will be OK before rebooting.
+After installed, generate the `/etc/fstab` file with the `genfstab` command. Remember to pass the `-U` option to use the [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier) of the partitions. Don't worry, you still can edit the file later in case you want to auto mount any other drives, just be sure that it will be OK before rebooting.
 
 ```{bash}
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -137,7 +137,7 @@ arch-chroot /mnt
 
 ## Clock setup
 
-In the `/usr/share/zoneinfo` directory are the time zones files. With the `ls` command you can identify your region folder and inside it, your time zone file. The `ln` command here will create a symbolic link in the `/etc/localtime` folder.
+The time zones files are in the `/usr/share/zoneinfo` directory. You can identify your region folder with the `ls` command and inside it, your time zone file. The `ln` command here will create a symbolic link in the `/etc/localtime` folder.
 
 ```{bash}
 ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
@@ -146,7 +146,7 @@ hwclock --systohc
 
 ## Hosts file
 
-In the `/etc/hostname` file we will register our pc name. This is the name which will identify the computer in the network.
+In the `/etc/hostname` file we will register our PC name. This is the name which will identify the computer in the network.
 
 ```{bash}
 echo "pcname" >> /etc/hostname
@@ -170,7 +170,7 @@ vim /etc/locale.gen
 locale-gen
 ```
 
-In `/etc/locale.conf` we need to set an environment variable with our locale, and in the `/etc/vconsole.conf` we will set our keyboard layout (to me it is the ABNT 2).
+In `/etc/locale.conf` we need to set an environment variable with our locale, and in the `/etc/vconsole.conf` we will set our keyboard layout (to me it is the br-abnt2).
 
 ```{bash}
 echo "LANG=pt_BR.UTF-8" >> /etc/locale.conf
@@ -200,21 +200,27 @@ passwd user
 To execute commands with super user privileges without going root, we need to install the sudo package. After that, use the `visudo` command to edit the `/etc/sudoers` file. You will be able to edit the file directly, but the `visudo` is the safest way to do that.
 
 ```{bash}
-sudo EDITOR=vim visudo
+sudo EDITOR=nvim visudo
 ```
 
-You may be able to change permissions in the `/etc/sudoers` file just by uncomment some of the existing lines. This is part of my file for reference:
+You are able to change permissions in the `/etc/sudoers` file just by uncomment some of the existing lines. This is part of my file for reference:
 
 ```{bash}
-# User privilege specification
-root    ALL=(ALL:ALL) ALL
+## User privilege specification
+##
+root ALL=(ALL) ALL
 
-# Members of the admin group may gain root privileges
-%admin ALL=(ALL) ALL
+## Uncomment to allow members of group wheel to execute any command
+# %wheel ALL=(ALL) ALL
 
-# Allow members of group sudo to execute any command
-%sudo   ALL=(ALL:ALL) NOPASSWD: ALL
+## Same thing without a password
+%wheel ALL=(ALL) NOPASSWD: ALL
+
+## Uncomment to allow members of group sudo to execute any command
+# %sudo ALL=(ALL) ALL
 ```
+
+In this case, I can execute the `sudo` command without my root password.
 
 ## Grub installation
 
@@ -227,7 +233,7 @@ pacman -S grub efibootmgr
 After that, for EFI boot, we have to run `grub-install` with `--target`, `--efi-directory` and `--bootloader-id` options set like that:
 
 ```{bash}
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch
 ```
 
 To generate the GRUB config file:
@@ -246,4 +252,14 @@ After that, the `networkmanager` and `iw` will be used to configurate the wi-fi 
 pacman -S iw crda networkmanager
 ```
 
+## Setting up the desktop environment
+
 After downloaded all the network utilities, you are able to reboot and install all the softwares you want. If this is your first time with Arch, you will notice that you only have a black screen with a prompt, this is because we don't have any graphic interface yet. There are plenty of options to install, and you can go for one of the desktop environments (DE) out there or you can simply install a window managers (WM).
+
+To use any graphical interface, you need a graphical server like XOrg.
+
+```{bash}
+pacman -S xorg-server xorg-xinit
+```
+
+After that, you can install the window manager of your preference, or install a fully fledged desktop environment. I use my [personal build of DWM](https://github.com/rikferreira/dwm), but if you have doubt about which one to install, you can read [this section of Arch Wiki](https://wiki.archlinux.org/index.php/General_recommendations#Graphical_user_interface). In the future, I will show all the softwares I use and how to easily setup them.
