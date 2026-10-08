@@ -1,0 +1,11 @@
+.git
+.github
+.dockerignore
+Dockerfile
+README.md
+node_modules
+public
+resources
+.hugo_build.lock
+hugo_stats.json
+*.log
