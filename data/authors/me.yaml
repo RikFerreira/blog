@@ -1,116 +1,148 @@
 schema: hugoblox/author/v1
 slug: me
 is_owner: true
+
 name:
-  display: Dr. Alex Johnson
-  given: Alex
-  family: Johnson
-  alternate: ''  # Example: 王伟
-  pronunciation: ''  # Example: Wáng Wěi
-  pronouns: he/him
+  display: Rik Ferreira Alves
+  given: Rik
+  family: Ferreira Alves
+  # How the name appears in bibliographies
+  alternate: 'Alves, R. F.'
 postnominals:
-  - PhD
-  - MIEEE
-status:
-  icon: "☕️"
-role: Senior AI Research Scientist
+  - MSc
+
+role: GIS Analyst
+
 bio: |
-  Alex Johnson is a Senior AI Research Scientist at Meta AI. His research
-  has been published in top conferences like NeurIPS and ICML, with over
-  10,000 citations. Alex is passionate about pushing the boundaries of AI
-  while ensuring ethical development.
+  Geographer working on the development and maintenance of geographic
+  databases and GIS solutions, with a background in remote sensing and
+  digital image processing applied to environmental, basic sanitation and
+  urban planning projects.
+
+  Open and independent solutions are a principle: they buy productivity and
+  autonomy, and take bureaucracy out of work that depends on GIS.
+
+  MSc in Geography from the Federal University of Uberlândia (2026), with a
+  dissertation mapping Cerrado wetlands — *veredas* — in the Pandeiros river
+  basin from Harmonized Landsat and Sentinel-2 (HLS) spectral indices,
+  Copernicus DEM morphometrics and supervised machine learning.
 
 affiliations:
-  - name: Meta AI
-    url: https://ai.meta.com/
+  - name: TPF Engenharia
 
 links:
-  - icon: at-symbol
-    url: mailto:alex.johnson@example.com
-    label: E-mail Me
-  - icon: brands/x
-    url: https://x.com/example
-  - icon: brands/github
-    url: https://github.com/example
   - icon: brands/linkedin
-    url: https://www.linkedin.com/in/example/
-  - icon: academicons/google-scholar
-    url: https://scholar.google.com/citations?user=example
+    url: https://www.linkedin.com/in/rikferreira/
+  - icon: brands/github
+    url: https://github.com/RikFerreira
   - icon: academicons/orcid
-    url: https://orcid.org/0000-0002-1825-0097
+    url: https://orcid.org/0000-0002-8084-7951
+  - icon: academicons/google-scholar
+    url: https://scholar.google.com/citations?user=-DLXCAYAAAAJ
+  - icon: academicons/lattes
+    url: http://lattes.cnpq.br/9527400491453685
+#  - icon: at-symbol
+#    url: mailto:you@example.com
+#    label: E-mail Me
 
 interests:
-  - Large Language Models
-  - Computer Vision
-  - Reinforcement Learning
-  - AI Ethics
+  - Geographic Database Administration
+  - Multispectral and SAR Remote Sensing
+  - Air Pollution Modelling
+  - Hydrological Modelling
+  - Noise Modelling
+  - Basic Sanitation
 
+# `year` is what the homepage biography block displays; `start`/`end` are used
+# by the resume-experience block on /experience/.
 education:
-  - degree: PhD Computer Science
-    institution: Stanford University
-    start: 2015-09-01
-    end: 2019-06-30
+  - degree: MSc Geography
+    institution: Federal University of Uberlândia (UFU)
+    year: '2024 – 2026'
+    start: 2024-01-01
+    end: 2026-12-31
     summary: |
-      Thesis on scaling laws for neural language models. Published 5 papers in NeurIPS and ICML.
-    button:
-      text: Download dissertation
-      url: /resume.pdf
-      icon: hero/arrow-down-tray
-  - degree: MS Computer Science
-    institution: Carnegie Mellon University
-    start: 2013-09-01
-    end: 2015-05-31
-  - degree: BS Computer Science
-    institution: MIT
-    start: 2009-09-01
-    end: 2013-05-31
+      Dissertation: mapping wetlands (*veredas*) in the Pandeiros river basin
+      with remote sensing image processing and machine learning. Advisor:
+      Claudionor Ribeiro da Silva.
+  - degree: BSc Geography
+    institution: State University of Montes Claros (UNIMONTES)
+    year: '2018 – 2023'
+    start: 2018-01-01
+    end: 2023-12-31
+    summary: |
+      Monograph: changes in the network profile of Brazilian migration between
+      1980 and 2010. Advisor: Gustavo Henrique Cepolini Ferreira.
 
 experience:
-  - role: Senior AI Research Scientist
-    org: Meta AI
-    start: 2020-01-01
+  - role: Professor
+    org: UNIFIP — Centro Universitário
+    start: 2026-01-01
+  - role: GIS Analyst
+    org: TPF Engenharia
+    start: 2023-09-01
     summary: |
-      Leading research on multimodal AI systems. Contributed to Llama 2 and other open-source models.
-    button:
-      text: View portfolio
-      url: /
-      icon: hero/arrow-down-tray
-  - role: AI Research Intern
-    org: OpenAI
-    start: 2019-06-01
-    end: 2019-12-31
+      - Geographic data quality control and ETL automation for GIS.
+      - Improvement of existing workflows for hydrological and hydraulic
+        modelling.
+      - New functionality for open source GIS, ArcGIS Pro and ArcGIS Online.
+      - Workflow for primary data collection by third-party technicians.
+  - role: Engineering Assistant
+    org: TPF Engenharia
+    start: 2023-07-01
+    end: 2023-08-31
+    summary: 'July to August 2023.'
+  - role: Intern
+    org: TPF Engenharia
+    start: 2021-08-01
+    end: 2023-06-30
+  - role: Undergraduate Student Researcher
+    org: State University of Montes Claros (UNIMONTES)
+    start: 2020-08-01
+    end: 2021-07-31
     summary: |
-      Worked on GPT-3 scaling. Co-authored paper on prompt engineering.
+      CNPq scholarship on the Atlas do Saneamento Básico em Minas Gerais
+      project — mapping access to basic sanitation across the state's
+      immediate and intermediate geographic regions.
+  - role: Field Representative
+    org: Brazilian Institute of Geography and Statistics (IBGE)
+    start: 2017-11-01
+    end: 2020-03-31
+    summary: |
+      Agente de Pesquisas e Mapeamento — survey and mapping field work.
 
+# `level` is an optional 1–5 self-assessment. Left unset, so these render as
+# labels without a proficiency bar. Add `level:` to any item to show one.
 skills:
-  - name: Technical Skills
+  - name: Tools & Languages
     items:
       - label: Python
-        level: 5
-      - label: Machine Learning
-        level: 5
-      - label: Cloud Computing
-        level: 4
-  - name: Research & Communication
+      - label: R
+      - label: PostGIS
+      - label: QGIS
+      - label: ArcGIS Pro / ArcGIS Online
+      - label: Autodesk Civil 3D
+  - name: Methods & Domains
     items:
-      - label: Academic Writing
-        level: 5
-      - label: Conference Presentations
-        level: 4
-      - label: Grant Proposals
-        level: 4
+      - label: Geographic Information Systems (GIS)
+      - label: Remote Sensing (multispectral and SAR)
+      - label: Digital Image Processing
+      - label: Air Dispersion Modelling (AERMOD)
+      - label: Hydrological and Hydraulic Modelling
+      - label: Geographic Database Administration
+      - label: ETL Automation
+      - label: Data Production Standards
 
 languages:
-  - name: English
+  - name: Portuguese
     level: 5
     label: Native
-  - name: Spanish
-    level: 4
-    label: Fluent
+  - name: English
+    level: 3
+    label: Professional working proficiency
 
 awards:
-  - title: Best Paper Award
-    awarder: NeurIPS
-    date: "2022-12-01"
-    summary: Awarded for groundbreaking work on efficient training of large models.
+  - title: Bronze Medal, Brazilian Mathematics Olympiad for Public Schools (OBMEP)
+    awarder: Ministério da Educação
+    date: '2009-01-01'
     icon: hero/trophy

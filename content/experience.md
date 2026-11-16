@@ -14,13 +14,13 @@ sections:
     content:
       username: me
     design:
-      # Hugo date format
-      date_format: 'January 2006'
+      # Hugo date format. The CV records years only.
+      date_format: '2006'
       # Education or Experience section first?
       is_education_first: false
   - block: resume-skills
     content:
-      title: Skills & Hobbies
+      title: Skills
       username: me
   - block: resume-awards
     content:

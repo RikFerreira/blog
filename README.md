@@ -21,8 +21,9 @@ The site is rendered during the image build, not in this repo. Nothing in
 
 Start with `data/authors/me.yaml` (name, bio, social links), then
 `config/_default/params.yaml` (site branding, colors, analytics) and
-`config/_default/menus.yaml` (navigation). The avatar is
-`assets/media/authors/me.png`.
+`config/_default/menus.yaml` (navigation). The avatar is resolved as
+`assets/media/authors/<author slug>.*`, so it is `assets/media/authors/me.jpg`
+— the basename must stay `me` to match the slug in `data/authors/me.yaml`.
 
 ## Image build
 
