@@ -29,3 +29,7 @@ featured: true
 projects: []
 slides: ""
 ---
+
+## Patch blending
+
+{{< video src="vereda_patch_blending_en.mp4" controls="yes" >}}
