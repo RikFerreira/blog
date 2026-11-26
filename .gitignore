@@ -1,72 +1,33 @@
-# ============================================================================
-# Hugo Site .gitignore
-# ============================================================================
+# Backup of the previous Hugo site and the frontend handoff. Kept on disk as a
+# reference while the content is rebuilt; never versioned.
+archive/
 
-# ============================================================================
-# Hugo Build Artifacts
-# ============================================================================
+# Handoff archive from the frontend agent.
+rikalves_frontend_handoff.zip
 
-# Generated site output
-public/
+# The rendered site. Built inside the image, not committed.
+frontend/site/
 
-# Hugo resources (processed assets)
-resources/
+# Third-party scripts fetched at build time.
+frontend/**/vendor/
 
-# Hugo build lock
-.hugo_build.lock
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
 
-# Hugo stats
-hugo_stats.json
-
-# Auto-generated JS config
-**/assets/jsconfig.json
-
-# ============================================================================
-# Node.js & Package Managers
-# ============================================================================
-
-# Dependencies
-node_modules/
-
-# pnpm local store
-.pnpm-store/
-
-# ============================================================================
-# Environment & Configuration
-# ============================================================================
-
-# Environment variables
+# Environment
 .env
 .env.local
 .env.*.local
 
-# ============================================================================
-# Generated Content
-# ============================================================================
-
-# Pagefind search index
-pagefind/
-static/pagefind/
-
-# ============================================================================
-# Operating System
-# ============================================================================
-
-# macOS
+# OS
 .DS_Store
-.DS_Store?
-._*
-
-# Windows
 Thumbs.db
 Desktop.ini
 
-# Linux
-*~
-
-# ============================================================================
-# Logs & Temporary Files
-# ============================================================================
-
+# Logs
 *.log
-npm-debug.log*
