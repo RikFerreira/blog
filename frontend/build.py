@@ -715,7 +715,11 @@ _MARKDOWN = MarkdownIt("commonmark", {"html": True, "linkify": False}).enable(
     ["table", "strikethrough"]
 )
 
-_BIB_FIELD = re.compile(r"(\w+)\s*=\s*\{([^{}]*)\}", re.DOTALL)
+# A BibTeX value is braced, quoted, or bare — `year = 2026` is all three
+# styles in the wild, and dropping the bare one silently loses the year.
+_BIB_FIELD = re.compile(
+    r"(\w+)\s*=\s*(?:\{([^{}]*)\}|\"([^\"]*)\"|([^,}\s][^,}]*))", re.DOTALL
+)
 
 
 def render_markdown(text: str) -> str:
@@ -731,7 +735,10 @@ def slugify(text: str) -> str:
 
 def format_citation(bibtex: str) -> str:
     """A BibTeX entry as a single readable line, in ABNT shape."""
-    fields = {key.lower(): " ".join(value.split()) for key, value in _BIB_FIELD.findall(bibtex)}
+    fields = {
+        match[0].lower(): " ".join("".join(match[1:]).split())
+        for match in _BIB_FIELD.findall(bibtex)
+    }
 
     parts = []
     authors = _format_authors(fields.get("author", ""))

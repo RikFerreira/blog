@@ -55,6 +55,30 @@ def test_a_bibtex_entry_becomes_a_readable_citation():
     )
 
 
+def test_an_unbraced_value_is_read_too():
+    """`year = 2026` with no braces is common, and dropping it loses the year."""
+    bib = """
+@inproceedings{k,
+  author    = {A, One},
+  title     = {T},
+  booktitle = {Conf},
+  year      = 2026,
+}
+"""
+    assert format_citation(bib).endswith("Conf, 2026.")
+
+
+def test_a_quoted_value_is_read_too():
+    bib = """
+@article{k,
+  author = "A, One",
+  title  = "T",
+  year   = "2020"
+}
+"""
+    assert format_citation(bib) == "A, O. T. 2020."
+
+
 def test_more_than_three_authors_collapse_to_et_al():
     bib = (
         "@article{k,\n author = {A, One and B, Two and C, Three and D, Four},\n"
