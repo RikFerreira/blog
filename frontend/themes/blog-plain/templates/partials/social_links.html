@@ -1,0 +1,6 @@
+{#- Profile links from [[links]] in index.toml. -#}
+        <div class="icon-row">
+{%- for link in settings.links %}
+          <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="icon-btn" title="{{ link.label }}" aria-label="{{ link.label }}">{{ icon(link.icon) }}</a>
+{%- endfor %}
+        </div>

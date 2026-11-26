@@ -25,6 +25,8 @@ from dataclasses import dataclass, field, replace
 from pathlib import Path
 
 import yaml
+from jinja2 import Environment, FileSystemLoader, StrictUndefined
+from markupsafe import Markup, escape
 
 # Front matter keys an item may declare. Anything else fails the build rather
 # than being silently dropped.
@@ -470,6 +472,147 @@ def _relative(path: Path, root: Path) -> str:
         return str(path.relative_to(root))
     except ValueError:
         return str(path)
+
+
+# ---------------------------------------------------------------------------
+# theme
+# ---------------------------------------------------------------------------
+
+
+# Line weight and grid the handoff draws every icon on.
+ICON_STROKE_WIDTH = "1.75"
+ICON_VIEWBOX = "0 0 24 24"
+
+
+def flatten_keys(table: dict, prefix: str = "") -> set[str]:
+    """Every leaf of a nested table, as dotted keys."""
+    keys: set[str] = set()
+    for key, value in table.items():
+        dotted = f"{prefix}{key}"
+        if isinstance(value, dict):
+            keys |= flatten_keys(value, f"{dotted}.")
+        else:
+            keys.add(dotted)
+    return keys
+
+
+@dataclass
+class Theme:
+    """Templates, interface strings and icons for one theme."""
+
+    path: Path
+    settings: Settings
+    translations: dict[str, dict]
+    icons: dict[str, dict]
+    env: Environment = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.env = Environment(
+            loader=FileSystemLoader(self.path / "templates"),
+            autoescape=True,
+            undefined=StrictUndefined,
+            trim_blocks=False,
+            lstrip_blocks=False,
+        )
+        self.env.globals.update(
+            settings=self.settings,
+            t=self.t,
+            ui=self.ui,
+            action=self.action,
+            icon=self.icon,
+            url=self.url,
+            lang_tag=self.lang_tag,
+        )
+
+    # -- interface strings --------------------------------------------------
+
+    def t(self, key: str, language: str | None = None) -> str:
+        """One interface string, in `language` or the default one."""
+        language = language or self.settings.default_language
+        table = self.translations.get(language)
+        if table is None:
+            raise ContentError(f"{self.path}: no i18n file for language {language!r}")
+        value = table
+        for part in key.split("."):
+            if not isinstance(value, dict) or part not in value:
+                raise ContentError(
+                    f"{self.path / 'i18n' / (language + '.toml')}: missing string {key!r}"
+                )
+            value = value[part]
+        if isinstance(value, dict):
+            raise ContentError(f"{key!r} is a table of strings, not a string")
+        return str(value)
+
+    def ui(self, key: str) -> Markup:
+        """`data-en` / `data-pt` attributes, which the language switcher swaps."""
+        return Markup(
+            " ".join(
+                f'data-{language}="{escape(self.t(key, language))}"'
+                for language in self.settings.languages
+            )
+        )
+
+    def action(self, key: str) -> Markup:
+        """Tooltip and label for an icon button, in every language."""
+        default = escape(self.t(key))
+        translated = " ".join(
+            f'data-{language}-title="{escape(self.t(key, language))}"'
+            for language in self.settings.languages
+        )
+        return Markup(f'title="{default}" aria-label="{default}" {translated}')
+
+    def lang_tag(self, language: str) -> str:
+        return self.t("meta.html_lang", language)
+
+    # -- icons --------------------------------------------------------------
+
+    def icon(self, name: str, size: int = 15) -> Markup:
+        definition = self.icons.get(name)
+        if definition is None:
+            raise ContentError(
+                f"{self.path / 'icons.toml'}: unknown icon {name!r}; "
+                f"defined icons are {', '.join(sorted(self.icons))}"
+            )
+        linecap = definition.get("linecap")
+        linecap_attr = f' stroke-linecap="{linecap}"' if linecap else ""
+        return Markup(
+            f'<svg width="{size}" height="{size}" viewBox="{ICON_VIEWBOX}" fill="none" '
+            f'stroke="currentColor" stroke-width="{ICON_STROKE_WIDTH}"{linecap_attr} '
+            f'aria-hidden="true">{definition["body"]}</svg>'
+        )
+
+    # -- urls ---------------------------------------------------------------
+
+    def url(self, path: str) -> str:
+        base = self.settings.base_url or "/"
+        return f"{base.rstrip('/')}/{path.lstrip('/')}"
+
+    # -- rendering ----------------------------------------------------------
+
+    def context(self, **overrides) -> dict:
+        """Page variables, with the defaults every template may read."""
+        context = {"active_nav": None, "page_description": None}
+        context.update(overrides)
+        return context
+
+    def render(self, template: str, **context) -> str:
+        return self.env.get_template(template).render(**self.context(**context))
+
+
+def load_theme(theme_dir: Path, settings: Settings) -> Theme:
+    theme_dir = Path(theme_dir)
+    if not (theme_dir / "templates").is_dir():
+        raise ContentError(f"{theme_dir}: no templates/ directory")
+
+    translations = {}
+    for language in settings.languages:
+        path = theme_dir / "i18n" / f"{language}.toml"
+        if not path.is_file():
+            raise ContentError(f"{theme_dir}: missing i18n file for {language!r} ({path.name})")
+        translations[language] = _load_toml(path)
+
+    icons = _load_toml(theme_dir / "icons.toml").get("icons", {})
+    return Theme(path=theme_dir, settings=settings, translations=translations, icons=icons)
 
 
 # ---------------------------------------------------------------------------

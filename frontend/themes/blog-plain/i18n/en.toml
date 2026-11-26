@@ -1,0 +1,54 @@
+# Interface strings. Content strings live in the Markdown, not here.
+# Every key must exist in both language files; the test suite enforces it.
+
+[meta]
+# The lang attribute on <html> when this language is showing.
+html_lang = "en"
+
+[nav]
+home         = "Home"
+projects     = "Projects"
+posts        = "Posts"
+publications = "Publications"
+cv           = "CV"
+
+[home]
+active_projects = "Active projects"
+post            = "Post"
+publication     = "Publication"
+cv              = "CV"
+
+[action]
+menu             = "Menu"
+all_projects     = "All projects"
+all_posts        = "All posts"
+all_publications = "All publications"
+full_cv          = "Full CV"
+source_code      = "Source code"
+open             = "Open"
+read_post        = "Read post"
+cite             = "Cite"
+copy_citation    = "Copy citation"
+pdf              = "PDF / DOI"
+aoi_map          = "AOI map"
+clear            = "Clear"
+print            = "Print / PDF"
+back             = "Back"
+
+[filter]
+all = "All"
+
+[item]
+ai_written        = "AI-assisted"
+original_language = "Shown in the language it was written in"
+
+[cv]
+experience      = "Experience"
+education       = "Education"
+talks           = "Talks"
+technical_areas = "Technical areas"
+current         = "Current"
+
+[map]
+title    = "Areas of interest"
+no_areas = "No area of interest recorded yet"

@@ -1,0 +1,12 @@
+    <aside class="sidebar no-print">
+      <div>
+        <a href="{{ url('/') }}" class="brand">{{ settings.title }}</a>
+        <nav class="side-nav" aria-label="Primary navigation">
+{%- include "partials/nav_links.html" %}
+        </nav>
+      </div>
+      <div class="sidebar-footer">
+{%- include "partials/lang_toggle.html" %}
+{%- include "partials/social_links.html" %}
+      </div>
+    </aside>

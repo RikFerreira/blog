@@ -22,8 +22,9 @@ key = "publications"
 url = "/publications/"
 
 [[links]]
-icon = "github"
-url  = "https://github.com/RikFerreira"
+icon  = "github"
+url   = "https://github.com/RikFerreira"
+label = "GitHub"
 
 [map]
 style        = "https://tiles.example/style.json?key=${MAP_TILES_KEY}"

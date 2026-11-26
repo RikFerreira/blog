@@ -1,0 +1,9 @@
+{#- EN / PT selector. Swaps the interface and the body of the text at once. -#}
+        <div class="lang-toggle">
+{%- for language in settings.languages %}
+          <button type="button" class="lang-btn{% if language == settings.default_language %} is-active{% endif %}" data-lang="{{ language }}">{{ language | upper }}</button>
+{%- if not loop.last %}
+          <span>/</span>
+{%- endif %}
+{%- endfor %}
+        </div>

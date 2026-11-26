@@ -1,0 +1,54 @@
+# Strings da interface. Os textos do conteúdo ficam no Markdown, não aqui.
+# Toda chave precisa existir nos dois arquivos; a suíte de testes cobra isso.
+
+[meta]
+# O atributo lang do <html> quando este idioma está ativo.
+html_lang = "pt-BR"
+
+[nav]
+home         = "Início"
+projects     = "Projetos"
+posts        = "Posts"
+publications = "Publicações"
+cv           = "CV"
+
+[home]
+active_projects = "Projetos ativos"
+post            = "Post"
+publication     = "Publicação"
+cv              = "CV"
+
+[action]
+menu             = "Menu"
+all_projects     = "Todos os projetos"
+all_posts        = "Todos os posts"
+all_publications = "Todas as publicações"
+full_cv          = "CV completo"
+source_code      = "Código-fonte"
+open             = "Abrir"
+read_post        = "Ler o post"
+cite             = "Citar"
+copy_citation    = "Copiar a citação"
+pdf              = "PDF / DOI"
+aoi_map          = "Mapa de AOIs"
+clear            = "Limpar"
+print            = "Imprimir / PDF"
+back             = "Voltar"
+
+[filter]
+all = "Todas"
+
+[item]
+ai_written        = "Com apoio de IA"
+original_language = "Exibido no idioma em que foi escrito"
+
+[cv]
+experience      = "Experiência"
+education       = "Formação"
+talks           = "Palestras"
+technical_areas = "Áreas técnicas"
+current         = "Atual"
+
+[map]
+title    = "Áreas de interesse"
+no_areas = "Nenhuma área de interesse registrada ainda"

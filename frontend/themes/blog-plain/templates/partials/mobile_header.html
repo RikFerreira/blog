@@ -1,0 +1,7 @@
+  <header class="mobile-header no-print">
+    <a href="{{ url('/') }}" class="brand">{{ settings.title }}</a>
+    <div class="mobile-header-right">
+{%- include "partials/lang_toggle.html" %}
+      <button type="button" id="btn-mobile-menu" class="icon-btn" {{ action('action.menu') }}>{{ icon('menu', 16) }}</button>
+    </div>
+  </header>

@@ -1,0 +1,4 @@
+{#- The primary navigation, shared by the sidebar and the mobile drawer. -#}
+{% for entry in settings.nav %}
+          <a href="{{ url(entry.url) }}" class="nav-link{% if entry.key == active_nav %} is-active{% endif %}" {{ ui('nav.' ~ entry.key) }}>{{ t('nav.' ~ entry.key) }}</a>
+{%- endfor %}

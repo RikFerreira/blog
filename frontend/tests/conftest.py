@@ -29,6 +29,11 @@ def fixture_content():
 
 
 @pytest.fixture
+def theme_dir():
+    return FRONTEND / "themes" / "blog-plain"
+
+
+@pytest.fixture
 def make_content(tmp_path):
     """Write a content tree from a {relative path: text} mapping.
 
