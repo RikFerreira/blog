@@ -8,7 +8,7 @@
 (function () {
   var container = document.getElementById('aoi-map');
   var configEl = document.getElementById('aoi-config');
-  if (!container || !configEl || typeof maplibregl === 'undefined') return;
+  if (!container || !configEl) return;
 
   var config;
   try {
@@ -18,19 +18,35 @@
   }
 
   var SOURCE = 'aois';
+  var maplibregl = null;
   var map = null;
+  var loading = false;
   var collection = null;
   var selected = null;
 
-  // The drawer starts hidden, so the canvas has no size until it opens.
-  // Build the map on first open and let MapLibre measure itself then.
+  // The drawer starts hidden, so the canvas has no size until it opens, and
+  // MapLibre is ~1MB nobody should pay for unless they open it. Both wait
+  // for the first open. MapLibre is ESM-only since v6, so this is a dynamic
+  // import of the copy vendored under our own origin.
   function ensureMap() {
     if (map) {
       map.resize();
       if (collection) fitAll();
       return;
     }
+    if (loading) return;
+    loading = true;
+    import(config.maplibre)
+      .then(function (module) {
+        maplibregl = module.default || module;
+        createMap();
+      })
+      .catch(function () {
+        loading = false;
+      });
+  }
 
+  function createMap() {
     map = new maplibregl.Map({
       container: container,
       style: config.style,

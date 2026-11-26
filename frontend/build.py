@@ -169,7 +169,12 @@ class Settings:
 
     @property
     def base_url(self) -> str:
-        return self.site.get("base_url", "/")
+        """The origin baked into every emitted URL.
+
+        SITE_BASE_URL wins over the TOML so one image build can be pointed at
+        a different host without editing content.
+        """
+        return os.environ.get("SITE_BASE_URL") or self.site.get("base_url", "/")
 
     @property
     def theme(self) -> str:
@@ -1031,6 +1036,7 @@ def render_site(site: Site, theme: Theme, out_dir: Path) -> list[Path]:
             )
             config = map_config(theme.settings)
             config["source"] = theme.url(f"{section.url}{AOI_GEOJSON_NAME}")
+            config["maplibre"] = theme.url(f"vendor/maplibre/{MAPLIBRE_ENTRY}")
 
         written.append(
             _write(
@@ -1115,6 +1121,51 @@ def _citation(item: Item) -> str | None:
 
 
 # ---------------------------------------------------------------------------
+# vendored browser code
+# ---------------------------------------------------------------------------
+
+
+MAPLIBRE_ENTRY = "maplibre-gl.mjs"
+MAPLIBRE_STYLESHEET = "maplibre-gl.css"
+
+
+def vendor_assets(vendor_file: Path, out_dir: Path) -> list[Path]:
+    """Download the pinned third-party files and verify their checksums."""
+    import hashlib
+    import urllib.request
+
+    manifest = _load_toml(Path(vendor_file))
+    written = []
+
+    for name, package in manifest.items():
+        base = package["base"].format(version=package["version"])
+        target = Path(out_dir) / package["target"]
+        for filename, expected in package["files"].items():
+            destination = target / filename
+            if destination.is_file():
+                digest = hashlib.sha256(destination.read_bytes()).hexdigest()
+                if digest == expected:
+                    continue
+
+            url = f"{base}{filename}"
+            with urllib.request.urlopen(url, timeout=120) as response:  # noqa: S310
+                payload = response.read()
+
+            digest = hashlib.sha256(payload).hexdigest()
+            if digest != expected:
+                raise ContentError(
+                    f"{vendor_file}: {name}/{filename} does not match its checksum.\n"
+                    f"  expected {expected}\n  got      {digest}\n  from     {url}"
+                )
+
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(payload)
+            written.append(destination)
+
+    return written
+
+
+# ---------------------------------------------------------------------------
 # assets
 # ---------------------------------------------------------------------------
 
@@ -1188,7 +1239,21 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--content", type=Path, default=here / "content")
     parser.add_argument("--themes", type=Path, default=here / "themes")
     parser.add_argument("--out", type=Path, default=here / "site")
+    parser.add_argument(
+        "--vendor",
+        action="store_true",
+        help="download the pinned third-party browser code and exit",
+    )
     args = parser.parse_args(argv)
+
+    if args.vendor:
+        try:
+            fetched = vendor_assets(here / "vendor.toml", args.out)
+        except ContentError as error:
+            print(f"error: {error}", file=sys.stderr)
+            return 1
+        print(f"{len(fetched)} vendored file(s) written to {args.out}")
+        return 0
 
     try:
         site = load_site(args.content)

@@ -195,13 +195,13 @@ def test_the_mapped_page_carries_the_container_and_its_config(rendered, monkeypa
     assert 'id="aoi-map"' in html
     assert 'id="aoi-config"' in html
     assert "aois.geojson" in html
-    assert "maplibre-gl.js" in html
+    assert "maplibre-gl.mjs" in html
 
 
 def test_an_unmapped_page_loads_no_map(rendered, monkeypatch):
     monkeypatch.setenv("MAP_TILES_KEY", "k")
     html = (rendered() / "posts" / "index.html").read_text("utf-8")
-    assert "maplibre-gl.js" not in html
+    assert "maplibre-gl.mjs" not in html
     assert 'id="btn-aoi"' not in html
 
 

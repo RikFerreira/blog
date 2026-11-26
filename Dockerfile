@@ -1,59 +1,54 @@
 # syntax=docker/dockerfile:1
 
 # ---------------------------------------------------------------------------
-# Build stage: render the Hugo site.
+# Build stage: render the site with the generator in frontend/build.py.
 #
 # Pinned to BUILDPLATFORM on purpose. The output is static HTML/CSS/JS and is
-# identical whatever architecture produced it, so this keeps the toolchain
-# (Go, Node, Hugo, Pagefind) off QEMU when the target is linux/arm64.
+# identical whatever architecture produced it, so this keeps Python off QEMU
+# when the target is linux/arm64.
 # ---------------------------------------------------------------------------
-FROM --platform=$BUILDPLATFORM golang:1.25-bookworm AS go
+FROM --platform=$BUILDPLATFORM python:3.13-slim-bookworm AS builder
 
-# Node 24: Hugo's Tailwind integration needs module.registerHooks(), which
-# landed in Node 22.15 / 24.
-FROM --platform=$BUILDPLATFORM node:24-bookworm-slim AS builder
+# Baked into every absolute URL the generator emits. Override with the public
+# origin, e.g. --build-arg SITE_BASE_URL=https://rikalves.com/
+ARG SITE_BASE_URL=/
 
-ARG HUGO_VERSION=0.162.1
-ARG BUILDARCH
-# Baked into every absolute URL Hugo emits. Override with the public origin,
-# e.g. --build-arg HUGO_BASEURL=https://rikalves.com/
-ARG HUGO_BASEURL=/
+# Vector tile key for the AOI map. A static site hands it to every visitor, so
+# restrict it by domain at the provider. Without it the map falls back to a
+# plain background and the build warns.
+ARG MAP_TILES_KEY=""
 
-ENV PATH=/usr/local/go/bin:$PATH \
-    GOPATH=/go \
-    HUGO_ENV=production \
-    COREPACK_ENABLE_DOWNLOAD_PROMPT=0
-COPY --from=go /usr/local/go /usr/local/go
-
-RUN apt-get update \
- && apt-get install -y --no-install-recommends ca-certificates curl git \
- && curl -fsSL -o /tmp/hugo.deb \
-      "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-${BUILDARCH}.deb" \
- && apt-get install -y --no-install-recommends /tmp/hugo.deb \
- && rm -rf /tmp/hugo.deb /var/lib/apt/lists/*
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
 
 WORKDIR /src
 
-# Dependencies first, so editing content does not invalidate these layers.
-COPY package.json pnpm-lock.yaml .npmrc ./
-RUN corepack enable && pnpm install --frozen-lockfile
+# Dependencies first, so editing content does not invalidate this layer.
+COPY frontend/requirements.txt frontend/requirements.txt
+RUN pip install --no-cache-dir -r frontend/requirements.txt
 
-COPY go.mod go.sum ./
-RUN go mod download
+# Third-party browser code, pinned and checksummed in frontend/vendor.toml.
+# Fetched before the content is copied, so the ~1.6MB download is cached
+# until that file changes. It lands in frontend/site/vendor, which the COPY
+# below merges into rather than replaces.
+COPY frontend/build.py frontend/vendor.toml frontend/
+RUN python frontend/build.py --vendor
 
-COPY . .
+COPY frontend frontend
 
-RUN hugo --gc --minify --baseURL "${HUGO_BASEURL}" \
- && pnpm exec pagefind --site public
+RUN SITE_BASE_URL="${SITE_BASE_URL}" MAP_TILES_KEY="${MAP_TILES_KEY}" \
+    python frontend/build.py
 
 # ---------------------------------------------------------------------------
 # Runtime stage: nginx serving the rendered site.
-# No --platform here, so it resolves to the target (linux/arm64).
+# No --platform here, so it resolves to the target (linux/arm64), and no RUN,
+# so nothing has to execute under emulation.
 # ---------------------------------------------------------------------------
 FROM nginx:1.29-alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /src/public /usr/share/nginx/html
+COPY --from=builder /src/frontend/site /usr/share/nginx/html
 
 EXPOSE 80
 

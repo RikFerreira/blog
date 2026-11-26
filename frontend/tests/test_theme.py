@@ -101,9 +101,15 @@ def test_an_unknown_icon_is_an_error(theme):
         ("https://rikalves.com", "/posts/", "https://rikalves.com/posts/"),
     ],
 )
-def test_url_joins_the_base_url(theme, base, path, expected):
+def test_url_joins_the_base_url(theme, base, path, expected, monkeypatch):
+    monkeypatch.delenv("SITE_BASE_URL", raising=False)
     theme.settings.data.setdefault("site", {})["base_url"] = base
     assert theme.url(path) == expected
+
+
+def test_the_environment_can_override_the_base_url(theme, monkeypatch):
+    monkeypatch.setenv("SITE_BASE_URL", "https://rikalves.com/")
+    assert theme.url("css/styles.css") == "https://rikalves.com/css/styles.css"
 
 
 # --------------------------------------------------------------------------

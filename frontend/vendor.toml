@@ -1,0 +1,19 @@
+# Third-party browser code, fetched at build time and served from our own
+# origin. Nothing here is committed; `python build.py --vendor` downloads it
+# and refuses anything whose SHA-256 does not match.
+#
+# To move a version: change `version`, run --vendor, and paste the hashes it
+# prints for the files that failed.
+
+[maplibre]
+version = "6.18.0"
+base    = "https://unpkg.com/maplibre-gl@{version}/dist/"
+target  = "vendor/maplibre"
+
+# MapLibre is ESM-only from v6. maplibre-gl.mjs builds its worker URL as
+# new URL('./maplibre-gl-worker.mjs', import.meta.url), so the two files have
+# to land in the same directory.
+[maplibre.files]
+"maplibre-gl.mjs"        = "1e0a68844041aec6621a10d4725c9970c3b19cf7e1605d98b01dbc993e1058b2"
+"maplibre-gl-worker.mjs" = "c8998a2616612ebc7afc3a6f83e31ad1c5f6187550a018b4fd0561779c33015b"
+"maplibre-gl.css"        = "a90798a1953017790e590f7e1bd35ff103a8a4263972cb47290b78adf86f8c20"
