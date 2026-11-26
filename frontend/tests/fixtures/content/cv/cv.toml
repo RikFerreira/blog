@@ -1,0 +1,9 @@
+[section]
+kind = "cv"
+
+[[experience]]
+current = true
+label.en = "Current"
+label.pt = "Atual"
+role.en  = "GIS Analyst - TPF Engenharia"
+role.pt  = "Analista de SIG - TPF Engenharia"

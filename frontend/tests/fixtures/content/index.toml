@@ -1,0 +1,32 @@
+[site]
+title            = "rikalves.com"
+base_url         = "/"
+theme            = "blog-plain"
+default_language = "en"
+languages        = ["en", "pt"]
+
+[profile]
+name = "Rik Ferreira Alves"
+role = "GIS Analyst"
+
+[[nav]]
+key = "home"
+url = "/"
+
+[[nav]]
+key = "posts"
+url = "/posts/"
+
+[[nav]]
+key = "publications"
+url = "/publications/"
+
+[[links]]
+icon = "github"
+url  = "https://github.com/RikFerreira"
+
+[map]
+style        = "https://tiles.example/style.json?key=${MAP_TILES_KEY}"
+max_vertices = 50
+line_color   = "#111111"
+line_width   = 1.9

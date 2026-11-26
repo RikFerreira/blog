@@ -1,0 +1,6 @@
+[section]
+kind   = "publication"
+sort   = "date"
+order  = "desc"
+filter = "language"
+map    = true

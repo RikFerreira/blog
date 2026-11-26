@@ -1,0 +1,5 @@
+[section]
+kind   = "project"
+sort   = "title"
+order  = "asc"
+filter = "tags"
