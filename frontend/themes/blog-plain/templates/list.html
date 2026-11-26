@@ -25,9 +25,21 @@
 {%- endif %}
       </header>
 
+{%- if map_config %}
+{% include "partials/aoi_map.html" %}
+{%- endif %}
+
       <ul>
 {%- for item in section.items %}
 {{ list_item(item, section, citations.get(item.slug)) }}
 {%- endfor %}
       </ul>
+{% endblock %}
+
+{% block scripts %}
+{%- if map_config %}
+  <link rel="stylesheet" href="{{ url('vendor/maplibre/maplibre-gl.css') }}" />
+  <script src="{{ url('vendor/maplibre/maplibre-gl.js') }}"></script>
+  <script src="{{ url('js/aoi-map.js') }}"></script>
+{%- endif %}
 {% endblock %}

@@ -1,0 +1,11 @@
+{#- The AOI drawer. The handoff drew pinned labels at fixed offsets; this is
+    the same drawer with a MapLibre canvas in it, drawing the real geometries
+    from the aoi_wkt of each item. -#}
+      <div id="aoi-drawer" class="aoi-drawer has-map hidden">
+        <div class="aoi-head">
+          <span {{ ui('map.title') }}>{{ t('map.title') }}</span>
+          <button type="button" id="btn-aoi-clear" class="hidden" data-aoi-select="all" {{ ui('action.clear') }}>{{ t('action.clear') }}</button>
+        </div>
+        <div id="aoi-map" class="aoi-map"></div>
+      </div>
+      <script id="aoi-config" type="application/json">{{ json_for_script(map_config) }}</script>

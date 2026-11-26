@@ -769,3 +769,30 @@ h1, h2, h3, p, figure {
   padding-top: 14px;
   line-height: 1.8;
 }
+
+/* AOI map. The handoff drawer was a fixed 112px strip with pinned labels at
+   hard-coded offsets; with a real canvas in it the drawer sizes to the map. */
+.aoi-drawer.has-map {
+  height: auto;
+  padding-bottom: 16px;
+}
+
+.aoi-map {
+  width: 100%;
+  height: 280px;
+  margin-top: 10px;
+  border: 1px solid var(--ink);
+  background-color: var(--paper-subtle);
+}
+
+.aoi-map .maplibregl-ctrl-group {
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid var(--ink);
+}
+
+@media (max-width: 639px) {
+  .aoi-map {
+    height: 220px;
+  }
+}

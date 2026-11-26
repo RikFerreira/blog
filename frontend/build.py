@@ -19,6 +19,8 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import json
+import os
 import re
 import sys
 import tomllib
@@ -534,6 +536,7 @@ class Theme:
             default_lang=self.settings.default_language,
             categories=self.categories,
             meta=self.meta,
+            json_for_script=json_for_script,
         )
 
     # -- interface strings --------------------------------------------------
@@ -665,6 +668,7 @@ class Theme:
             "active_nav": None,
             "page_title": None,
             "page_description": None,
+            "map_config": None,
         }
         context.update(overrides)
         return context
@@ -768,6 +772,220 @@ def _format_author(name: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# areas of interest
+# ---------------------------------------------------------------------------
+
+
+# 0.5 mm at 96 dpi, the base line weight for an AOI outline.
+DEFAULT_LINE_WIDTH = 1.9
+DEFAULT_LINE_COLOR = "#111111"
+DEFAULT_FILL_COLOR = "#111111"
+DEFAULT_FILL_OPACITY = 0.06
+DEFAULT_ACTIVE_COLOR = "#c83223"
+DEFAULT_MAX_VERTICES = 500
+DEFAULT_SURFACE = "#f3f2ed"
+
+# The environment variable the style URL interpolates. A static site hands the
+# key to every visitor, so restrict it by domain at the provider; keeping it
+# out of the repository is housekeeping, not secrecy.
+TILES_KEY_VAR = "MAP_TILES_KEY"
+TILES_KEY_PLACEHOLDER = "${" + TILES_KEY_VAR + "}"
+
+_WKT_HEAD = re.compile(r"^\s*([A-Za-z]+)\s*(\(.*\))\s*$", re.DOTALL)
+
+AOI_GEOJSON_NAME = "aois.geojson"
+
+
+def parse_wkt(wkt: str) -> dict:
+    """A POLYGON or MULTIPOLYGON in WKT, as a GeoJSON geometry."""
+    match = _WKT_HEAD.match(wkt or "")
+    if not match:
+        raise ContentError(f"aoi_wkt is not well-formed WKT: {wkt!r}")
+
+    keyword, body = match.group(1).upper(), match.group(2)
+    if keyword == "POLYGON":
+        return {"type": "Polygon", "coordinates": _parse_polygon(body, wkt)}
+    if keyword == "MULTIPOLYGON":
+        return {
+            "type": "MultiPolygon",
+            "coordinates": [_parse_polygon(part, wkt) for part in _split_groups(body, wkt)],
+        }
+    raise ContentError(
+        f"aoi_wkt holds a {keyword} geometry; only POLYGON and MULTIPOLYGON are drawn"
+    )
+
+
+def _split_groups(body: str, wkt: str) -> list[str]:
+    """Split the top level of a parenthesised WKT body into its groups."""
+    inner = body.strip()
+    if not (inner.startswith("(") and inner.endswith(")")):
+        raise ContentError(f"aoi_wkt is not well-formed WKT: {wkt!r}")
+    inner = inner[1:-1]
+
+    groups, depth, start = [], 0, None
+    for index, char in enumerate(inner):
+        if char == "(":
+            if depth == 0:
+                start = index
+            depth += 1
+        elif char == ")":
+            depth -= 1
+            if depth == 0:
+                groups.append(inner[start : index + 1])
+            elif depth < 0:
+                raise ContentError(f"aoi_wkt has unbalanced parentheses: {wkt!r}")
+    if depth != 0 or not groups:
+        raise ContentError(f"aoi_wkt is not well-formed WKT: {wkt!r}")
+    return groups
+
+
+def _parse_polygon(body: str, wkt: str) -> list[list[list[float]]]:
+    return [_parse_ring(ring, wkt) for ring in _split_groups(body, wkt)]
+
+
+def _parse_ring(ring: str, wkt: str) -> list[list[float]]:
+    points = []
+    for pair in ring.strip().strip("()").split(","):
+        numbers = pair.split()
+        if len(numbers) < 2:
+            raise ContentError(f"aoi_wkt has a coordinate that is not a pair: {pair.strip()!r}")
+        try:
+            points.append([float(numbers[0]), float(numbers[1])])
+        except ValueError:
+            raise ContentError(
+                f"aoi_wkt has a coordinate that is not a number: {pair.strip()!r}"
+            ) from None
+    if len(points) < 3:
+        raise ContentError(f"aoi_wkt has a ring with fewer than three points: {wkt!r}")
+    if points[0] != points[-1]:
+        points.append(list(points[0]))
+    return points
+
+
+def thin_ring(ring: list[list[float]], budget: int) -> list[list[float]]:
+    """Drop vertices evenly until the ring fits the budget, keeping it closed."""
+    if len(ring) <= budget:
+        return ring
+    # Never below a closed triangle: three distinct points plus the repeat.
+    keep = max(3, budget - 1)
+    open_ring = ring[:-1]
+    step = len(open_ring) / keep
+    thinned = [open_ring[int(index * step)] for index in range(keep)]
+    thinned.append(list(thinned[0]))
+    return thinned
+
+
+def _thin_geometry(geometry: dict, max_vertices: int) -> dict:
+    if geometry["type"] == "Polygon":
+        rings = [geometry["coordinates"]]
+    else:
+        rings = geometry["coordinates"]
+
+    budget = max(1, int(max_vertices))
+    thinned = [[thin_ring(ring, budget) for ring in polygon] for polygon in rings]
+    if geometry["type"] == "Polygon":
+        return {"type": "Polygon", "coordinates": thinned[0]}
+    return {"type": "MultiPolygon", "coordinates": thinned}
+
+
+def aoi_geojson(section: Section, languages: list[str], max_vertices: int) -> dict:
+    """The section's areas of interest as a FeatureCollection, with a bbox."""
+    features = []
+    for item in section.items:
+        if not item.aoi_wkt:
+            continue
+        geometry = _thin_geometry(parse_wkt(item.aoi_wkt), max_vertices)
+        properties = {"slug": item.slug, "url": item.url}
+        for language in languages:
+            properties[f"title_{language}"] = item.title(language)
+        features.append(
+            {
+                "type": "Feature",
+                "id": item.slug,
+                "geometry": geometry,
+                "properties": properties,
+            }
+        )
+
+    collection = {"type": "FeatureCollection", "features": features}
+    bbox = _bbox(features)
+    if bbox:
+        collection["bbox"] = bbox
+    return collection
+
+
+def _bbox(features: list[dict]) -> list[float] | None:
+    points = [point for feature in features for point in _points(feature["geometry"])]
+    if not points:
+        return None
+    xs = [point[0] for point in points]
+    ys = [point[1] for point in points]
+    return [min(xs), min(ys), max(xs), max(ys)]
+
+
+def _points(geometry: dict):
+    polygons = (
+        [geometry["coordinates"]]
+        if geometry["type"] == "Polygon"
+        else geometry["coordinates"]
+    )
+    for polygon in polygons:
+        for ring in polygon:
+            yield from ring
+
+
+def map_config(settings: Settings, environ: dict | None = None) -> dict:
+    """Everything aoi-map.js needs, with the tile key resolved."""
+    environ = os.environ if environ is None else environ
+    table = settings.map
+    style = table.get("style")
+    key = environ.get(TILES_KEY_VAR, "")
+
+    if not style:
+        resolved = _blank_style(table)
+    elif TILES_KEY_PLACEHOLDER in style and not key:
+        print(
+            f"warning: {TILES_KEY_VAR} is not set, so the AOI map falls back to a "
+            "plain background instead of vector tiles",
+            file=sys.stderr,
+        )
+        resolved = _blank_style(table)
+    else:
+        resolved = style.replace(TILES_KEY_PLACEHOLDER, key)
+
+    return {
+        "style": resolved,
+        "line_color": table.get("line_color", DEFAULT_LINE_COLOR),
+        "line_width": table.get("line_width", DEFAULT_LINE_WIDTH),
+        "fill_color": table.get("fill_color", DEFAULT_FILL_COLOR),
+        "fill_opacity": table.get("fill_opacity", DEFAULT_FILL_OPACITY),
+        "active_color": table.get("active_color", DEFAULT_ACTIVE_COLOR),
+        "padding": table.get("padding", 24),
+        "max_zoom": table.get("max_zoom", 9),
+    }
+
+
+def _blank_style(table: dict) -> dict:
+    return {
+        "version": 8,
+        "sources": {},
+        "layers": [
+            {
+                "id": "background",
+                "type": "background",
+                "paint": {"background-color": table.get("surface", DEFAULT_SURFACE)},
+            }
+        ],
+    }
+
+
+def json_for_script(payload) -> Markup:
+    """JSON safe to drop inside a <script> element."""
+    text = json.dumps(payload, ensure_ascii=False)
+    return Markup(text.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026"))
+
+
+# ---------------------------------------------------------------------------
 # rendering the site
 # ---------------------------------------------------------------------------
 
@@ -797,6 +1015,22 @@ def render_site(site: Site, theme: Theme, out_dir: Path) -> list[Path]:
         if section.kind not in COLLECTION_KINDS:
             continue
 
+        config = None
+        if section.map:
+            collection = aoi_geojson(
+                section,
+                theme.settings.languages,
+                int(theme.settings.map.get("max_vertices", DEFAULT_MAX_VERTICES)),
+            )
+            written.append(
+                _write(
+                    out_dir / section.name / AOI_GEOJSON_NAME,
+                    json.dumps(collection, ensure_ascii=False, indent=1),
+                )
+            )
+            config = map_config(theme.settings)
+            config["source"] = theme.url(f"{section.url}{AOI_GEOJSON_NAME}")
+
         written.append(
             _write(
                 out_dir / section.name / "index.html",
@@ -804,6 +1038,7 @@ def render_site(site: Site, theme: Theme, out_dir: Path) -> list[Path]:
                     "list.html",
                     section=section,
                     citations={item.slug: _citation(item) for item in section.items},
+                    map_config=config,
                     active_nav=section.name,
                     page_title=theme.t(f"nav.{section.name}"),
                 ),
@@ -878,9 +1113,9 @@ def _citation(item: Item) -> str | None:
     return format_citation((item.source_dir / item.citation).read_text(encoding="utf-8"))
 
 
-def _write(path: Path, html: str) -> Path:
+def _write(path: Path, text: str) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(html, encoding="utf-8")
+    path.write_text(text, encoding="utf-8")
     return path
 
 
