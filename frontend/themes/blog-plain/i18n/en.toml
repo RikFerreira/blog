@@ -52,3 +52,18 @@ current         = "Current"
 [map]
 title    = "Areas of interest"
 no_areas = "No area of interest recorded yet"
+
+# Month abbreviations, for the dates in list rows and item headers.
+[month]
+jan = "Jan"
+feb = "Feb"
+mar = "Mar"
+apr = "Apr"
+may = "May"
+jun = "Jun"
+jul = "Jul"
+aug = "Aug"
+sep = "Sep"
+oct = "Oct"
+nov = "Nov"
+dec = "Dec"

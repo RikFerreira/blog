@@ -29,6 +29,10 @@ body = '<rect x="3" y="5" width="18" height="14"/><polyline points="3 6 12 13 21
 body = '<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>'
 linecap = "square"
 
+[icons.arrow_left]
+body = '<path d="M19 12H5"/><path d="M11 6l-6 6 6 6"/>'
+linecap = "square"
+
 [icons.code]
 body = '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>'
 linecap = "square"

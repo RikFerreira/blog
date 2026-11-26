@@ -41,8 +41,10 @@ def test_settings_come_from_index_toml(fixture_content):
     assert site.settings.profile["name"] == "Rik Ferreira Alves"
     assert [entry["key"] for entry in site.settings.nav] == [
         "home",
+        "projects",
         "posts",
         "publications",
+        "cv",
     ]
 
 

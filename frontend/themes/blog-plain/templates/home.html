@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import item_row, list_item, section_head %}
+
+{% block content %}
+      <div class="section-stack">
+        <header class="hero">
+          <h1>{{ settings.profile.get('name', '') }}</h1>
+{%- if settings.profile.get('tagline') %}
+          <p {{ bi_toml(settings.profile.tagline) }}>{{ translated(settings.profile.tagline) }}</p>
+{%- endif %}
+        </header>
+
+{%- if projects %}
+
+        <section>
+{{ section_head('home.active_projects', '/projects/', 'action.all_projects') }}
+          <ul>
+{%- for item in projects %}
+{{ list_item(item, sections['projects']) }}
+{%- endfor %}
+          </ul>
+        </section>
+{%- endif %}
+
+{%- if posts %}
+
+        <section>
+{{ section_head('home.post', '/posts/', 'action.all_posts') }}
+{%- for item in posts %}
+          <div class="item-row">
+{{ item_row(item, sections['posts']) }}
+          </div>
+{%- endfor %}
+        </section>
+{%- endif %}
+
+{%- if publications %}
+
+        <section>
+{{ section_head('home.publication', '/publications/', 'action.all_publications') }}
+{%- for item in publications %}
+          <div class="item-row">
+{{ item_row(item, sections['publications'], citations.get(item.slug)) }}
+          </div>
+{%- endfor %}
+        </section>
+{%- endif %}
+
+{%- if current_role %}
+
+        <section>
+{{ section_head('home.cv', '/cv/' if has_cv else none, 'action.full_cv') }}
+          <div class="cv-row">
+            <span class="tabular cv-current" {{ bi_toml(current_role.label) }}>{{ translated(current_role.label) }}</span>
+            <span class="cv-role" {{ bi_toml(current_role.role) }}>{{ translated(current_role.role) }}</span>
+          </div>
+        </section>
+{%- endif %}
+      </div>
+{% endblock %}

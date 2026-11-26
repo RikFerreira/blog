@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import media, actions, cite_block %}
+
+{% block content %}
+      <article class="post-article">
+{%- set title = labels(item, 'title') %}
+{%- set subtitle = labels(item, 'subtitle') %}
+{%- set line = dates(item.date) %}
+        <div class="post-top">
+          <a href="{{ url(section.url) }}" class="back-link">{{ icon('arrow_left', 14) }} <span {{ ui('nav.' ~ section.name) }}>{{ t('nav.' ~ section.name) }}</span></a>
+          <span class="tabular post-date" {{ bi(line) }}>{{ line[default_lang] }}</span>
+        </div>
+
+        <h1 {{ bi(title) }}>{{ title[default_lang] }}</h1>
+{%- if subtitle[default_lang] %}
+        <p class="post-subtitle" {{ bi(subtitle) }}>{{ subtitle[default_lang] }}</p>
+{%- endif %}
+
+        <div class="post-badges">
+{%- if item.languages | length < settings.languages | length %}
+          <span class="badge" {{ ui('item.original_language') }}>{{ t('item.original_language') }}</span>
+{%- endif %}
+{%- if item.ai_written %}
+          <span class="badge" {{ ui('item.ai_written') }}>{{ t('item.ai_written') }}</span>
+{%- endif %}
+{%- if item.tags %}
+{%- for tag in item.tags %}
+          <span class="badge badge-tag">{{ tag }}</span>
+{%- endfor %}
+{%- endif %}
+        </div>
+
+{%- if item.cover %}
+        <figure class="post-cover">{{ media(item, 'cover') }}</figure>
+{%- endif %}
+
+{%- if section.kind in ('publication', 'project') %}
+        <div class="post-actions">{{ actions(item, section) }}</div>
+{%- endif %}
+
+        <div class="post-body" data-lang-bodies>
+{%- for body in bodies %}
+          <div data-lang-body="{{ body.language }}"{% if body.is_default %} data-lang-default{% else %} class="hidden"{% endif %}>
+{{ body.html }}
+          </div>
+{%- endfor %}
+        </div>
+
+{%- if citation %}
+{{ cite_block(item, citation) }}
+{%- endif %}
+      </article>
+{% endblock %}

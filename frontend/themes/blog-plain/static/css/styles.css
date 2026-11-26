@@ -561,3 +561,211 @@ h1, h2, h3, p, figure {
     padding: 0;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Generator additions
+   Everything above is the handoff stylesheet. Below: the rules the rendered
+   site needs and a static reference with hatched placeholders did not —
+   real cover images, Markdown prose, badges and the AOI map container.
+   --------------------------------------------------------------------------- */
+
+/* Covers and thumbnails. The handoff crops at 176x110 (16:10) in lists and
+   16:9 on a post; object-fit does the cropping, so no thumbnails are
+   generated at build time. */
+.media-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background-color: var(--paper-subtle);
+  border: 1px solid rgba(17, 17, 17, 0.16);
+}
+
+@media (min-width: 640px) {
+  .media-image.thumb {
+    width: 176px;
+    flex: 0 0 176px;
+  }
+}
+
+.media-image.cover {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.post-subtitle {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+.post-date {
+  font-size: 12px;
+  color: var(--faint);
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-top: 20px;
+}
+
+/* Badges: original language, AI assistance, tags. */
+.post-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.post-badges:empty {
+  display: none;
+}
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 8px;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+}
+
+.badge-tag {
+  color: var(--faint);
+}
+
+/* Rendered Markdown. The handoff only ever shows paragraphs; everything else
+   a post can contain is styled here, at the same measure. */
+.post-body > [data-lang-body] {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.post-body h2,
+.post-body h3 {
+  margin-top: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.post-body h2 {
+  font-size: 17px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.post-body h3 {
+  font-size: 15px;
+}
+
+.post-body a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--accent);
+}
+
+.post-body a:hover {
+  color: var(--accent);
+}
+
+.post-body ul,
+.post-body ol {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.post-body ul {
+  list-style: square;
+}
+
+.post-body ol {
+  list-style: decimal;
+}
+
+.post-body blockquote {
+  margin: 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--rule-strong);
+  color: var(--muted);
+}
+
+.post-body code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background-color: var(--paper-subtle);
+  padding: 1px 4px;
+}
+
+.post-body pre {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  background-color: var(--paper-subtle);
+  border: 1px solid var(--rule);
+}
+
+.post-body pre code {
+  padding: 0;
+  background: none;
+}
+
+.post-body img,
+.post-body video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+}
+
+.post-body table {
+  border-collapse: collapse;
+  font-size: 13px;
+  width: 100%;
+}
+
+.post-body th,
+.post-body td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--rule);
+}
+
+.post-body th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--faint);
+  border-bottom-color: var(--rule-strong);
+}
+
+.post-body hr {
+  width: 100%;
+  margin: 8px 0;
+  border: 0;
+  border-top: 1px solid var(--rule);
+}
+
+/* CV */
+.cv-role {
+  font-weight: 500;
+}
+
+.cv-period {
+  font-size: 12px;
+  color: var(--faint);
+}
+
+.cv-areas {
+  padding-top: 14px;
+  line-height: 1.8;
+}

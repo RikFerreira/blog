@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% macro cv_block(title_key, entries) -%}
+        <section>
+          <div class="section-head"><h2 class="section-title" {{ ui(title_key) }}>{{ t(title_key) }}</h2></div>
+{%- for entry in entries %}
+          <div class="cv-row">
+{%- if entry.get('current') %}
+            <span class="tabular cv-current" {{ bi_toml(entry.label) }}>{{ translated(entry.label) }}</span>
+{%- elif entry.get('period') %}
+            <span class="tabular cv-period">{{ entry.period }}</span>
+{%- elif entry.get('label') %}
+            <span class="tabular cv-period" {{ bi_toml(entry.label) }}>{{ translated(entry.label) }}</span>
+{%- else %}
+            <span class="tabular cv-period"></span>
+{%- endif %}
+            <div>
+              <div class="cv-role" {{ bi_toml(entry.role) }}>{{ translated(entry.role) }}</div>
+{%- if entry.get('note') %}
+              <div class="item-summary" {{ bi_toml(entry.note) }}>{{ translated(entry.note) }}</div>
+{%- endif %}
+            </div>
+          </div>
+{%- endfor %}
+        </section>
+{%- endmacro %}
+
+{% block content %}
+      <div class="section-stack cv-stack">
+        <header class="page-header">
+          <h1 {{ ui('nav.cv') }}>{{ t('nav.cv') }}</h1>
+          <div class="icon-row no-print">
+            <button type="button" onclick="window.print()" class="icon-btn" {{ action('action.print') }}>{{ icon('printer') }}</button>
+          </div>
+        </header>
+
+{%- if section.data.get('experience') %}
+{{ cv_block('cv.experience', section.data.experience) }}
+{%- endif %}
+{%- if section.data.get('education') %}
+{{ cv_block('cv.education', section.data.education) }}
+{%- endif %}
+{%- if section.data.get('talks') %}
+{{ cv_block('cv.talks', section.data.talks) }}
+{%- endif %}
+{%- if section.data.get('technical_areas') %}
+
+        <section>
+          <div class="section-head"><h2 class="section-title" {{ ui('cv.technical_areas') }}>{{ t('cv.technical_areas') }}</h2></div>
+          <p class="item-summary cv-areas" {{ bi_toml(section.data.technical_areas) }}>{{ translated(section.data.technical_areas) }}</p>
+        </section>
+{%- endif %}
+      </div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{#- Shared building blocks. Every list in the site is the same row. -#}
+
+{% macro media(item, shape='thumb') -%}
+{%- if item.cover -%}
+<img class="media-image {{ shape }}" src="{{ url(item.url ~ item.cover) }}" alt="" loading="lazy" />
+{%- else -%}
+<div class="media-placeholder {{ shape }}"><span>{{ item.date.year }}</span></div>
+{%- endif -%}
+{%- endmacro %}
+
+
+{% macro actions(item, section) -%}
+{%- if section.kind == 'publication' -%}
+{%- if item.citation %}<button type="button" class="icon-btn" data-cite-target="cite-{{ item.slug }}" {{ action('action.cite') }}>{{ icon('quote') }}</button>{% endif %}
+{%- if item.external_link %}<a href="{{ item.external_link }}" target="_blank" rel="noopener noreferrer" class="icon-btn" {{ action('action.pdf') }}>{{ icon('pdf', 14) }}</a>{% endif %}
+{%- elif section.kind == 'project' -%}
+{%- if item.source_repo %}<a href="{{ item.source_repo }}" target="_blank" rel="noopener noreferrer" class="icon-btn" {{ action('action.source_code') }}>{{ icon('code') }}</a>{% endif %}
+{%- if item.external_link %}<a href="{{ item.external_link }}" target="_blank" rel="noopener noreferrer" class="icon-btn" {{ action('action.open') }}>{{ icon('external', 14) }}</a>{% endif %}
+{%- else -%}
+<a href="{{ url(item.url) }}" class="icon-btn" {{ action('action.read_post') }}>{{ icon('external', 14) }}</a>
+{%- endif -%}
+{%- endmacro %}
+
+
+{% macro cite_block(item, citation) -%}
+          <div id="cite-{{ item.slug }}" class="cite-block hidden">
+            <p id="cite-{{ item.slug }}-text">{{ citation }}</p>
+            <button type="button" class="icon-btn" data-copy-target="cite-{{ item.slug }}-text" {{ action('action.copy_citation') }}>{{ icon('copy', 13) }}</button>
+          </div>
+{%- endmacro %}
+
+
+{% macro item_row(item, section, citation=none, linked=true) -%}
+{%- set title = labels(item, 'title') -%}
+{%- set subtitle = labels(item, 'subtitle') -%}
+{%- set line = meta(item, section) -%}
+          <div class="media-row">
+            {{ media(item) }}
+            <div class="media-body">
+              <div>
+                <div class="item-meta" {{ bi(line) }}>{{ line[default_lang] }}</div>
+                <div class="item-title">
+{%- if linked %}<a href="{{ url(item.url) }}" {{ bi(title) }}>{{ title[default_lang] }}</a>
+{%- else %}<span {{ bi(title) }}>{{ title[default_lang] }}</span>
+{%- endif %}</div>
+{%- if subtitle[default_lang] %}
+                <p class="item-summary" {{ bi(subtitle) }}>{{ subtitle[default_lang] }}</p>
+{%- endif %}
+              </div>
+              <div class="media-actions">{{ actions(item, section) }}</div>
+            </div>
+          </div>
+{%- if citation %}
+{{ cite_block(item, citation) }}
+{%- endif %}
+{%- endmacro %}
+
+
+{% macro list_item(item, section, citation=none) -%}
+        <li class="item-row" data-list-item data-category="{{ categories(item, section) }}"{% if item.aoi_wkt %} data-aoi="{{ item.slug }}"{% endif %}>
+{{ item_row(item, section, citation) }}
+        </li>
+{%- endmacro %}
+
+
+{% macro section_head(title_key, href, action_key) -%}
+          <div class="section-head">
+            <h2 class="section-title" {{ ui(title_key) }}>{{ t(title_key) }}</h2>
+{%- if href %}
+            <a href="{{ url(href) }}" class="icon-btn" {{ action(action_key) }}>{{ icon('arrow_right', 14) }}</a>
+{%- endif %}
+          </div>
+{%- endmacro %}

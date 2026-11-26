@@ -19,13 +19,16 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import re
 import sys
 import tomllib
+import unicodedata
 from dataclasses import dataclass, field, replace
 from pathlib import Path
 
 import yaml
 from jinja2 import Environment, FileSystemLoader, StrictUndefined
+from markdown_it import MarkdownIt
 from markupsafe import Markup, escape
 
 # Front matter keys an item may declare. Anything else fails the build rather
@@ -522,6 +525,15 @@ class Theme:
             icon=self.icon,
             url=self.url,
             lang_tag=self.lang_tag,
+            bi=self.bi,
+            bi_toml=self.bi_toml,
+            labels=self.labels,
+            dates=self.dates,
+            translated=self.translated,
+            slugify=slugify,
+            default_lang=self.settings.default_language,
+            categories=self.categories,
+            meta=self.meta,
         )
 
     # -- interface strings --------------------------------------------------
@@ -589,9 +601,71 @@ class Theme:
 
     # -- rendering ----------------------------------------------------------
 
+    # -- bilingual values ---------------------------------------------------
+
+    def bi(self, values: dict[str, str]) -> Markup:
+        """`data-en` / `data-pt` attributes for a value that is not a UI string."""
+        return Markup(
+            " ".join(
+                f'data-{language}="{escape(values.get(language, ""))}"'
+                for language in self.settings.languages
+            )
+        )
+
+    def labels(self, item: "Item", attribute: str) -> dict[str, str]:
+        """An item's title or subtitle in every language the site speaks."""
+        return {
+            language: getattr(item.translation(language), attribute) or ""
+            for language in self.settings.languages
+        }
+
+    def dates(self, date: dt.date) -> dict[str, str]:
+        """A date as `Nov 2026`, in every language."""
+        key = MONTH_KEYS[date.month - 1]
+        return {
+            language: f"{self.t(f'month.{key}', language)} {date.year}"
+            for language in self.settings.languages
+        }
+
+    def categories(self, item: "Item", section: "Section") -> str:
+        """The values `data-category` carries, for the filter bar to match."""
+        if section.filter == "language":
+            return " ".join(item.languages)
+        return " ".join(slugify(tag) for tag in item.tags)
+
+    def meta(self, item: "Item", section: "Section") -> dict[str, str]:
+        """The small mono line above an item title, in every language."""
+        if section.kind == "publication":
+            languages = " / ".join(code.upper() for code in item.languages)
+            return {
+                language: f"{item.date.year} · {languages}"
+                for language in self.settings.languages
+            }
+        if section.kind == "project":
+            tag = item.tags[0] if item.tags else ""
+            return {language: tag for language in self.settings.languages}
+        return self.dates(item.date)
+
+    def translated(self, value, language: str | None = None) -> str:
+        """A TOML value that is either a plain string or a table of languages."""
+        language = language or self.settings.default_language
+        if isinstance(value, dict):
+            return str(value.get(language, value.get(self.settings.default_language, "")))
+        return "" if value is None else str(value)
+
+    def bi_toml(self, value) -> Markup:
+        """`data-<lang>` attributes for a TOML table of languages."""
+        return self.bi({lang: self.translated(value, lang) for lang in self.settings.languages})
+
+    # -- rendering ----------------------------------------------------------
+
     def context(self, **overrides) -> dict:
         """Page variables, with the defaults every template may read."""
-        context = {"active_nav": None, "page_description": None}
+        context = {
+            "active_nav": None,
+            "page_title": None,
+            "page_description": None,
+        }
         context.update(overrides)
         return context
 
@@ -616,6 +690,201 @@ def load_theme(theme_dir: Path, settings: Settings) -> Theme:
 
 
 # ---------------------------------------------------------------------------
+# markdown and citations
+# ---------------------------------------------------------------------------
+
+
+MONTH_KEYS = (
+    "jan", "feb", "mar", "apr", "may", "jun",
+    "jul", "aug", "sep", "oct", "nov", "dec",
+)
+
+# Raw HTML is enabled: posts embed <video> and <iframe>, and the Markdown is
+# written by the site owner, not by visitors.
+_MARKDOWN = MarkdownIt("commonmark", {"html": True, "linkify": False}).enable(
+    ["table", "strikethrough"]
+)
+
+_BIB_FIELD = re.compile(r"(\w+)\s*=\s*\{([^{}]*)\}", re.DOTALL)
+
+
+def render_markdown(text: str) -> str:
+    return _MARKDOWN.render(text)
+
+
+def slugify(text: str) -> str:
+    """`Remote Sensing` becomes `remote-sensing`, for filter keys and anchors."""
+    normalised = unicodedata.normalize("NFKD", text)
+    stripped = "".join(ch for ch in normalised if not unicodedata.combining(ch))
+    return re.sub(r"[^a-z0-9]+", "-", stripped.lower()).strip("-")
+
+
+def format_citation(bibtex: str) -> str:
+    """A BibTeX entry as a single readable line, in ABNT shape."""
+    fields = {key.lower(): " ".join(value.split()) for key, value in _BIB_FIELD.findall(bibtex)}
+
+    parts = []
+    authors = _format_authors(fields.get("author", ""))
+    if authors:
+        parts.append(authors if authors.endswith(".") else f"{authors}.")
+    if title := fields.get("title"):
+        parts.append(f"{title}.")
+
+    venue = fields.get("booktitle") or fields.get("journal") or fields.get("publisher")
+    year = fields.get("year")
+    if venue and year:
+        parts.append(f"{venue}, {year}.")
+    elif venue:
+        parts.append(f"{venue}.")
+    elif year:
+        parts.append(f"{year}.")
+
+    if doi := fields.get("doi"):
+        parts.append(f"https://doi.org/{doi.removeprefix('https://doi.org/')}")
+
+    return " ".join(parts)
+
+
+def _format_authors(field_value: str) -> str:
+    names = [name.strip() for name in field_value.split(" and ") if name.strip()]
+    if not names:
+        return ""
+    formatted = [_format_author(name) for name in names]
+    if len(formatted) > 3:
+        return f"{formatted[0]} et al."
+    return "; ".join(formatted)
+
+
+def _format_author(name: str) -> str:
+    """`Alves, Rik Ferreira` becomes `ALVES, R. F.`."""
+    if "," in name:
+        family, _, given = name.partition(",")
+    else:
+        words = name.split()
+        family, given = (words[-1], " ".join(words[:-1])) if words else ("", "")
+    initials = " ".join(f"{word[0].upper()}." for word in given.split() if word)
+    family = family.strip().upper()
+    return f"{family}, {initials}" if initials else family
+
+
+# ---------------------------------------------------------------------------
+# rendering the site
+# ---------------------------------------------------------------------------
+
+
+def render_site(site: Site, theme: Theme, out_dir: Path) -> list[Path]:
+    """Write every page. Returns the paths written, in the order written."""
+    out_dir = Path(out_dir)
+    written = []
+
+    written.append(_write(out_dir / "index.html", _render_home(site, theme)))
+
+    for section in site.sections.values():
+        if section.kind == "cv":
+            written.append(
+                _write(
+                    out_dir / section.name / "index.html",
+                    theme.render(
+                        "cv.html",
+                        section=section,
+                        active_nav=section.name,
+                        page_title=theme.t(f"nav.{section.name}"),
+                    ),
+                )
+            )
+            continue
+
+        if section.kind not in COLLECTION_KINDS:
+            continue
+
+        written.append(
+            _write(
+                out_dir / section.name / "index.html",
+                theme.render(
+                    "list.html",
+                    section=section,
+                    citations={item.slug: _citation(item) for item in section.items},
+                    active_nav=section.name,
+                    page_title=theme.t(f"nav.{section.name}"),
+                ),
+            )
+        )
+        for item in section.items:
+            written.append(
+                _write(
+                    out_dir / section.name / item.slug / "index.html",
+                    theme.render(
+                        "item.html",
+                        section=section,
+                        item=item,
+                        bodies=_bodies(item, theme),
+                        citation=_citation(item),
+                        active_nav=section.name,
+                        page_title=theme.labels(item, "title")[theme.settings.default_language],
+                    ),
+                )
+            )
+
+    return written
+
+
+def _render_home(site: Site, theme: Theme) -> str:
+    home = site.settings.home
+    sections = site.sections
+
+    def newest(name: str, count: int) -> list[Item]:
+        section = sections.get(name)
+        return section.items[:count] if section else []
+
+    cv = sections.get("cv")
+    current = None
+    if cv is not None:
+        current = next(
+            (entry for entry in cv.data.get("experience", []) if entry.get("current")), None
+        )
+
+    return theme.render(
+        "home.html",
+        active_nav="home",
+        sections=sections,
+        projects=newest("projects", int(home.get("projects", 2))),
+        posts=newest("posts", int(home.get("posts", 1))),
+        publications=newest("publications", int(home.get("publications", 1))),
+        citations={
+            item.slug: _citation(item) for item in newest("publications", int(home.get("publications", 1)))
+        },
+        current_role=current,
+        has_cv=cv is not None,
+    )
+
+
+def _bodies(item: Item, theme: Theme) -> list[dict]:
+    """One rendered Markdown block per language the item was written in."""
+    blocks = []
+    for language in item.languages:
+        blocks.append(
+            {
+                "language": language,
+                "html": Markup(render_markdown(item.translations[language].body)),
+                "is_default": language == item.primary_language,
+            }
+        )
+    return blocks
+
+
+def _citation(item: Item) -> str | None:
+    if not item.citation:
+        return None
+    return format_citation((item.source_dir / item.citation).read_text(encoding="utf-8"))
+
+
+def _write(path: Path, html: str) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(html, encoding="utf-8")
+    return path
+
+
+# ---------------------------------------------------------------------------
 # entry point
 # ---------------------------------------------------------------------------
 
@@ -624,16 +893,19 @@ def main(argv: list[str] | None = None) -> int:
     here = Path(__file__).resolve().parent
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--content", type=Path, default=here / "content")
+    parser.add_argument("--themes", type=Path, default=here / "themes")
+    parser.add_argument("--out", type=Path, default=here / "site")
     args = parser.parse_args(argv)
 
     try:
         site = load_site(args.content)
+        theme = load_theme(args.themes / site.settings.theme, site.settings)
+        written = render_site(site, theme, args.out)
     except ContentError as error:
         print(f"error: {error}", file=sys.stderr)
         return 1
 
-    for section in site.sections.values():
-        print(f"{section.name}: {section.kind}, {len(section.items)} item(s)")
+    print(f"{len(written)} page(s) written to {args.out}")
     return 0
 
 

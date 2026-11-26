@@ -52,3 +52,18 @@ current         = "Atual"
 [map]
 title    = "Áreas de interesse"
 no_areas = "Nenhuma área de interesse registrada ainda"
+
+# Abreviacoes dos meses, para as datas nas listas e nos cabecalhos.
+[month]
+jan = "Jan"
+feb = "Fev"
+mar = "Mar"
+apr = "Abr"
+may = "Mai"
+jun = "Jun"
+jul = "Jul"
+aug = "Ago"
+sep = "Set"
+oct = "Out"
+nov = "Nov"
+dec = "Dez"

@@ -2,8 +2,32 @@
 kind = "cv"
 
 [[experience]]
-current = true
+current  = true
 label.en = "Current"
 label.pt = "Atual"
 role.en  = "GIS Analyst - TPF Engenharia"
 role.pt  = "Analista de SIG - TPF Engenharia"
+note.en  = "Intern to Engineering Assistant to GIS Analyst"
+note.pt  = "Estagiario a Assistente de Engenharia a Analista de SIG"
+
+[[experience]]
+label.en = "Teaching"
+label.pt = "Docencia"
+role.en  = "University Lecturer - UNIFIP"
+role.pt  = "Professor Universitario - UNIFIP"
+
+[[education]]
+period   = "2024-2026"
+role.en  = "M.Sc. in Geography - UFU"
+role.pt  = "Mestrado em Geografia - UFU"
+note.en  = "Cerrado veredas mapping (Pandeiros River Basin)"
+note.pt  = "Mapeamento de veredas no Cerrado (bacia do rio Pandeiros)"
+
+[[talks]]
+period   = "2026-09"
+role.en  = "XIV Brazilian Colloquium on Geodetic Sciences"
+role.pt  = "XIV Coloquio Brasileiro de Ciencias Geodesicas"
+
+[technical_areas]
+en = "Geographic Database Administration - Remote Sensing - Hydrological Modelling"
+pt = "Administracao de Bancos de Dados Geograficos - Sensoriamento Remoto - Modelagem Hidrologica"

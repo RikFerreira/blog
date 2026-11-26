@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% from "partials/macros.html" import list_item %}
+
+{% block content %}
+      <header class="page-header">
+        <div class="page-header-left">
+          <h1 {{ ui('nav.' ~ section.name) }}>{{ t('nav.' ~ section.name) }}</h1>
+{%- if section.filter %}
+          <div class="filter-bar">
+            <button type="button" class="nav-link is-active" data-filter="all" {{ ui('filter.all') }}>{{ t('filter.all') }}</button>
+{%- if section.filter == 'language' %}
+{%- for language in section.item_languages %}
+            <button type="button" class="nav-link" data-filter="{{ language }}">{{ language | upper }}</button>
+{%- endfor %}
+{%- else %}
+{%- for tag in section.tags %}
+            <button type="button" class="nav-link" data-filter="{{ slugify(tag) }}">{{ tag }}</button>
+{%- endfor %}
+{%- endif %}
+          </div>
+{%- endif %}
+        </div>
+{%- if section.map %}
+        <button type="button" id="btn-aoi" class="icon-btn" {{ action('action.aoi_map') }}>{{ icon('map') }}</button>
+{%- endif %}
+      </header>
+
+      <ul>
+{%- for item in section.items %}
+{{ list_item(item, section, citations.get(item.slug)) }}
+{%- endfor %}
+      </ul>
+{% endblock %}

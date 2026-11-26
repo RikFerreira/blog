@@ -8,10 +8,21 @@ languages        = ["en", "pt"]
 [profile]
 name = "Rik Ferreira Alves"
 role = "GIS Analyst"
+tagline.en = "Geographer focused on GIS, remote sensing and environmental modelling."
+tagline.pt = "Geografo focado em geoprocessamento, sensoriamento remoto e modelagem ambiental."
+
+[home]
+projects     = 2
+posts        = 1
+publications = 1
 
 [[nav]]
 key = "home"
 url = "/"
+
+[[nav]]
+key = "projects"
+url = "/projects/"
 
 [[nav]]
 key = "posts"
@@ -20,6 +31,10 @@ url = "/posts/"
 [[nav]]
 key = "publications"
 url = "/publications/"
+
+[[nav]]
+key = "cv"
+url = "/cv/"
 
 [[links]]
 icon  = "github"
