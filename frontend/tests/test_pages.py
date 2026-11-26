@@ -17,6 +17,20 @@ def read(root, *parts):
     return (root.joinpath(*parts)).read_text(encoding="utf-8")
 
 
+SECTION_WITH_TAG_FILTER = """
+[section]
+kind   = "post"
+filter = "tags"
+"""
+
+
+def _post(title, date, *, language="en", extra=""):
+    return (
+        f"---\ntitle: {title}\ndate: {date}\nlanguage: {language}\n{extra}"
+        "---\n\nBody.\n"
+    )
+
+
 # --------------------------------------------------------------------------
 # markdown
 # --------------------------------------------------------------------------
@@ -162,9 +176,57 @@ def test_an_item_carries_every_tag_it_has_so_the_filter_can_match(rendered):
     assert 'data-category="remote-sensing sentinel-2"' in html
 
 
-def test_a_language_filtered_section_offers_the_languages_in_use(rendered):
-    html = read(rendered, "publications/index.html")
+def test_an_empty_section_shows_no_filter_bar(make_content, theme_dir, tmp_path):
+    """A lone All button cannot change anything, so it is not drawn."""
+    from build import load_site, load_theme, render_site
+
+    root = make_content({"posts/posts.toml": SECTION_WITH_TAG_FILTER})
+    site = load_site(root)
+    theme = load_theme(theme_dir, site.settings)
+    render_site(site, theme, tmp_path / "out")
+    html = (tmp_path / "out" / "posts" / "index.html").read_text("utf-8")
+    assert "filter-bar" not in html
+
+
+def test_a_section_with_one_item_shows_no_filter_bar(make_content, theme_dir, tmp_path):
+    from build import load_site, load_theme, render_site
+
+    root = make_content(
+        {
+            "posts/posts.toml": SECTION_WITH_TAG_FILTER,
+            "posts/only/content.en.md": _post("Only", "2026-01-01", extra="tags: [GIS]\n"),
+        }
+    )
+    site = load_site(root)
+    theme = load_theme(theme_dir, site.settings)
+    render_site(site, theme, tmp_path / "out")
+    html = (tmp_path / "out" / "posts" / "index.html").read_text("utf-8")
+    assert "filter-bar" not in html
+
+
+def test_a_language_filtered_section_offers_the_languages_in_use(
+    make_content, theme_dir, tmp_path
+):
+    from build import load_site, load_theme, render_site
+
+    root = make_content(
+        {
+            "publications/publications.toml": (
+                '[section]\nkind = "publication"\nfilter = "language"\n'
+            ),
+            "publications/english/content.en.md": _post("In English", "2026-01-01"),
+            "publications/portugues/content.pt.md": _post(
+                "Em portugues", "2025-01-01", language="pt"
+            ),
+        }
+    )
+    site = load_site(root)
+    theme = load_theme(theme_dir, site.settings)
+    render_site(site, theme, tmp_path / "out")
+    html = (tmp_path / "out" / "publications" / "index.html").read_text("utf-8")
+
     assert 'data-filter="en"' in html
+    assert 'data-filter="pt"' in html
     assert 'data-filter="remote-sensing"' not in html
 
 

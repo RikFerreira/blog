@@ -5,18 +5,16 @@
       <header class="page-header">
         <div class="page-header-left">
           <h1 {{ ui('nav.' ~ section.name) }}>{{ t('nav.' ~ section.name) }}</h1>
-{%- if section.filter %}
+{%- if section.filter_options %}
           <div class="filter-bar">
             <button type="button" class="nav-link is-active" data-filter="all" {{ ui('filter.all') }}>{{ t('filter.all') }}</button>
+{%- for option in section.filter_options %}
 {%- if section.filter == 'language' %}
-{%- for language in section.item_languages %}
-            <button type="button" class="nav-link" data-filter="{{ language }}">{{ language | upper }}</button>
-{%- endfor %}
+            <button type="button" class="nav-link" data-filter="{{ option }}">{{ option | upper }}</button>
 {%- else %}
-{%- for tag in section.tags %}
-            <button type="button" class="nav-link" data-filter="{{ slugify(tag) }}">{{ tag }}</button>
-{%- endfor %}
+            <button type="button" class="nav-link" data-filter="{{ slugify(option) }}">{{ option }}</button>
 {%- endif %}
+{%- endfor %}
           </div>
 {%- endif %}
         </div>

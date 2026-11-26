@@ -796,3 +796,12 @@ h1, h2, h3, p, figure {
     height: 220px;
   }
 }
+
+/* The 196px indent on .cite-block aligns a citation under the text column of
+   a list row, clearing the 176px thumbnail. An item page has no thumbnail in
+   that position, so the citation starts at the measure instead. */
+@media (min-width: 640px) {
+  .post-article > .cite-block {
+    margin-left: 0;
+  }
+}

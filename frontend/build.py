@@ -151,6 +151,22 @@ class Section:
     def item_languages(self) -> list[str]:
         return sorted({lang for item in self.items for lang in item.languages})
 
+    @property
+    def filter_options(self) -> list[str]:
+        """What the filter bar offers besides All.
+
+        Empty when there is nothing to choose between, so a section with no
+        items — or one where every item carries the same tag — does not show
+        a control that cannot change anything.
+        """
+        if self.filter == "language":
+            options = self.item_languages
+        elif self.filter == "tags":
+            options = self.tags
+        else:
+            return []
+        return options if len(options) > 1 or len(self.items) > 1 else []
+
 
 @dataclass
 class Settings:
