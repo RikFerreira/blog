@@ -109,7 +109,7 @@ def test_every_page_is_written_to_its_url(rendered):
         "publications/veredas/index.html",
         "projects/index.html",
         "projects/veredas-monitor/index.html",
-        "cv/index.html",
+        "about/index.html",
     ):
         assert (rendered / relative).is_file(), f"missing {relative}"
 
@@ -135,7 +135,7 @@ def test_the_home_page_shows_the_newest_item_of_each_kind(rendered):
 
 def test_the_home_page_links_on_to_each_section(rendered):
     html = read(rendered, "index.html")
-    for href in ('href="/posts/"', 'href="/publications/"', 'href="/projects/"', 'href="/cv/"'):
+    for href in ('href="/posts/"', 'href="/publications/"', 'href="/projects/"', 'href="/about/"'):
         assert href in html
 
 
@@ -234,7 +234,7 @@ def test_the_date_is_written_in_both_languages(rendered):
 # --------------------------------------------------------------------------
 
 def test_the_cv_page_renders_each_block(rendered):
-    html = read(rendered, "cv/index.html")
+    html = read(rendered, "about/index.html")
     assert "GIS Analyst - TPF Engenharia" in html
     assert "M.Sc. in Geography - UFU" in html
     assert "XIV Brazilian Colloquium on Geodetic Sciences" in html
@@ -242,11 +242,11 @@ def test_the_cv_page_renders_each_block(rendered):
 
 
 def test_the_current_role_is_marked(rendered):
-    html = read(rendered, "cv/index.html")
+    html = read(rendered, "about/index.html")
     assert "cv-current" in html
 
 
 def test_the_cv_offers_printing_and_keeps_the_chrome_off_the_page(rendered):
-    html = read(rendered, "cv/index.html")
+    html = read(rendered, "about/index.html")
     assert "window.print()" in html
     assert "no-print" in html

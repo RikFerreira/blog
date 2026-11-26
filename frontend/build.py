@@ -1085,7 +1085,8 @@ def _render_home(site: Site, theme: Theme) -> str:
         section = sections.get(name)
         return section.items[:count] if section else []
 
-    cv = sections.get("cv")
+    # Found by kind: the section may be called anything, and is /about/ here.
+    cv = next((section for section in sections.values() if section.kind == "cv"), None)
     current = None
     if cv is not None:
         current = next(
@@ -1103,7 +1104,7 @@ def _render_home(site: Site, theme: Theme) -> str:
             item.slug: _citation(item) for item in newest("publications", int(home.get("publications", 1)))
         },
         current_role=current,
-        has_cv=cv is not None,
+        cv_section=cv,
     )
 
 

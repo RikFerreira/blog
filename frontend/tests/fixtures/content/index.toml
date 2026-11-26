@@ -33,8 +33,8 @@ key = "publications"
 url = "/publications/"
 
 [[nav]]
-key = "cv"
-url = "/cv/"
+key = "about"
+url = "/about/"
 
 [[links]]
 icon  = "github"

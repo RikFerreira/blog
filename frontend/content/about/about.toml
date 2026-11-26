@@ -1,4 +1,7 @@
-# Level 2: the CV page. Entries render newest first in the order written here.
+# Level 2: the about page, which is the CV. `kind = "cv"` picks the template;
+# the directory name picks the URL, so this renders at /about/.
+#
+# Entries render in the order written here.
 #
 # `current = true` marks the role in vermilion and puts it on the homepage.
 # `period` is free text in the left column; use it or `label`, not both.

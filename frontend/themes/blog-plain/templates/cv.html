@@ -28,7 +28,7 @@
 {% block content %}
       <div class="section-stack cv-stack">
         <header class="page-header">
-          <h1 {{ ui('nav.cv') }}>{{ t('nav.cv') }}</h1>
+          <h1 {{ ui('nav.' ~ section.name) }}>{{ t('nav.' ~ section.name) }}</h1>
           <div class="icon-row no-print">
             <button type="button" onclick="window.print()" class="icon-btn" {{ action('action.print') }}>{{ icon('printer') }}</button>
           </div>

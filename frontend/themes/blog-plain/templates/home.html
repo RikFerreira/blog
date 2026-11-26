@@ -13,7 +13,7 @@
 {%- if projects %}
 
         <section>
-{{ section_head('home.active_projects', '/projects/', 'action.all_projects') }}
+{{ section_head('home.active_projects', sections['projects'].url, 'action.all_projects') }}
           <ul>
 {%- for item in projects %}
 {{ list_item(item, sections['projects']) }}
@@ -25,7 +25,7 @@
 {%- if posts %}
 
         <section>
-{{ section_head('home.post', '/posts/', 'action.all_posts') }}
+{{ section_head('home.post', sections['posts'].url, 'action.all_posts') }}
 {%- for item in posts %}
           <div class="item-row">
 {{ item_row(item, sections['posts']) }}
@@ -37,7 +37,7 @@
 {%- if publications %}
 
         <section>
-{{ section_head('home.publication', '/publications/', 'action.all_publications') }}
+{{ section_head('home.publication', sections['publications'].url, 'action.all_publications') }}
 {%- for item in publications %}
           <div class="item-row">
 {{ item_row(item, sections['publications'], citations.get(item.slug)) }}
@@ -49,7 +49,7 @@
 {%- if current_role %}
 
         <section>
-{{ section_head('home.cv', '/cv/' if has_cv else none, 'action.full_cv') }}
+{{ section_head('home.cv', cv_section.url if cv_section else none, 'action.full_cv') }}
           <div class="cv-row">
             <span class="tabular cv-current" {{ bi_toml(current_role.label) }}>{{ translated(current_role.label) }}</span>
             <span class="cv-role" {{ bi_toml(current_role.role) }}>{{ translated(current_role.role) }}</span>

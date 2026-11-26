@@ -44,7 +44,7 @@ def test_settings_come_from_index_toml(fixture_content):
         "projects",
         "posts",
         "publications",
-        "cv",
+        "about",
     ]
 
 
@@ -76,7 +76,7 @@ def test_a_missing_index_toml_is_an_error(tmp_path):
 
 def test_sections_are_discovered_with_their_settings(fixture_content):
     site = load_site(fixture_content)
-    assert set(site.sections) == {"posts", "publications", "projects", "cv"}
+    assert set(site.sections) == {"posts", "publications", "projects", "about"}
     assert site.sections["publications"].kind == "publication"
     assert site.sections["publications"].filter == "language"
     assert site.sections["publications"].map is True
@@ -85,7 +85,7 @@ def test_sections_are_discovered_with_their_settings(fixture_content):
 
 
 def test_the_cv_section_is_a_page_and_keeps_its_raw_table(fixture_content):
-    cv = load_site(fixture_content).sections["cv"]
+    cv = load_site(fixture_content).sections["about"]
     assert cv.kind == "cv"
     assert cv.items == []
     assert cv.data["experience"][0]["role"]["en"] == "GIS Analyst - TPF Engenharia"

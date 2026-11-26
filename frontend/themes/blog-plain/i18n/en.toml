@@ -10,7 +10,7 @@ home         = "Home"
 projects     = "Projects"
 posts        = "Posts"
 publications = "Publications"
-cv           = "CV"
+about        = "CV"
 
 [home]
 active_projects = "Active projects"
