@@ -1,0 +1,12 @@
+# Level 2: the publication index.
+#
+# filter = "language" offers EN / PT, filtering by the language the work was
+# published in. map = true draws the aoi_wkt of each publication in the AOI
+# drawer, using [map] from index.toml.
+
+[section]
+kind   = "publication"
+sort   = "date"
+order  = "desc"
+filter = "language"
+map    = true

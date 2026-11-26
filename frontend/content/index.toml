@@ -1,0 +1,81 @@
+# Level 1: the homepage, and everything the whole site reads.
+
+[site]
+title            = "rikalves.com"
+base_url         = "/"
+theme            = "blog-plain"
+default_language = "en"
+languages        = ["en", "pt"]
+
+[profile]
+name = "Rik Ferreira Alves"
+role = "GIS Analyst"
+tagline.en = "Geographer focused on GIS, remote sensing and environmental modelling. I build spatial analyses, geospatial tools and applied research on water resources and Cerrado landscapes."
+tagline.pt = "Geógrafo focado em geoprocessamento, sensoriamento remoto e modelagem ambiental. Desenvolvo análises espaciais, ferramentas em SIG e pesquisas aplicadas sobre recursos hídricos e paisagens do Cerrado."
+
+# How many of each the homepage shows, newest first.
+[home]
+projects     = 2
+posts        = 1
+publications = 1
+
+[[nav]]
+key = "home"
+url = "/"
+
+[[nav]]
+key = "projects"
+url = "/projects/"
+
+[[nav]]
+key = "posts"
+url = "/posts/"
+
+[[nav]]
+key = "publications"
+url = "/publications/"
+
+[[nav]]
+key = "cv"
+url = "/cv/"
+
+[[links]]
+icon  = "lattes"
+url   = "http://lattes.cnpq.br/9527400491453685"
+label = "Lattes"
+
+[[links]]
+icon  = "orcid"
+url   = "https://orcid.org/0000-0002-8084-7951"
+label = "ORCID"
+
+[[links]]
+icon  = "scholar"
+url   = "https://scholar.google.com/citations?user=-DLXCAYAAAAJ"
+label = "Google Scholar"
+
+[[links]]
+icon  = "github"
+url   = "https://github.com/RikFerreira"
+label = "GitHub"
+
+[[links]]
+icon  = "linkedin"
+url   = "https://www.linkedin.com/in/rikferreira/"
+label = "LinkedIn"
+
+# The AOI map. `style` is any MapLibre style URL; ${MAP_TILES_KEY} is filled
+# in from the environment at build time. Without that variable the build warns
+# and the map falls back to a plain background, so a local run needs no key.
+#
+# line_width is in pixels: 1.9px is about the 0.5mm base outline.
+[map]
+style        = "https://api.maptiler.com/maps/dataviz-light/style.json?key=${MAP_TILES_KEY}"
+max_vertices = 500
+line_color   = "#111111"
+line_width   = 1.9
+fill_color   = "#111111"
+fill_opacity = 0.06
+active_color = "#c83223"
+padding      = 24
+max_zoom     = 9

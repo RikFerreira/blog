@@ -1,0 +1,10 @@
+# Level 2: the project and app index.
+#
+# A project shows a source-code link when it declares source_repo and an open
+# link when it declares external_link.
+
+[section]
+kind   = "project"
+sort   = "date"
+order  = "desc"
+filter = "tags"

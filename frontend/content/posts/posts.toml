@@ -1,0 +1,10 @@
+# Level 2: the blog index.
+#
+# filter = "tags" builds one button per tag the posts actually carry, so the
+# bar cannot drift from the content.
+
+[section]
+kind   = "post"
+sort   = "date"
+order  = "desc"
+filter = "tags"

@@ -1,0 +1,59 @@
+# Level 2: the CV page. Entries render newest first in the order written here.
+#
+# `current = true` marks the role in vermilion and puts it on the homepage.
+# `period` is free text in the left column; use it or `label`, not both.
+
+[section]
+kind = "cv"
+
+[[experience]]
+current  = true
+label.en = "Current"
+label.pt = "Atual"
+role.en  = "GIS Analyst · TPF Engenharia"
+role.pt  = "Analista de SIG · TPF Engenharia"
+note.en  = "Intern → Engineering Assistant → GIS Analyst, since 2021"
+note.pt  = "Estagiário → Assistente de Engenharia → Analista de SIG, desde 2021"
+
+[[experience]]
+label.en = "Teaching"
+label.pt = "Docência"
+role.en  = "University Lecturer · UNIFIP Centro Universitário"
+role.pt  = "Professor Universitário · UNIFIP Centro Universitário"
+
+[[experience]]
+period   = "2020–2021"
+role.en  = "Undergraduate Student Researcher · UNIMONTES"
+role.pt  = "Bolsista de Iniciação Científica · UNIMONTES"
+note.en  = "CNPq scholarship on the Atlas do Saneamento Básico em Minas Gerais"
+note.pt  = "Bolsa CNPq no projeto Atlas do Saneamento Básico em Minas Gerais"
+
+[[experience]]
+period   = "2017–2020"
+role.en  = "Field Representative · IBGE"
+role.pt  = "Agente de Pesquisas e Mapeamento · IBGE"
+
+[[education]]
+period   = "2024–2026"
+role.en  = "M.Sc. in Geography · Federal University of Uberlândia (UFU)"
+role.pt  = "Mestrado em Geografia · Universidade Federal de Uberlândia (UFU)"
+note.en  = "Mapping veredas in the Pandeiros river basin with remote sensing and machine learning. Advisor: Claudionor Ribeiro da Silva."
+note.pt  = "Mapeamento de veredas na bacia do rio Pandeiros com sensoriamento remoto e aprendizado de máquina. Orientador: Claudionor Ribeiro da Silva."
+
+[[education]]
+period   = "2018–2023"
+role.en  = "B.Sc. in Geography · State University of Montes Claros (UNIMONTES)"
+role.pt  = "Bacharelado em Geografia · Universidade Estadual de Montes Claros (UNIMONTES)"
+note.en  = "Changes in the network profile of Brazilian migration, 1980–2010. Advisor: Gustavo Henrique Cepolini Ferreira."
+note.pt  = "Mudanças no perfil da rede migratória brasileira, 1980–2010. Orientador: Gustavo Henrique Cepolini Ferreira."
+
+[[talks]]
+period   = "2026-09"
+role.en  = "XIV Brazilian Colloquium on Geodetic Sciences · UFPR, Curitiba"
+role.pt  = "XIV Colóquio Brasileiro de Ciências Geodésicas · UFPR, Curitiba"
+note.en  = "Oral presentation: mapping veredas with Sentinel-2, Copernicus DEM and supervised machine learning"
+note.pt  = "Apresentação oral: mapeamento de veredas com Sentinel-2, Copernicus DEM e aprendizado de máquina supervisionado"
+
+[technical_areas]
+en = "Geographic Database Administration · Multispectral and SAR Remote Sensing · Digital Image Processing · Hydrological and Hydraulic Modelling · Air Dispersion Modelling · Basic Sanitation · ETL Automation"
+pt = "Administração de Bancos de Dados Geográficos · Sensoriamento Remoto Multiespectral e SAR · Processamento Digital de Imagens · Modelagem Hidrológica e Hidráulica · Modelagem de Dispersão Atmosférica · Saneamento Básico · Automação de ETL"
