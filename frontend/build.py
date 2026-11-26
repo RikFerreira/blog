@@ -22,6 +22,7 @@ import datetime as dt
 import json
 import os
 import re
+import shutil
 import sys
 import tomllib
 import unicodedata
@@ -1113,6 +1114,63 @@ def _citation(item: Item) -> str | None:
     return format_citation((item.source_dir / item.citation).read_text(encoding="utf-8"))
 
 
+# ---------------------------------------------------------------------------
+# assets
+# ---------------------------------------------------------------------------
+
+
+def copy_assets(site: Site, theme: Theme, out_dir: Path) -> list[Path]:
+    """Copy the theme's static files and everything content/ ships with.
+
+    Covers are cropped by CSS rather than resized here, so no image is
+    processed: this is a copy, skipping files the output already has.
+    """
+    out_dir = Path(out_dir)
+    copied: list[Path] = []
+
+    copied += _copy_tree(theme.path / "static", out_dir)
+    copied += _copy_tree(site.content_dir / "assets", out_dir / "assets")
+
+    for section in site.collections():
+        for item in section.items:
+            copied += _copy_tree(
+                item.source_dir,
+                out_dir / section.name / item.slug,
+                skip=_is_markdown_source,
+            )
+
+    return copied
+
+
+def _is_markdown_source(path: Path) -> bool:
+    return path.name.startswith(CONTENT_FILE_PREFIX) and path.suffix == CONTENT_FILE_SUFFIX
+
+
+def _copy_tree(source: Path, target: Path, skip=None) -> list[Path]:
+    if not source.is_dir():
+        return []
+
+    copied = []
+    for path in sorted(source.rglob("*")):
+        if not path.is_file() or (skip and skip(path)):
+            continue
+        destination = target / path.relative_to(source)
+        if _is_current(path, destination):
+            continue
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, destination)
+        copied.append(destination)
+    return copied
+
+
+def _is_current(source: Path, destination: Path) -> bool:
+    if not destination.exists():
+        return False
+    existing = destination.stat()
+    original = source.stat()
+    return existing.st_mtime_ns >= original.st_mtime_ns and existing.st_size == original.st_size
+
+
 def _write(path: Path, text: str) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
@@ -1136,11 +1194,12 @@ def main(argv: list[str] | None = None) -> int:
         site = load_site(args.content)
         theme = load_theme(args.themes / site.settings.theme, site.settings)
         written = render_site(site, theme, args.out)
+        copied = copy_assets(site, theme, args.out)
     except ContentError as error:
         print(f"error: {error}", file=sys.stderr)
         return 1
 
-    print(f"{len(written)} page(s) written to {args.out}")
+    print(f"{len(written)} page(s) and {len(copied)} asset(s) written to {args.out}")
     return 0
 
 
