@@ -55,12 +55,19 @@ external_link: https://external-link.com/
 source_repo: https://git-repo.com/
 aoi_wkt: POLYGON ((...))
 citation: cite.bib
+doi: https://doi.org/10.5281/zenodo.22885603
 ---
 ```
 
 Only these keys are accepted; anything else fails the build, as does a
-`language` that disagrees with the file name, a malformed date, or a `cover`
-or `citation` pointing at a file that is not there.
+`language` that disagrees with the file name, a malformed date, a `cover`
+or `citation` pointing at a file that is not there, or a `doi` that is not
+one.
+
+`doi` may be written bare (`10.5281/zenodo.22885603`), as a `doi.org` link, or
+with the `doi:` scheme; all three render the same resolver link. It also
+closes the citation, overriding any DOI in the `.bib`, which is usually
+exported once from elsewhere while the front matter is maintained here.
 
 `title` is required in every language file. The file in the default language
 is the primary one and supplies the rest — `date`, `tags`, `cover` and the

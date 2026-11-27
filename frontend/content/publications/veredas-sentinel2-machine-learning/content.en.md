@@ -6,6 +6,7 @@ tags: [Remote Sensing, Machine Learning, Wetlands, Sentinel-2, Cerrado]
 language: en
 ai_written: false
 citation: cite.bib
+doi: https://doi.org/10.5281/zenodo.22885603
 # Approximate extent of the Pandeiros river basin, northern Minas Gerais.
 # Replace with the real basin geometry when it is exported.
 aoi_wkt: POLYGON ((-45.32 -15.88, -44.52 -15.88, -44.52 -15.02, -45.32 -15.02, -45.32 -15.88))
@@ -25,5 +26,4 @@ axis, and the wetland boundaries stabilise.
 
 <video controls preload="metadata" src="assets/vereda_patch_blending_en.mp4"></video>
 
-No abstract, DOI or full text is published yet. The bibliography entry above
-is what the Lattes CV records.
+The record is deposited on Zenodo; the DOI link above resolves to it.

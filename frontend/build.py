@@ -49,6 +49,7 @@ ITEM_KEYS = frozenset(
         "source_repo",
         "aoi_wkt",
         "citation",
+        "doi",
     }
 )
 
@@ -103,6 +104,7 @@ class Item:
     aoi_wkt: str | None = None
     external_link: str | None = None
     source_repo: str | None = None
+    doi: str | None = None
     ai_written: bool = False
 
     @property
@@ -112,6 +114,11 @@ class Item:
     @property
     def url(self) -> str:
         return f"/{self.section}/{self.slug}/"
+
+    @property
+    def doi_url(self) -> str | None:
+        """The resolver link, however the DOI was written in the front matter."""
+        return doi_url(self.doi) if self.doi else None
 
     def translation(self, language: str) -> Translation:
         """The item in `language`, or its primary language flagged as a fallback."""
@@ -431,6 +438,7 @@ def _load_item(item_dir: Path, section_name: str, settings: Settings, content_di
         aoi_wkt=_optional_str(meta, "aoi_wkt", where),
         external_link=_optional_str(meta, "external_link", where),
         source_repo=_optional_str(meta, "source_repo", where),
+        doi=_doi(meta, where),
         ai_written=_flag(meta, "ai_written", where),
     )
 
@@ -483,6 +491,17 @@ def _flag(meta: dict, key: str, where: str) -> bool:
     if not isinstance(value, bool):
         raise ContentError(f"{where}: '{key}' must be true or false, got {value!r}")
     return value
+
+
+def _doi(meta: dict, where: str) -> str | None:
+    value = _optional_str(meta, "doi", where)
+    if value is None:
+        return None
+    try:
+        doi_url(value)
+    except ContentError as error:
+        raise ContentError(f"{where}: {error}") from None
+    return value.strip()
 
 
 def _relative_file(meta: dict, key: str, item_dir: Path, where: str) -> str | None:
@@ -742,6 +761,26 @@ def render_markdown(text: str) -> str:
     return _MARKDOWN.render(text)
 
 
+# A DOI is a registrant prefix starting 10. and a suffix, however the author
+# pasted it: bare, as a doi.org link, or with the legacy doi: scheme.
+_DOI = re.compile(
+    r"^(?:(?:https?://)?(?:dx\.)?doi\.org/|doi:)?(10\.\d{4,9}/\S+)$", re.IGNORECASE
+)
+
+DOI_RESOLVER = "https://doi.org/"
+
+
+def doi_url(written: str) -> str:
+    """The resolver link for a DOI, or ContentError if it is not one."""
+    match = _DOI.match((written or "").strip())
+    if not match:
+        raise ContentError(
+            f"'doi' is not a DOI: {written!r}; expected something like "
+            "10.5281/zenodo.22885603 or https://doi.org/10.5281/zenodo.22885603"
+        )
+    return f"{DOI_RESOLVER}{match.group(1)}"
+
+
 def slugify(text: str) -> str:
     """`Remote Sensing` becomes `remote-sensing`, for filter keys and anchors."""
     normalised = unicodedata.normalize("NFKD", text)
@@ -749,8 +788,13 @@ def slugify(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", stripped.lower()).strip("-")
 
 
-def format_citation(bibtex: str) -> str:
-    """A BibTeX entry as a single readable line, in ABNT shape."""
+def format_citation(bibtex: str, doi: str | None = None) -> str:
+    """A BibTeX entry as a single readable line, in ABNT shape.
+
+    `doi` is the front matter's, and it wins over any the entry carries: the
+    .bib is usually exported once from elsewhere, while the front matter is
+    maintained here.
+    """
     fields = {
         match[0].lower(): " ".join("".join(match[1:]).split())
         for match in _BIB_FIELD.findall(bibtex)
@@ -772,8 +816,8 @@ def format_citation(bibtex: str) -> str:
     elif year:
         parts.append(f"{year}.")
 
-    if doi := fields.get("doi"):
-        parts.append(f"https://doi.org/{doi.removeprefix('https://doi.org/')}")
+    if resolved := (doi or fields.get("doi")):
+        parts.append(doi_url(resolved))
 
     return " ".join(parts)
 
@@ -1141,7 +1185,8 @@ def _bodies(item: Item, theme: Theme) -> list[dict]:
 def _citation(item: Item) -> str | None:
     if not item.citation:
         return None
-    return format_citation((item.source_dir / item.citation).read_text(encoding="utf-8"))
+    bibtex = (item.source_dir / item.citation).read_text(encoding="utf-8")
+    return format_citation(bibtex, doi=item.doi)
 
 
 # ---------------------------------------------------------------------------

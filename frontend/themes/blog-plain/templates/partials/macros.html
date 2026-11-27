@@ -12,7 +12,8 @@
 {% macro actions(item, section) -%}
 {%- if section.kind == 'publication' -%}
 {%- if item.citation %}<button type="button" class="icon-btn" data-cite-target="cite-{{ item.slug }}" {{ action('action.cite') }}>{{ icon('quote') }}</button>{% endif %}
-{%- if item.external_link %}<a href="{{ item.external_link }}" target="_blank" rel="noopener noreferrer" class="icon-btn" {{ action('action.pdf') }}>{{ icon('pdf', 14) }}</a>{% endif %}
+{%- if item.doi %}<a href="{{ item.doi_url }}" target="_blank" rel="noopener noreferrer" class="icon-btn" {{ action('action.doi') }}>{{ icon('pdf', 14) }}</a>{% endif %}
+{%- if item.external_link %}<a href="{{ item.external_link }}" target="_blank" rel="noopener noreferrer" class="icon-btn" {{ action('action.open') }}>{{ icon('external', 14) }}</a>{% endif %}
 {%- elif section.kind == 'project' -%}
 {%- if item.source_repo %}<a href="{{ item.source_repo }}" target="_blank" rel="noopener noreferrer" class="icon-btn" {{ action('action.source_code') }}>{{ icon('code') }}</a>{% endif %}
 {%- if item.external_link %}<a href="{{ item.external_link }}" target="_blank" rel="noopener noreferrer" class="icon-btn" {{ action('action.open') }}>{{ icon('external', 14) }}</a>{% endif %}
