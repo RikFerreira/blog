@@ -1,7 +1,7 @@
 ---
 title: "O acesso ao saneamento básico domiciliar em Minas Gerais: uma análise das desigualdades regionais"
 date: 2023-03-26
-cover: assets/first-page.jpg
+cover: assets/cover.jpg
 tags: [Sanitation, Regional Inequality, Minas Gerais]
 language: pt
 ai_written: false
