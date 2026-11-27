@@ -2,7 +2,7 @@
 title: Mapping Veredas (Cerrado Wetlands) by Integrating Sentinel-2 Spectral Indices and Copernicus DEM Morphometrics with Supervised Machine Learning
 subtitle: XIV Brazilian Colloquium on Geodetic Sciences, Curitiba, 2026
 date: 2026-09-23
-cover: assets/classificacao-veredas.jpg
+cover: assets/first-page.jpg
 tags: [Remote Sensing, Machine Learning, Wetlands, Sentinel-2, Cerrado]
 language: en
 ai_written: false

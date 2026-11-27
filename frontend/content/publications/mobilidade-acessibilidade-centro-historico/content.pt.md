@@ -1,6 +1,7 @@
 ---
 title: "Mobilidade e acessibilidade urbana: um estudo sobre o centro histórico da cidade de Montes Claros - Minas Gerais"
 date: 2021-10-15
+cover: assets/first-page.jpg
 tags: [Urban Mobility, Accessibility, Urban Geography]
 language: pt
 ai_written: false

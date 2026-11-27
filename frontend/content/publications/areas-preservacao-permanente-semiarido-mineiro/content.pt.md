@@ -1,6 +1,7 @@
 ---
 title: "Delimitação e diagnóstico de situação de áreas de preservação permanente no semiárido mineiro"
 date: 2024-08-28
+cover: assets/first-page.jpg
 tags: [Environmental Law, Remote Sensing, Semi-arid, Minas Gerais]
 language: pt
 ai_written: false

@@ -1,6 +1,7 @@
 ---
 title: "Análise espacial do acesso à educação pública básica em Montes Claros/MG"
 date: 2020-12-04
+cover: assets/first-page.jpg
 tags: [Spatial Analysis, Education, Urban Geography]
 language: pt
 ai_written: false
