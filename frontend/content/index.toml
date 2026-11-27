@@ -10,8 +10,8 @@ languages        = ["en", "pt"]
 [profile]
 name = "Rik Ferreira Alves"
 role = "GIS Analyst"
-tagline.en = "Geographer and GIS analyst. I build and maintain geographic databases, and apply remote sensing and digital image processing to water resources, basic sanitation and environmental planning. My research maps Cerrado veredas from satellite imagery and terrain data."
-tagline.pt = "Geógrafo e analista de SIG. Desenvolvo e mantenho bancos de dados geográficos e aplico sensoriamento remoto e processamento digital de imagens a recursos hídricos, saneamento básico e planejamento ambiental. Minha pesquisa mapeia veredas do Cerrado a partir de imagens de satélite e dados de relevo."
+tagline.en = "Geographer and GIS analyst. I work on applications of geographic databases and remote sensing, with an emphasis on environmental studies."
+tagline.pt = "Geógrafo e analista de SIG. Trabalho com aplicações de bancos de dados geográficos e sensoriamento remoto, com ênfase em estudos ambientais."
 
 # How many of each the homepage shows, newest first.
 [home]
