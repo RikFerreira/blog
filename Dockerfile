@@ -1,4 +1,12 @@
 # syntax=docker/dockerfile:1
+# check=skip=SecretsUsedInArgOrEnv
+#
+# The skip is for MAP_TILES_KEY below. BuildKit flags any ARG whose name
+# looks like a credential, and it is right that this one is readable in the
+# image: a static site hands the tile key to every visitor, so it is not a
+# secret to begin with and is restricted by domain at the provider instead.
+# Without the skip the warning fires on every build and trains everyone to
+# ignore warnings.
 
 # ---------------------------------------------------------------------------
 # Build stage: render the site with the generator in frontend/build.py.
@@ -26,7 +34,9 @@ WORKDIR /src
 
 # Dependencies first, so editing content does not invalidate this layer.
 COPY frontend/requirements.txt frontend/requirements.txt
-RUN pip install --no-cache-dir -r frontend/requirements.txt
+# --root-user-action=ignore: the venv pip suggests buys nothing in a
+# container that runs one program.
+RUN pip install --no-cache-dir --root-user-action=ignore -r frontend/requirements.txt
 
 # Third-party browser code, pinned and checksummed in frontend/vendor.toml.
 # Fetched before the content is copied, so the ~1.6MB download is cached
