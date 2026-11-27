@@ -35,16 +35,15 @@ def test_the_markdown_source_is_not_published(built):
     assert not (built / "posts" / "hello-world" / "content.pt.md").exists()
 
 
-def test_global_assets_land_under_assets(fixture_content, theme_dir, tmp_path):
-    (fixture_content / "assets" / "favicon.svg").write_text("<svg/>", encoding="utf-8")
-    try:
-        site = load_site(fixture_content)
-        theme = load_theme(theme_dir, site.settings)
-        out = tmp_path / "site"
-        copy_assets(site, theme, out)
-        assert (out / "assets" / "favicon.svg").is_file()
-    finally:
-        (fixture_content / "assets" / "favicon.svg").unlink()
+def test_global_assets_land_under_assets(make_content, theme_dir, tmp_path):
+    """Builds its own tree: writing into the shared fixture needs a directory
+    git cannot track, since it would be empty, and only one machine had it."""
+    root = make_content({"assets/favicon.svg": "<svg/>"})
+    site = load_site(root)
+    theme = load_theme(theme_dir, site.settings)
+    out = tmp_path / "out"
+    copy_assets(site, theme, out)
+    assert (out / "assets" / "favicon.svg").is_file()
 
 
 def test_an_unchanged_file_is_not_copied_again(fixture_content, theme_dir, tmp_path):
