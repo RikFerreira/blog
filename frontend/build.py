@@ -832,6 +832,17 @@ def _format_authors(field_value: str) -> str:
     return "; ".join(formatted)
 
 
+# Nobiliary particles carry no initial: `Claudionor Ribeiro da` is C. R., and
+# writing C. R. D. would invent a name. In a BibTeX entry they usually trail
+# the given names, Portuguese style, or lead a family name.
+NAME_PARTICLES = frozenset(
+    {
+        "de", "da", "do", "das", "dos", "e",
+        "del", "della", "di", "du", "la", "le", "van", "von", "der", "den", "ter", "y",
+    }
+)
+
+
 def _format_author(name: str) -> str:
     """`Alves, Rik Ferreira` becomes `ALVES, R. F.`."""
     if "," in name:
@@ -839,7 +850,11 @@ def _format_author(name: str) -> str:
     else:
         words = name.split()
         family, given = (words[-1], " ".join(words[:-1])) if words else ("", "")
-    initials = " ".join(f"{word[0].upper()}." for word in given.split() if word)
+    initials = " ".join(
+        f"{word[0].upper()}."
+        for word in given.split()
+        if word and word.lower() not in NAME_PARTICLES
+    )
     family = family.strip().upper()
     return f"{family}, {initials}" if initials else family
 

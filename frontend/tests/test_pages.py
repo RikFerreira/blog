@@ -64,7 +64,7 @@ def test_a_bibtex_entry_becomes_a_readable_citation():
 }
 """
     assert format_citation(bib) == (
-        "ALVES, R. F.; SILVA, C. R. D. Mapping Veredas in the Cerrado. "
+        "ALVES, R. F.; SILVA, C. R. Mapping Veredas in the Cerrado. "
         "XIV Brazilian Colloquium, 2026."
     )
 
@@ -91,6 +91,41 @@ def test_a_quoted_value_is_read_too():
 }
 """
     assert format_citation(bib) == "A, O. T. 2020."
+
+
+def test_name_particles_are_not_turned_into_initials():
+    """`Claudionor Ribeiro da` abbreviates to C. R., not C. R. D."""
+    bib = """
+@article{k,
+  author = {Silva, Claudionor Ribeiro da and Siqueira, Deyvison Lopes de},
+  title  = {T},
+  year   = {2020}
+}
+"""
+    assert format_citation(bib).startswith("SILVA, C. R.; SIQUEIRA, D. L.")
+
+
+def test_foreign_particles_are_dropped_too():
+    bib = """
+@article{k,
+  author = {Gogh, Vincent van},
+  title  = {T},
+  year   = {2020}
+}
+"""
+    assert format_citation(bib).startswith("GOGH, V.")
+
+
+def test_a_compound_family_name_survives():
+    """The entry puts the whole family name before the comma."""
+    bib = """
+@article{k,
+  author = {Oliveira Neto, Antônio Duarte de},
+  title  = {T},
+  year   = {2026}
+}
+"""
+    assert format_citation(bib).startswith("OLIVEIRA NETO, A. D.")
 
 
 def test_more_than_three_authors_collapse_to_et_al():
