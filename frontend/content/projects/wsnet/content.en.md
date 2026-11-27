@@ -2,6 +2,7 @@
 title: "wsnet"
 subtitle: "Extracts water and sewerage networks from Bentley models and returns ready shapefiles"
 date: 2026-07-23
+cover: assets/wsnet.jpg
 tags: [WebGIS]
 language: en
 ai_written: false
