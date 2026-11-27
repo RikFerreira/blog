@@ -15,9 +15,9 @@ tagline.pt = "Geógrafo e analista de SIG. Trabalho com aplicações de bancos d
 
 # How many of each the homepage shows, newest first.
 [home]
-projects     = 2
-posts        = 1
-publications = 1
+projects     = 3
+posts        = 3
+publications = 3
 
 [[nav]]
 key = "home"
