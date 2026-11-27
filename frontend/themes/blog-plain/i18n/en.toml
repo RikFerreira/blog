@@ -14,8 +14,8 @@ about        = "CV"
 
 [home]
 active_projects = "Active projects"
-post            = "Post"
-publication     = "Publication"
+post            = "Posts"
+publication     = "Publications"
 cv              = "CV"
 
 [action]
